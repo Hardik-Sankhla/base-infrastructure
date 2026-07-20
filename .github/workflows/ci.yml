@@ -29,7 +29,13 @@ jobs:
       run: if [ -n "$(gofmt -s -l .)" ]; then echo "Run gofmt"; exit 1; fi
 
     - name: Verify Formatting (gofumpt)
-      run: if [ -n "$(gofumpt -l .)" ]; then echo "Run gofumpt"; exit 1; fi
+      run: |
+        files=$(gofumpt -extra -l .)
+        if [ -n "$files" ]; then
+          echo "Run gofumpt -extra on:"
+          echo "$files"
+          exit 1
+        fi
 
     - name: Run Linters
       run: golangci-lint run ./...

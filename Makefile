@@ -4,7 +4,7 @@ all: verify build
 
 fmt:
 	gofmt -s -w .
-	gofumpt -w .
+	gofumpt -extra -w .
 
 lint:
 	golangci-lint run ./...

@@ -15,7 +15,7 @@ func NewFakeDownloader() *FakeDownloader {
 	}
 }
 
-func (d *FakeDownloader) Download(ctx context.Context, url string, dest string, expectedChecksum string) error {
+func (d *FakeDownloader) Download(ctx context.Context, url, dest, expectedChecksum string) error {
 	if d.SimulateError != nil {
 		return d.SimulateError
 	}

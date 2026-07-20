@@ -10,7 +10,7 @@ import (
 )
 
 type Downloader interface {
-	Download(ctx context.Context, url string, dest string, expectedChecksum string) error
+	Download(ctx context.Context, url, dest, expectedChecksum string) error
 }
 
 type DefaultDownloader struct {
@@ -23,7 +23,7 @@ func NewDownloader() *DefaultDownloader {
 	}
 }
 
-func (d *DefaultDownloader) Download(ctx context.Context, url string, dest string, expectedChecksum string) error {
+func (d *DefaultDownloader) Download(ctx context.Context, url, dest, expectedChecksum string) error {
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
 		return fmt.Errorf("failed to create request: %w", err)
