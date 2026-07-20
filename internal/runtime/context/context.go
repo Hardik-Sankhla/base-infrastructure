@@ -1,6 +1,7 @@
 package context
 
 import (
+	gocontext "context"
 	"database/sql"
 	"log/slog"
 
@@ -22,6 +23,9 @@ type PlatformContext struct {
 	FS         fs.Manager
 	Downloader http.Downloader
 	Registry   plugin.Registry
+
+	// goCtx is the cancellable Go context for this platform run.
+	goCtx gocontext.Context
 }
 
 func NewPlatformContext(cfg *config.Config, db *sql.DB) *PlatformContext {
@@ -34,5 +38,23 @@ func NewPlatformContext(cfg *config.Config, db *sql.DB) *PlatformContext {
 		FS:         fs.NewManager(cfg.System.DataDir),
 		Downloader: http.NewDownloader(),
 		Registry:   plugin.NewRegistry(),
+		goCtx:      gocontext.Background(),
 	}
+}
+
+// GoContext returns the cancellable Go context for this platform run.
+// If no context was set, it returns context.Background().
+func (p *PlatformContext) GoContext() gocontext.Context {
+	if p.goCtx != nil {
+		return p.goCtx
+	}
+	return gocontext.Background()
+}
+
+// WithGoContext returns a shallow copy of the PlatformContext with the
+// given Go context set. This is useful for injecting cancellation.
+func (p *PlatformContext) WithGoContext(ctx gocontext.Context) *PlatformContext {
+	cp := *p
+	cp.goCtx = ctx
+	return &cp
 }

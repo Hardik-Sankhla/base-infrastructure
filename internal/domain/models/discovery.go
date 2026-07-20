@@ -1,13 +1,27 @@
 package models
 
-// OSInfo represents the operating system context
+import "time"
+
+// OSInfo represents the immutable operating system context
 type OSInfo struct {
-	Distribution   string `json:"distribution"` // e.g. Ubuntu, Windows, Debian
-	Version        string `json:"version"`
-	Kernel         string `json:"kernel"`
-	InitSystem     string `json:"init_system"`     // systemd, sysvinit
-	PackageManager string `json:"package_manager"` // apt, winget
-	Libc           string `json:"libc"`
+	OperatingSystem     string    `json:"operating_system"`
+	Distribution        string    `json:"distribution"`
+	DistributionVersion string    `json:"distribution_version"`
+	KernelVersion       string    `json:"kernel_version"`
+	KernelArchitecture  string    `json:"kernel_architecture"`
+	InitSystem          string    `json:"init_system"`
+	PackageManager      string    `json:"package_manager"`
+	Libc                string    `json:"libc"`
+	Shell               string    `json:"shell"`
+	Hostname            string    `json:"hostname"`
+	Timezone            string    `json:"timezone"`
+	Locale              string    `json:"locale"`
+	BootTime            time.Time `json:"boot_time"`
+}
+
+// ArtifactType implements discovery.DiscoveryArtifact
+func (o OSInfo) ArtifactType() string {
+	return "OS"
 }
 
 // Environment represents the execution context

@@ -1,26 +1,19 @@
 package contracts
 
 import (
+	"github.com/base-infrastructure/platform/internal/discovery"
 	"github.com/base-infrastructure/platform/internal/domain/models"
 	"github.com/base-infrastructure/platform/internal/runtime/context"
 )
 
-// DiscoveryResult is the output of the Discovery Engine
-type DiscoveryResult struct {
-	Hardware     models.Hardware
-	OS           models.OSInfo
-	Environment  models.Environment
-	Capabilities []models.Capability
-}
-
 // DiscoveryEngine Contract
 type DiscoveryEngine interface {
-	Run(ctx *context.PlatformContext) (DiscoveryResult, error)
+	Run(ctx *context.PlatformContext) (*discovery.Result, error)
 }
 
 // PlannerEngine Contract
 type PlannerEngine interface {
-	Plan(ctx *context.PlatformContext, discovery DiscoveryResult, policies models.Policy) (models.ExecutionPlan, error)
+	Plan(ctx *context.PlatformContext, dr *discovery.Result, policies models.Policy) (models.ExecutionPlan, error)
 }
 
 // ExecutorEngine Contract

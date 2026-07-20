@@ -9,14 +9,17 @@ import (
 type EventType string
 
 const (
-	DiscoveryStarted  EventType = "DiscoveryStarted"
-	DiscoveryFinished EventType = "DiscoveryFinished"
-	PluginLoaded      EventType = "PluginLoaded"
-	PluginInstalled   EventType = "PluginInstalled"
-	PluginFailed      EventType = "PluginFailed"
-	HealthChanged     EventType = "HealthChanged"
-	RollbackStarted   EventType = "RollbackStarted"
-	RollbackCompleted EventType = "RollbackCompleted"
+	DiscoveryStarted        EventType = "DiscoveryStarted"
+	DiscoveryFinished       EventType = "DiscoveryFinished"
+	DiscoveryStageStarted   EventType = "DiscoveryStageStarted"
+	DiscoveryStageCompleted EventType = "DiscoveryStageCompleted"
+	DiscoveryStageFailed    EventType = "DiscoveryStageFailed"
+	PluginLoaded            EventType = "PluginLoaded"
+	PluginInstalled         EventType = "PluginInstalled"
+	PluginFailed            EventType = "PluginFailed"
+	HealthChanged           EventType = "HealthChanged"
+	RollbackStarted         EventType = "RollbackStarted"
+	RollbackCompleted       EventType = "RollbackCompleted"
 )
 
 // Event payload
@@ -24,6 +27,16 @@ type Event struct {
 	Type      EventType
 	Timestamp time.Time
 	Payload   interface{}
+}
+
+// StageEventPayload is the structured payload for discovery stage events
+type StageEventPayload struct {
+	StageName string
+	Status    string
+	Timestamp time.Time
+	Duration  time.Duration
+	Error     string
+	Metadata  map[string]string
 }
 
 // Handler function signature
