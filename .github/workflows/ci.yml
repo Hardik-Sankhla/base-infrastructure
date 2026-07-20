@@ -37,6 +37,9 @@ jobs:
           exit 1
         fi
 
+    - name: Build (Pre-cache for linter)
+      run: go build -v ./...
+
     - name: Run Linters
       run: golangci-lint run ./...
 
@@ -45,9 +48,6 @@ jobs:
 
     - name: Run Tests (Coverage)
       run: go test -v -coverprofile=coverage.out ./...
-
-    - name: Build
-      run: go build -v ./...
 
     - name: Cross-Platform Build (Linux)
       run: GOOS=linux GOARCH=amd64 go build -v -o bin/platform-linux-amd64 ./cmd/platform/main.go
