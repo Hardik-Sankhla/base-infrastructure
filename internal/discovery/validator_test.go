@@ -11,16 +11,18 @@ type mockStage struct {
 	dependsOn []string
 }
 
-func (m *mockStage) Name() string                                                    { return m.name }
-func (m *mockStage) Version() string                                                 { return "1.0" }
-func (m *mockStage) Description() string                                             { return "mock" }
-func (m *mockStage) Priority() int                                                   { return 0 }
-func (m *mockStage) DependsOn() []string                                             { return m.dependsOn }
-func (m *mockStage) Timeout() time.Duration                                          { return time.Second }
-func (m *mockStage) Initialize(dctx Context) error                                   { return nil }
-func (m *mockStage) Run(ctx context.Context, dctx Context) (DiscoveryArtifact, error) { return nil, nil }
-func (m *mockStage) Validate(artifact DiscoveryArtifact) error                       { return nil }
-func (m *mockStage) Cleanup(ctx context.Context) error                               { return nil }
+func (m *mockStage) Name() string                  { return m.name }
+func (m *mockStage) Version() string               { return "1.0" }
+func (m *mockStage) Description() string           { return "mock" }
+func (m *mockStage) Priority() int                 { return 0 }
+func (m *mockStage) DependsOn() []string           { return m.dependsOn }
+func (m *mockStage) Timeout() time.Duration        { return time.Second }
+func (m *mockStage) Initialize(dctx Context) error { return nil }
+func (m *mockStage) Run(ctx context.Context, dctx Context) (DiscoveryArtifact, error) {
+	return nil, nil
+}
+func (m *mockStage) Validate(artifact DiscoveryArtifact) error { return nil }
+func (m *mockStage) Cleanup(ctx context.Context) error         { return nil }
 
 func TestValidator_ValidGraph(t *testing.T) {
 	v := NewValidator()

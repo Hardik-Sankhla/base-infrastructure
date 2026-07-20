@@ -1,8 +1,8 @@
 package windows
 
 import (
-	"github.com/base-infrastructure/platform/internal/discovery/hardware"
 	"github.com/base-infrastructure/platform/internal/platform"
+	"github.com/base-infrastructure/platform/internal/platform/providers/hardware"
 )
 
 // Platform implements platform.Platform for Windows.

@@ -146,16 +146,15 @@ func (p *Pipeline) runStage(globalCtx context.Context, dctx Context, stage Stage
 	p.logger.Info("Stage starting", "stage", name)
 
 	// Combine global context with stage timeout.
-	ctx := globalCtx
+	var ctx context.Context
 	var cancel context.CancelFunc
 	if timeout := stage.Timeout(); timeout > 0 {
 		ctx, cancel = context.WithTimeout(globalCtx, timeout)
-		defer cancel()
 	} else {
 		// Use a default reasonable timeout to prevent hanging stages
 		ctx, cancel = context.WithTimeout(globalCtx, 5*time.Minute)
-		defer cancel()
 	}
+	defer cancel()
 
 	p.publishEvent(events.DiscoveryStageStarted, events.StageEventPayload{
 		StageName: name,

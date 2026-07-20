@@ -1,7 +1,6 @@
 package contracts
 
 import (
-	"github.com/base-infrastructure/platform/internal/discovery"
 	"github.com/base-infrastructure/platform/internal/domain/models"
 	"github.com/base-infrastructure/platform/internal/runtime/context"
 )

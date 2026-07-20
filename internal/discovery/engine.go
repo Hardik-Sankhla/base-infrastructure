@@ -44,21 +44,24 @@ func (e *DefaultDiscoveryEngine) Run(pctx *context.PlatformContext) (*models.Dis
 
 	pipeline := NewPipeline(e.config, logger, bus)
 	stages := e.registry.All()
-	if err := pipeline.AddStages(stages); err != nil {
-		return nil, err
+	if addErr := pipeline.AddStages(stages); addErr != nil {
+		return nil, addErr
 	}
 
 	goCtx := pctx.GoContext()
 	result, err := pipeline.Run(goCtx, dctx)
+	if result == nil {
+		return nil, err
+	}
 
 	bus.Publish(events.DiscoveryFinished, map[string]string{
-		"success":  boolToString(result != nil && result.Success),
+		"success":  boolToString(result.Success),
 		"duration": result.Duration.String(),
 	})
 
 	logger.Info(
 		"Discovery engine finished",
-		"success", result != nil && result.Success,
+		"success", result.Success,
 	)
 
 	// Map Result to DiscoveryManifest

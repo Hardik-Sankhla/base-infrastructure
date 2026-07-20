@@ -10,13 +10,13 @@ import (
 type Cache interface {
 	// Get retrieves a value from the cache. Returns nil, false if not found.
 	Get(key string) (any, bool)
-	
+
 	// Set stores a value in the cache.
 	Set(key string, value any)
-	
+
 	// Delete removes a key from the cache.
 	Delete(key string)
-	
+
 	// Clear empties the cache.
 	Clear()
 }

@@ -32,10 +32,10 @@ type Environment struct {
 
 // StageExecutionResult summarizes the outcome of a single discovery stage.
 type StageExecutionResult struct {
-	Name      string        `json:"name"`
-	Status    string        `json:"status"` // success, failed, skipped
-	Error     string        `json:"error,omitempty"`
-	Duration  time.Duration `json:"duration"`
+	Name     string        `json:"name"`
+	Status   string        `json:"status"` // success, failed, skipped
+	Error    string        `json:"error,omitempty"`
+	Duration time.Duration `json:"duration"`
 }
 
 // DiscoveryManifest is an immutable artifact summarizing a complete discovery run.

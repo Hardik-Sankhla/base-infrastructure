@@ -52,7 +52,7 @@ func (s *Stage) Initialize(dctx discovery.Context) error {
 
 func (s *Stage) Run(ctx context.Context, dctx discovery.Context) (discovery.DiscoveryArtifact, error) {
 	provider := dctx.Platform().Filesystem()
-	
+
 	info, err := provider.GetFilesystemInfo(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("failed to discover filesystem info: %w", err)

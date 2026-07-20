@@ -54,7 +54,7 @@ func (s *Stage) Initialize(dctx discovery.Context) error {
 func (s *Stage) Run(ctx context.Context, dctx discovery.Context) (discovery.DiscoveryArtifact, error) {
 	var hw models.Hardware
 	var err error
-	
+
 	provider := dctx.Platform().Hardware()
 
 	// Critical components (must succeed)

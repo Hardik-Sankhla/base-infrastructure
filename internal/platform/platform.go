@@ -27,13 +27,15 @@ type FilesystemProvider interface {
 }
 
 // Other providers for the future
-type NetworkProvider interface{}
-type EnvironmentProvider interface{}
-type SoftwareProvider interface{}
-type ProcessProvider interface{}
-type SecurityProvider interface{}
-type UserProvider interface{}
-type ServiceProvider interface{}
+type (
+	NetworkProvider     interface{}
+	EnvironmentProvider interface{}
+	SoftwareProvider    interface{}
+	ProcessProvider     interface{}
+	SecurityProvider    interface{}
+	UserProvider        interface{}
+	ServiceProvider     interface{}
+)
 
 // Platform provides a cross-platform abstraction for discovery and execution.
 type Platform interface {

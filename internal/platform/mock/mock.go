@@ -26,10 +26,10 @@ func NewPlatform() *Platform {
 	}
 }
 
-func (p *Platform) ID() string              { return p.MockID }
-func (p *Platform) Name() string            { return p.MockName }
-func (p *Platform) OS() platform.OSProvider { return p.MockOS }
-func (p *Platform) Hardware() platform.HardwareProvider { return p.MockHardware }
+func (p *Platform) ID() string                              { return p.MockID }
+func (p *Platform) Name() string                            { return p.MockName }
+func (p *Platform) OS() platform.OSProvider                 { return p.MockOS }
+func (p *Platform) Hardware() platform.HardwareProvider     { return p.MockHardware }
 func (p *Platform) Filesystem() platform.FilesystemProvider { return p.MockFilesystem }
 
 type FilesystemProvider struct {
@@ -53,10 +53,19 @@ type HardwareProvider struct {
 
 func (p *HardwareProvider) GetCPU(ctx context.Context) (models.CPU, error) { return p.CPU, p.Err }
 func (p *HardwareProvider) GetRAM(ctx context.Context) (models.RAM, error) { return p.RAM, p.Err }
-func (p *HardwareProvider) GetStorage(ctx context.Context) ([]models.Disk, error) { return p.Storage, p.Err }
+func (p *HardwareProvider) GetStorage(ctx context.Context) ([]models.Disk, error) {
+	return p.Storage, p.Err
+}
+
 func (p *HardwareProvider) GetGPUs(ctx context.Context) ([]models.GPU, error) { return p.GPUs, p.Err }
-func (p *HardwareProvider) GetBattery(ctx context.Context) (models.Battery, error) { return p.Battery, p.Err }
-func (p *HardwareProvider) GetThermal(ctx context.Context) ([]models.ThermalSensor, error) { return p.Thermals, p.Err }
+
+func (p *HardwareProvider) GetBattery(ctx context.Context) (models.Battery, error) {
+	return p.Battery, p.Err
+}
+
+func (p *HardwareProvider) GetThermal(ctx context.Context) ([]models.ThermalSensor, error) {
+	return p.Thermals, p.Err
+}
 
 type OSProvider struct {
 	Info models.OSInfo
