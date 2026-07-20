@@ -1,0 +1,8 @@
+# Windows specific overrides
+engine:
+  state_dir: "$env:LOCALAPPDATA\\base-infra"
+
+plugins:
+  windows_features:
+    - VirtualMachinePlatform
+    - Microsoft-Windows-Subsystem-Linux

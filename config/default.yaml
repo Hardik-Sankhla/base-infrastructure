@@ -1,0 +1,10 @@
+# Universal Bootstrap Framework - Default Configuration
+engine:
+  log_level: INFO
+  auto_update: true
+  state_dir: "~/.local/state/base-infra"
+  strict_mode: true
+
+plugins:
+  paths:
+    - "./plugins"
