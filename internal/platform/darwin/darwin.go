@@ -9,6 +9,7 @@ import (
 
 // Platform implements platform.Platform for macOS.
 type Platform struct {
+	platform.BasePlatform
 	osProvider platform.OSProvider
 }
 

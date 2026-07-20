@@ -6,14 +6,15 @@ import (
 	"github.com/base-infrastructure/platform/internal/runtime/context"
 )
 
-// DiscoveryEngine Contract
+// DiscoveryEngine orchestrates the discovery phase.
 type DiscoveryEngine interface {
-	Run(ctx *context.PlatformContext) (*discovery.Result, error)
+	// Run executes the discovery pipeline and returns the discovery manifest.
+	Run(ctx *context.PlatformContext) (*models.DiscoveryManifest, error)
 }
 
 // PlannerEngine Contract
 type PlannerEngine interface {
-	Plan(ctx *context.PlatformContext, dr *discovery.Result, policies models.Policy) (models.ExecutionPlan, error)
+	Plan(ctx *context.PlatformContext, dr *models.DiscoveryManifest, policies models.Policy) (models.ExecutionPlan, error)
 }
 
 // ExecutorEngine Contract

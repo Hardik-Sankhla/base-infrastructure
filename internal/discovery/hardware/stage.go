@@ -10,15 +10,11 @@ import (
 )
 
 // Stage implements discovery.Stage for hardware discovery.
-type Stage struct {
-	provider Provider
-}
+type Stage struct{}
 
-// NewStage creates a new Hardware discovery stage using the given provider.
-func NewStage(provider Provider) *Stage {
-	return &Stage{
-		provider: provider,
-	}
+// NewStage creates a new Hardware discovery stage.
+func NewStage() *Stage {
+	return &Stage{}
 }
 
 func (s *Stage) Name() string {
@@ -46,8 +42,11 @@ func (s *Stage) Timeout() time.Duration {
 }
 
 func (s *Stage) Initialize(dctx discovery.Context) error {
-	if s.provider == nil {
-		return fmt.Errorf("hardware provider is not initialized")
+	if dctx.Platform() == nil {
+		return fmt.Errorf("platform abstraction layer is not initialized in context")
+	}
+	if dctx.Platform().Hardware() == nil {
+		return fmt.Errorf("hardware provider is not available for this platform")
 	}
 	return nil
 }
@@ -55,34 +54,36 @@ func (s *Stage) Initialize(dctx discovery.Context) error {
 func (s *Stage) Run(ctx context.Context, dctx discovery.Context) (discovery.DiscoveryArtifact, error) {
 	var hw models.Hardware
 	var err error
+	
+	provider := dctx.Platform().Hardware()
 
 	// Critical components (must succeed)
-	if hw.CPU, err = s.provider.GetCPU(ctx); err != nil {
+	if hw.CPU, err = provider.GetCPU(ctx); err != nil {
 		return nil, fmt.Errorf("failed to discover CPU: %w", err)
 	}
 
-	if hw.RAM, err = s.provider.GetRAM(ctx); err != nil {
+	if hw.RAM, err = provider.GetRAM(ctx); err != nil {
 		return nil, fmt.Errorf("failed to discover RAM: %w", err)
 	}
 
-	if hw.Storage, err = s.provider.GetStorage(ctx); err != nil {
+	if hw.Storage, err = provider.GetStorage(ctx); err != nil {
 		return nil, fmt.Errorf("failed to discover Storage: %w", err)
 	}
 
 	// Non-critical components (graceful fallback)
-	if gpus, gErr := s.provider.GetGPUs(ctx); gErr == nil {
+	if gpus, gErr := provider.GetGPUs(ctx); gErr == nil {
 		hw.GPUs = gpus
 	} else {
 		dctx.Logger().Debug("Failed to discover GPUs or none present", "error", gErr)
 	}
 
-	if battery, bErr := s.provider.GetBattery(ctx); bErr == nil {
+	if battery, bErr := provider.GetBattery(ctx); bErr == nil {
 		hw.Battery = battery
 	} else {
 		dctx.Logger().Debug("Failed to discover Battery or none present", "error", bErr)
 	}
 
-	if thermals, tErr := s.provider.GetThermal(ctx); tErr == nil {
+	if thermals, tErr := provider.GetThermal(ctx); tErr == nil {
 		hw.Thermals = thermals
 	} else {
 		dctx.Logger().Debug("Failed to discover Thermal sensors or none present", "error", tErr)

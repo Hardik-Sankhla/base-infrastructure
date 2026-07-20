@@ -24,6 +24,7 @@ func DefaultPipelineConfig() PipelineConfig {
 // Pipeline executes an ordered sequence of discovery stages.
 type Pipeline struct {
 	stages []Stage
+	hooks  []Hook
 	config PipelineConfig
 	logger *slog.Logger
 	bus    events.Bus
@@ -33,9 +34,17 @@ type Pipeline struct {
 func NewPipeline(cfg PipelineConfig, logger *slog.Logger, bus events.Bus) *Pipeline {
 	return &Pipeline{
 		stages: make([]Stage, 0),
+		hooks:  make([]Hook, 0),
 		config: cfg,
 		logger: logger,
 		bus:    bus,
+	}
+}
+
+// AddHook registers a pipeline hook.
+func (p *Pipeline) AddHook(h Hook) {
+	if h != nil {
+		p.hooks = append(p.hooks, h)
 	}
 }
 
@@ -66,11 +75,24 @@ func (p *Pipeline) AddStages(stages []Stage) error {
 
 // Run executes all stages sequentially in priority order.
 func (p *Pipeline) Run(ctx context.Context, dctx Context) (*Result, error) {
+	// Validate the dependency graph before execution
+	validator := NewValidator()
+	if err := validator.Validate(p.stages); err != nil {
+		return nil, fmt.Errorf("pipeline validation failed: %w", err)
+	}
+
 	builder := NewResultBuilder()
 	sorted := p.sortedStages()
 	builder.SetTotalStages(len(sorted))
 
 	p.logger.Info("Discovery pipeline starting", "stages", len(sorted))
+
+	// Hook: BeforePipeline
+	for _, h := range p.hooks {
+		if err := h.BeforePipeline(ctx, dctx, sorted); err != nil {
+			return nil, fmt.Errorf("BeforePipeline hook failed: %w", err)
+		}
+	}
 
 	for _, stage := range sorted {
 		if err := ctx.Err(); err != nil {
@@ -102,6 +124,17 @@ func (p *Pipeline) Run(ctx context.Context, dctx Context) (*Result, error) {
 		"failed", finalResult.FailedStages,
 		"skipped", finalResult.SkippedStages,
 	)
+
+	// Hook: AfterPipeline
+	stageResults := make(map[string]StageResult)
+	for name, res := range finalResult.Stages {
+		stageResults[name] = *res
+	}
+	for _, h := range p.hooks {
+		if err := h.AfterPipeline(ctx, dctx, stageResults); err != nil {
+			p.logger.Warn("AfterPipeline hook failed", "error", err)
+		}
+	}
 
 	return finalResult, nil
 }
@@ -141,6 +174,14 @@ func (p *Pipeline) runStage(globalCtx context.Context, dctx Context, stage Stage
 		}
 	}()
 
+	// Hook: BeforeStage
+	for _, h := range p.hooks {
+		if err = h.BeforeStage(ctx, dctx, stage); err != nil {
+			err = fmt.Errorf("BeforeStage hook failed: %w", err)
+			goto HandleError
+		}
+	}
+
 	// Lifecycle execution
 	if err = stage.Initialize(dctx); err != nil {
 		err = fmt.Errorf("initialize failed: %w", err)
@@ -168,6 +209,13 @@ func (p *Pipeline) runStage(globalCtx context.Context, dctx Context, stage Stage
 			Duration:  elapsed,
 		})
 
+		// Hook: AfterStage
+		for _, h := range p.hooks {
+			if hErr := h.AfterStage(ctx, dctx, stage, artifact); hErr != nil {
+				p.logger.Warn("AfterStage hook failed", "stage", name, "error", hErr)
+			}
+		}
+
 		return &StageResult{
 			StageName: name,
 			Status:    StatusSuccess,
@@ -187,6 +235,11 @@ HandleError:
 		Duration:  elapsed,
 		Error:     err.Error(),
 	})
+
+	// Hook: OnStageError
+	for _, h := range p.hooks {
+		h.OnStageError(ctx, dctx, stage, err)
+	}
 
 	return &StageResult{
 		StageName: name,

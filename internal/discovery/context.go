@@ -9,38 +9,43 @@ import (
 	"github.com/base-infrastructure/platform/internal/runtime/events"
 )
 
-// Context provides a read-only view of platform runtime services to
-// discovery stages.
+// Context provides the execution environment and dependencies for discovery stages.
+// It acts as a facade, hiding the complexity of the underlying systems.
 type Context interface {
 	Logger() *slog.Logger
 	EventBus() events.Bus
 	Config() *config.Config
 	DB() *sql.DB
 	Platform() platform.Platform
+	Cache() Cache
 }
 
 type defaultContext struct {
 	logger   *slog.Logger
-	eventBus events.Bus
-	config   *config.Config
+	bus      events.Bus
+	cfg      *config.Config
 	db       *sql.DB
-	plat     platform.Platform
+	platform platform.Platform
+	cache    Cache
 }
 
-func NewContext(logger *slog.Logger, bus events.Bus, cfg *config.Config, db *sql.DB, plat platform.Platform) Context {
+// NewContext creates a new discovery context with the provided dependencies.
+func NewContext(logger *slog.Logger, bus events.Bus, cfg *config.Config, db *sql.DB, p platform.Platform) Context {
 	return &defaultContext{
 		logger:   logger,
-		eventBus: bus,
-		config:   cfg,
+		bus:      bus,
+		cfg:      cfg,
 		db:       db,
-		plat:     plat,
+		platform: p,
+		cache:    NewCache(),
 	}
 }
 
 func (c *defaultContext) Logger() *slog.Logger        { return c.logger }
-func (c *defaultContext) EventBus() events.Bus        { return c.eventBus }
-func (c *defaultContext) Config() *config.Config      { return c.config }
+func (c *defaultContext) EventBus() events.Bus        { return c.bus }
+func (c *defaultContext) Config() *config.Config      { return c.cfg }
 func (c *defaultContext) DB() *sql.DB                 { return c.db }
-func (c *defaultContext) Platform() platform.Platform { return c.plat }
+func (c *defaultContext) Platform() platform.Platform { return c.platform }
+func (c *defaultContext) Cache() Cache                { return c.cache }
 
 // removed

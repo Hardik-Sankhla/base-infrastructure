@@ -8,6 +8,7 @@ import (
 )
 
 type Platform struct {
+	platform.BasePlatform
 	osProvider platform.OSProvider
 }
 
