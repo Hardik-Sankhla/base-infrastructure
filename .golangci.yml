@@ -1,4 +1,7 @@
 linters-settings:
+  govet:
+    enable:
+      - shadow
   gofumpt:
     extra-rules: true
 
@@ -12,7 +15,6 @@ linters:
     - staticcheck
     - unused
     - gofumpt
-    - shadow
 
 issues:
   exclude-use-default: false
