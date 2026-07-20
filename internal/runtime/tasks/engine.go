@@ -10,10 +10,10 @@ import (
 type Status string
 
 const (
-	Pending   Status = "Pending"
-	Running   Status = "Running"
-	Completed Status = "Completed"
-	Failed    Status = "Failed"
+	Pending    Status = "Pending"
+	Running    Status = "Running"
+	Completed  Status = "Completed"
+	Failed     Status = "Failed"
 	RolledBack Status = "RolledBack"
 )
 
@@ -37,11 +37,11 @@ func NewEngine() *DefaultEngine {
 
 func (e *DefaultEngine) Submit(ctx context.Context, task Task) error {
 	slog.Info("Executing task", "task", task.Name())
-	
+
 	err := task.Execute(ctx)
 	if err != nil {
 		slog.Error("Task failed", "task", task.Name(), "error", err)
-		
+
 		slog.Info("Attempting rollback", "task", task.Name())
 		if rollbackErr := task.Rollback(ctx); rollbackErr != nil {
 			slog.Error("Rollback failed", "task", task.Name(), "error", rollbackErr)
@@ -49,7 +49,7 @@ func (e *DefaultEngine) Submit(ctx context.Context, task Task) error {
 		}
 		return fmt.Errorf("task failed but successfully rolled back: %w", err)
 	}
-	
+
 	slog.Info("Task completed successfully", "task", task.Name())
 	return nil
 }

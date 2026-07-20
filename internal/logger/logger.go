@@ -6,7 +6,7 @@ import (
 )
 
 // Init initializes the global slog logger with the given log level and format.
-func Init(level string, format string) {
+func Init(level, format string) {
 	var l slog.Level
 	switch level {
 	case "debug":

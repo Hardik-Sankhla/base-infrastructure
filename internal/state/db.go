@@ -3,9 +3,9 @@ package state
 import (
 	"database/sql"
 	"fmt"
+	"log/slog"
 	"os"
 	"path/filepath"
-	"log/slog"
 
 	_ "modernc.org/sqlite"
 )
@@ -15,10 +15,10 @@ var DB *sql.DB
 // Init initializes the SQLite database
 func Init(dbPath string) error {
 	slog.Info("Initializing state database", "path", dbPath)
-	
+
 	// Ensure directory exists
 	dir := filepath.Dir(dbPath)
-	if err := os.MkdirAll(dir, 0755); err != nil {
+	if err := os.MkdirAll(dir, 0o755); err != nil {
 		return fmt.Errorf("failed to create database directory: %w", err)
 	}
 
@@ -78,7 +78,7 @@ func createSchema() error {
 	if err != nil {
 		return fmt.Errorf("failed to execute schema: %w", err)
 	}
-	
+
 	slog.Debug("State database schema initialized")
 	return nil
 }
