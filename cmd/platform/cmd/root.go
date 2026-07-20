@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/spf13/cobra"
 	"github.com/base-infrastructure/platform/internal/config"
 	"github.com/base-infrastructure/platform/internal/logger"
+	"github.com/spf13/cobra"
 )
 
 var cfgFile string
@@ -31,6 +31,6 @@ func initConfig() {
 		fmt.Println("Error loading config:", err)
 		os.Exit(1)
 	}
-	
+
 	logger.Init(config.Cfg.System.LogLevel, config.Cfg.Logging.Format)
 }

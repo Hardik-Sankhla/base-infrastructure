@@ -65,7 +65,7 @@ func (m *DefaultManager) AtomicWrite(path string, data []byte) error {
 	if _, err := tmpFile.Write(data); err != nil {
 		return fmt.Errorf("failed to write data: %w", err)
 	}
-	
+
 	if err := tmpFile.Sync(); err != nil {
 		return fmt.Errorf("failed to sync data: %w", err)
 	}

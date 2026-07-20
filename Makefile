@@ -1,15 +1,21 @@
-.PHONY: all test lint build clean
+.PHONY: all test lint build clean fmt verify
 
-all: lint test build
+all: verify build
 
-test:
-	go test -v -race -cover ./...
+fmt:
+	gofmt -s -w .
+	gofumpt -w .
 
 lint:
 	golangci-lint run ./...
 
+test:
+	go test -v -race -cover ./...
+
 build:
 	go build -o bin/platform ./cmd/platform/main.go
+
+verify: fmt lint test
 
 clean:
 	rm -rf bin/

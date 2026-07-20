@@ -22,7 +22,7 @@ type Plugin interface {
 
 	// Rollback undoes the installation if something failed
 	Rollback(ctx context.Context) (models.Result, error)
-	
+
 	// Uninstall removes the target completely
 	Uninstall(ctx context.Context) (models.Result, error)
 }

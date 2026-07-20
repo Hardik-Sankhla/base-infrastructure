@@ -20,6 +20,6 @@ func (d *FakeDownloader) Download(ctx context.Context, url string, dest string, 
 		return d.SimulateError
 	}
 	d.Downloaded[url] = dest
-	
+
 	return nil
 }

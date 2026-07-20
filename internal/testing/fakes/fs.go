@@ -23,7 +23,7 @@ func (f *FakeFS) PluginDir() string { return "/fake/plugins" }
 func (f *FakeFS) AtomicWrite(path string, data []byte) error {
 	f.mu.Lock()
 	defer f.mu.Unlock()
-	
+
 	cpy := make([]byte, len(data))
 	copy(cpy, data)
 	f.Files[path] = cpy
