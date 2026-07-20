@@ -1,4 +1,4 @@
-.PHONY: all test lint build clean fmt verify
+.PHONY: all test race lint build clean fmt verify
 
 all: verify build
 
@@ -10,6 +10,9 @@ lint:
 	golangci-lint run ./...
 
 test:
+	go test -v -cover ./...
+
+race:
 	go test -v -race -cover ./...
 
 build:

@@ -1,0 +1,45 @@
+version: '3'
+
+tasks:
+  default:
+    cmds:
+      - task: verify
+      - task: build
+
+  fmt:
+    desc: "Format Go code"
+    cmds:
+      - gofmt -s -w .
+      - gofumpt -extra -w .
+
+  lint:
+    desc: "Run linters"
+    cmds:
+      - golangci-lint run ./...
+
+  test:
+    desc: "Run tests without race detector (safe for PRoot/Termux)"
+    cmds:
+      - go test -v -cover ./...
+
+  race:
+    desc: "Run tests with race detector (requires native Linux/macOS/Windows)"
+    cmds:
+      - go test -v -race -cover ./...
+
+  build:
+    desc: "Build the platform CLI"
+    cmds:
+      - go build -o bin/platform ./cmd/platform/main.go
+
+  verify:
+    desc: "Format, lint, and run standard tests"
+    cmds:
+      - task: fmt
+      - task: lint
+      - task: test
+
+  clean:
+    desc: "Clean build artifacts"
+    cmds:
+      - rm -rf bin/
