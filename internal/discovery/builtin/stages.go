@@ -7,6 +7,7 @@ import (
 	"github.com/base-infrastructure/platform/internal/discovery/hardware"
 	"github.com/base-infrastructure/platform/internal/discovery/network"
 	"github.com/base-infrastructure/platform/internal/discovery/os"
+	"github.com/base-infrastructure/platform/internal/discovery/software"
 )
 
 // DefaultStages returns the list of built-in discovery stages in recommended order.
@@ -17,6 +18,7 @@ func DefaultStages() []discovery.Stage {
 		network.NewStage(),
 		environment.NewStage(),
 		filesystem.NewStage(),
+		software.NewStage(),
 	}
 }
 
@@ -44,6 +46,11 @@ func RegisterCoreStages(reg *discovery.Registry) error {
 
 	// Register Filesystem Stage (PR #4)
 	if err := reg.Register(filesystem.NewStage()); err != nil {
+		return err
+	}
+
+	// Register Software Stage (PR #7)
+	if err := reg.Register(software.NewStage()); err != nil {
 		return err
 	}
 

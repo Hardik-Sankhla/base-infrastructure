@@ -21,6 +21,7 @@ func (p *Platform) Name() string                              { return "BSD" }
 func (p *Platform) OS() platform.OSProvider                   { return p.osProvider }
 func (p *Platform) Network() platform.NetworkProvider         { return NewNetworkProvider() }
 func (p *Platform) Environment() platform.EnvironmentProvider { return NewEnvironmentProvider() }
+func (p *Platform) Software() platform.SoftwareProvider       { return NewSoftwareProvider() }
 
 type OSProviderStub struct{}
 
