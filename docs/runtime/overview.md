@@ -3,10 +3,10 @@
 The Platform Runtime acts as the foundational layer binding all subsystems together.
 
 ## Context (`internal/runtime/context`)
-The system passes a strongly-typed `discovery.Context` rather than a standard `context.Context` (though it inherits from it) throughout the execution lifecycle.
+The system passes a unified strongly-typed `PlatformContext` rather than a standard `context.Context` (though it provides one via `GoContext()`) throughout the execution lifecycle.
 
 ### Purpose
-The custom Context tracks cancellation signals, timeout deadlines, and active Logger instances. It ensures that if a single Discovery Stage takes too long or hangs indefinitely (e.g. `wmic` failing on Windows), the entire stage can be forcefully preempted without crashing the core binary.
+The custom `PlatformContext` acts as the dependency injection (DI) root for the entire platform. It tracks cancellation signals, timeout deadlines, active Logger instances, configuration, and state persistence stores. The discovery engine also uses a specific `discovery.Context` facade that wraps `PlatformContext`.
 
 ## Events (`internal/runtime/events`)
 The runtime implements an internal Event Bus for decoupled Pub/Sub communication.

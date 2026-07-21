@@ -5,7 +5,7 @@
   "description": "Documentation website for Base Infrastructure Platform",
   "scripts": {
     "docs:dev": "vitepress dev website",
-    "docs:build": "vitepress build website --ignore-deadlinks",
+    "docs:build": "vitepress build website",
     "docs:preview": "vitepress preview website"
   },
   "devDependencies": {

@@ -15,9 +15,9 @@ Located at `internal/platform/`. This acts as the lowest-level boundary interfac
 
 ### 2. Discovery Engine
 Located at `internal/discovery/`.
-- **Purpose**: A concurrent Directed Acyclic Graph (DAG) executor that runs interrogation plugins/stages safely.
-- **Responsibilities**: Sorting stages by dependencies, enforcing timeouts, caching artifact outputs, and handling context propagation.
-- **Design Rationale**: A pipeline architecture allows discovery stages to safely depend on one another without blocking the entire execution thread. For instance, the `Network` stage relies on the `OS` stage completing first.
+- **Purpose**: A priority-sorted sequential executor that runs interrogation plugins/stages safely, backed by DFS cycle validation.
+- **Responsibilities**: Sorting stages by priority, validating dependencies to prevent cycles, enforcing timeouts, caching artifact outputs, and handling context propagation using `PlatformContext`.
+- **Design Rationale**: A pipeline architecture allows discovery stages to safely depend on one another. For instance, the `Network` stage relies on the `OS` stage completing first. Execution is sequential by priority, ensuring strict ordering without the complexity of concurrent race conditions.
 
 ### 3. Capability Builder
 Located at `internal/capabilities/`.

@@ -19,11 +19,14 @@ The `sdk` command integrated into the `platform` CLI allows developers to valida
 A plugin must define a `manifest.yaml`. 
 
 ```yaml
-id: "git"
-name: "Git Version Control"
+schema_version: "1.0"
+name: "git"
 version: "1.0.0"
-capabilities:
-  provides:
-    - "runtime.git"
+description: "Installs Git version control system"
+compatibility:
+  os: [linux, windows, darwin, android]
+  arch: [amd64, arm64]
+provides:
+  - "runtime.git"
 ```
 

@@ -2,7 +2,7 @@
 
 ## Prerequisites
 To build the Base Infrastructure platform from source, you must have the following installed:
-- [Go](https://golang.org/dl/) 1.21 or higher
+- [Go](https://golang.org/dl/) 1.22 or higher
 - Git
 - Make (optional, but recommended)
 

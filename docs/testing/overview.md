@@ -12,7 +12,7 @@ Located in `internal/platform/mock`, we provide a complete, statically-defined M
 - The `MockPlatform` intercepts calls and provides controlled responses to test the Discovery Engine logic independently of physical host calls.
 
 ## Race Detector
-Since the Discovery Engine operates across concurrent goroutines and sorts stages by Priority, the potential for race conditions is high.
+While the Discovery Engine's pipeline execution is priority-sorted and sequentially executed, other subsystems (like event bus subscribers and background tasks) may operate concurrently. 
 
-All CI pipelines execute `go test -race ./...` to guarantee memory safety.
+All CI pipelines execute `go test -race ./...` to guarantee memory safety across all subsystems.
 

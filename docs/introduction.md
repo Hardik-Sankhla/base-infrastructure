@@ -3,10 +3,10 @@
 This directory contains the documentation for the Universal Bootstrap Framework.
 
 ## Guides
-- [Contributor Guide](CONTRIBUTING.md)
-- [Plugin Development SDK](SDK.md)
-- [Platform Runtime Architecture](RUNTIME.md)
-- [Testing Infrastructure](TESTING.md)
+- [Contributor Guide](development/guide.md)
+- [Plugin Development SDK](sdk/overview.md)
+- [Platform Runtime Architecture](runtime/overview.md)
+- [Testing Infrastructure](testing/overview.md)
 
 ## ADR Index
 - ADR-001: Go Core Architecture
