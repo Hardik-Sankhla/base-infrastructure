@@ -55,7 +55,7 @@ func (s *Stage) Initialize(ctx discovery.Context) error {
 }
 
 // Run executes the discovery process.
-func (s *Stage) Run(ctx context.Context, dctx discovery.Context) (interface{}, error) {
+func (s *Stage) Run(ctx context.Context, dctx discovery.Context) (discovery.DiscoveryArtifact, error) {
 	dctx.Logger().Debug("starting software discovery")
 
 	provider := dctx.Platform().Software()
@@ -74,7 +74,7 @@ func (s *Stage) Run(ctx context.Context, dctx discovery.Context) (interface{}, e
 }
 
 // Validate ensures the artifact is valid.
-func (s *Stage) Validate(artifact interface{}) error {
+func (s *Stage) Validate(artifact discovery.DiscoveryArtifact) error {
 	if artifact == nil {
 		return fmt.Errorf("software artifact is nil")
 	}
