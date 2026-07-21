@@ -28,6 +28,10 @@ func (p *Platform) Environment() platform.EnvironmentProvider {
 	return NewEnvironmentProvider()
 }
 
+func (p *Platform) Software() platform.SoftwareProvider {
+	return NewSoftwareProvider()
+}
+
 type OSProviderStub struct{}
 
 func (s *OSProviderStub) GetOSInfo(ctx context.Context) (models.OSInfo, error) {

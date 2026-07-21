@@ -16,6 +16,7 @@ type Platform struct {
 	MockFilesystem  *FilesystemProvider
 	MockNetwork     *NetworkProvider
 	MockEnvironment *EnvironmentProvider
+	MockSoftware    *SoftwareProvider
 }
 
 func NewPlatform() *Platform {
@@ -27,6 +28,7 @@ func NewPlatform() *Platform {
 		MockFilesystem:  &FilesystemProvider{},
 		MockNetwork:     &NetworkProvider{},
 		MockEnvironment: &EnvironmentProvider{},
+		MockSoftware:    &SoftwareProvider{},
 	}
 }
 
@@ -37,6 +39,7 @@ func (p *Platform) Hardware() platform.HardwareProvider       { return p.MockHar
 func (p *Platform) Filesystem() platform.FilesystemProvider   { return p.MockFilesystem }
 func (p *Platform) Network() platform.NetworkProvider         { return p.MockNetwork }
 func (p *Platform) Environment() platform.EnvironmentProvider { return p.MockEnvironment }
+func (p *Platform) Software() platform.SoftwareProvider       { return p.MockSoftware }
 
 type EnvironmentProvider struct {
 	Info models.EnvironmentInfo

@@ -49,3 +49,7 @@ func (p *Platform) Network() platform.NetworkProvider {
 func (p *Platform) Environment() platform.EnvironmentProvider {
 	return NewEnvironmentProvider()
 }
+
+func (p *Platform) Software() platform.SoftwareProvider {
+	return NewSoftwareProvider()
+}

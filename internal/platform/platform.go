@@ -38,9 +38,13 @@ type EnvironmentProvider interface {
 	GetEnvironmentInfo(ctx context.Context) (models.EnvironmentInfo, error)
 }
 
+// SoftwareProvider abstracts the retrieval of installed software and runtimes.
+type SoftwareProvider interface {
+	GetSoftwareInfo(ctx context.Context) (models.SoftwareInfo, error)
+}
+
 // Other providers for the future
 type (
-	SoftwareProvider interface{}
 	ProcessProvider  interface{}
 	SecurityProvider interface{}
 	UserProvider     interface{}
