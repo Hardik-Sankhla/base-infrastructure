@@ -26,7 +26,7 @@ func (s *Stage) Dependencies() []string {
 }
 
 // Initialize prepares the stage for execution.
-func (s *Stage) Initialize(ctx *discovery.Context) error {
+func (s *Stage) Initialize(ctx discovery.Context) error {
 	if ctx.Platform() == nil {
 		return fmt.Errorf("platform not found in context")
 	}
@@ -34,7 +34,7 @@ func (s *Stage) Initialize(ctx *discovery.Context) error {
 }
 
 // Run executes the discovery process.
-func (s *Stage) Run(ctx context.Context, dctx *discovery.Context) (interface{}, error) {
+func (s *Stage) Run(ctx context.Context, dctx discovery.Context) (interface{}, error) {
 	dctx.Logger().Debug("starting software discovery")
 
 	provider := dctx.Platform().Software()
