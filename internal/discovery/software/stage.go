@@ -3,6 +3,7 @@ package software
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/base-infrastructure/platform/internal/discovery"
 )
@@ -20,9 +21,29 @@ func (s *Stage) Name() string {
 	return "software"
 }
 
-// Dependencies returns the dependencies of the stage.
-func (s *Stage) Dependencies() []string {
+// Version returns the version of the stage.
+func (s *Stage) Version() string {
+	return "1.0.0"
+}
+
+// Description returns a description of what the stage discovers.
+func (s *Stage) Description() string {
+	return "Discovers installed software and runtimes"
+}
+
+// Priority returns the priority of the stage (lower runs first).
+func (s *Stage) Priority() int {
+	return 60
+}
+
+// DependsOn returns the dependencies of the stage.
+func (s *Stage) DependsOn() []string {
 	return []string{}
+}
+
+// Timeout returns the maximum duration allowed for this stage.
+func (s *Stage) Timeout() time.Duration {
+	return 30 * time.Second
 }
 
 // Initialize prepares the stage for execution.

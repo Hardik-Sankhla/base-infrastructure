@@ -6,6 +6,11 @@ type SoftwareInfo struct {
 	Runtimes []RuntimeEnvironment `json:"runtimes,omitempty"`
 }
 
+// ArtifactType implements discovery.DiscoveryArtifact.
+func (SoftwareInfo) ArtifactType() string {
+	return "software"
+}
+
 // SoftwarePackage represents an installed OS package (e.g. via apt, brew, apk).
 type SoftwarePackage struct {
 	Name    string `json:"name"`
