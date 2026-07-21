@@ -27,11 +27,11 @@ Validates a plugin `manifest.yaml` file to ensure it conforms to the platform SD
 
 **Usage:**
 ```bash
-./platform sdk validate --path /path/to/manifest.yaml
+./platform sdk validate /path/to/manifest.yaml
 ```
 
-**Flags:**
-- `--path`: The absolute or relative path to the `manifest.yaml` file.
+**Arguments:**
+- `path`: The absolute or relative path to the `manifest.yaml` file.
 
 **Expected Output:**
 ```

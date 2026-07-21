@@ -31,7 +31,7 @@ INFO[0000] Generated Platform Capabilities:
 The platform supports modular plugin execution. If you are developing a plugin, you can validate its manifest payload against the SDK context via the `sdk` command.
 
 ```bash
-./platform sdk validate --path /path/to/plugin/manifest.yaml
+./platform sdk validate /path/to/plugin/manifest.yaml
 ```
 
 ## Next Steps

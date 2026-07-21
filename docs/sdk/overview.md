@@ -12,7 +12,7 @@ Currently, the SDK contains the foundational configurations required to parse an
 The `sdk` command integrated into the `platform` CLI allows developers to validate their plugin manifests natively without loading the entire execution engine.
 
 ```bash
-./platform sdk validate --path /path/to/myplugin/manifest.yaml
+./platform sdk validate /path/to/myplugin/manifest.yaml
 ```
 
 ## Plugin Manifest (`manifest.yaml`)
