@@ -14,6 +14,7 @@ type Platform struct {
 	MockOS         *OSProvider
 	MockHardware   *HardwareProvider
 	MockFilesystem *FilesystemProvider
+	MockNetwork    *NetworkProvider
 }
 
 func NewPlatform() *Platform {
@@ -23,6 +24,7 @@ func NewPlatform() *Platform {
 		MockOS:         &OSProvider{},
 		MockHardware:   &HardwareProvider{},
 		MockFilesystem: &FilesystemProvider{},
+		MockNetwork:    &NetworkProvider{},
 	}
 }
 
@@ -31,6 +33,26 @@ func (p *Platform) Name() string                            { return p.MockName 
 func (p *Platform) OS() platform.OSProvider                 { return p.MockOS }
 func (p *Platform) Hardware() platform.HardwareProvider     { return p.MockHardware }
 func (p *Platform) Filesystem() platform.FilesystemProvider { return p.MockFilesystem }
+func (p *Platform) Network() platform.NetworkProvider       { return p.MockNetwork }
+
+type NetworkProvider struct {
+	Interfaces []models.NetworkInterface
+	DNS        models.DNSConfig
+	Proxy      models.ProxyConfig
+	Err        error
+}
+
+func (p *NetworkProvider) GetInterfaces(ctx context.Context) ([]models.NetworkInterface, error) {
+	return p.Interfaces, p.Err
+}
+
+func (p *NetworkProvider) GetDNS(ctx context.Context) (models.DNSConfig, error) {
+	return p.DNS, p.Err
+}
+
+func (p *NetworkProvider) GetProxy(ctx context.Context) (models.ProxyConfig, error) {
+	return p.Proxy, p.Err
+}
 
 type FilesystemProvider struct {
 	Info models.FilesystemInfo

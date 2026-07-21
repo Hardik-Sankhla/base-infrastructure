@@ -41,3 +41,7 @@ func (p *Platform) Hardware() platform.HardwareProvider {
 func (p *Platform) Filesystem() platform.FilesystemProvider {
 	return p.fsProvider
 }
+
+func (p *Platform) Network() platform.NetworkProvider {
+	return NewNetworkProvider()
+}

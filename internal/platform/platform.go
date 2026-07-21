@@ -26,9 +26,15 @@ type FilesystemProvider interface {
 	GetFilesystemInfo(ctx context.Context) (models.FilesystemInfo, error)
 }
 
+// NetworkProvider abstracts the retrieval of network configuration and state.
+type NetworkProvider interface {
+	GetInterfaces(ctx context.Context) ([]models.NetworkInterface, error)
+	GetDNS(ctx context.Context) (models.DNSConfig, error)
+	GetProxy(ctx context.Context) (models.ProxyConfig, error)
+}
+
 // Other providers for the future
 type (
-	NetworkProvider     interface{}
 	EnvironmentProvider interface{}
 	SoftwareProvider    interface{}
 	ProcessProvider     interface{}

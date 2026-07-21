@@ -16,9 +16,10 @@ func NewPlatform() *Platform {
 	return &Platform{osProvider: &OSProviderStub{}}
 }
 
-func (p *Platform) ID() string              { return "bsd" }
-func (p *Platform) Name() string            { return "BSD" }
-func (p *Platform) OS() platform.OSProvider { return p.osProvider }
+func (p *Platform) ID() string                        { return "bsd" }
+func (p *Platform) Name() string                      { return "BSD" }
+func (p *Platform) OS() platform.OSProvider           { return p.osProvider }
+func (p *Platform) Network() platform.NetworkProvider { return NewNetworkProvider() }
 
 type OSProviderStub struct{}
 
