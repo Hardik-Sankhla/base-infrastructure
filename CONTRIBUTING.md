@@ -1,17 +1,19 @@
 # Contributing to Base Infrastructure
 
-We love your input! We want to make contributing to this project as easy and transparent as possible.
+First off, thank you for considering contributing to Base Infrastructure! It is people like you that make this tool great.
 
-## Pull Requests
-1. Fork the repo and create your branch from `main`.
-2. Do not commit directly to `main`.
-3. Use Conventional Commits (`feat:`, `fix:`, `docs:`, etc.).
-4. If you've added code that should be tested, add tests.
-5. Ensure the test suite passes (`make test`).
-6. Make sure your code lints (`make lint`).
-
-## Issues
-We use GitHub issues to track public bugs. Report a bug by opening a new issue; it's that easy!
+## Development Guide
+For comprehensive instructions on how to set up your environment, follow our [Development Guide](docs/development/guide.md).
 
 ## Code of Conduct
-By participating in this project, you agree to abide by our Code of Conduct.
+By participating, you are expected to uphold our [Code of Conduct](CODE_OF_CONDUCT.md).
+
+## Submitting a Pull Request
+1. Fork and clone the repository.
+2. Create a new branch: `git checkout -b feature/your-feature-name`.
+3. Make your changes and write tests.
+4. Ensure your code passes all CI checks by running `make` locally.
+5. Push to your fork and submit a Pull Request.
+
+Please follow our Commit Convention detailed in the Development Guide.
+
