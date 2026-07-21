@@ -1,0 +1,30 @@
+# Force LF line endings for all text files in the repository.
+# This ensures consistent formatting across Windows, Linux, and macOS.
+* text=auto eol=lf
+
+# Go source files must always use LF.
+*.go text eol=lf
+
+# Shell scripts must always use LF.
+*.sh text eol=lf
+
+# YAML files must always use LF.
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Markdown files
+*.md text eol=lf
+
+# Module files
+go.mod text eol=lf
+go.sum text eol=lf
+
+# Makefile
+Makefile text eol=lf
+Taskfile.yml text eol=lf
+
+# Keep binary files as-is
+*.exe binary
+*.dll binary
+*.so binary
+*.dylib binary
