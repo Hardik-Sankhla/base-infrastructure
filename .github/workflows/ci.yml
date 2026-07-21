@@ -27,23 +27,29 @@ jobs:
 
     - name: Verify Formatting (gofmt)
       run: |
-        unformatted=$(gofmt -s -l .)
-        if [ -n "$unformatted" ]; then
+        gofmt -s -w .
+        if [ -n "$(git diff --name-only)" ]; then
           echo "The following files are not formatted with gofmt -s:"
-          echo "$unformatted"
+          git diff --name-only
           echo ""
-          echo "Run: gofmt -s -w ."
+          echo "Diff:"
+          git diff
+          echo ""
+          echo "Fix: run 'gofmt -s -w .' locally and commit."
           exit 1
         fi
 
     - name: Verify Formatting (gofumpt)
       run: |
-        files=$(gofumpt -extra -l .)
-        if [ -n "$files" ]; then
+        gofumpt -extra -w .
+        if [ -n "$(git diff --name-only)" ]; then
           echo "The following files are not formatted with gofumpt -extra:"
-          echo "$files"
+          git diff --name-only
           echo ""
-          echo "Run: gofumpt -extra -w ."
+          echo "Diff:"
+          git diff
+          echo ""
+          echo "Fix: run 'gofumpt -extra -w .' locally and commit."
           exit 1
         fi
 
