@@ -28,11 +28,11 @@ var bootstrapCmd = &cobra.Command{
 		}
 
 		engine := discovery.NewEngine(registry)
-		
+
 		// Setup Context
 		bus := events.NewEventBus()
 		detector := detector.New()
-		
+
 		plat, err := detector.Detect()
 		if err != nil {
 			slog.Error("Failed to detect platform", "error", err)

@@ -20,7 +20,6 @@ func (p *Platform) ID() string              { return "android" }
 func (p *Platform) Name() string            { return "Android" }
 func (p *Platform) OS() platform.OSProvider { return p.osProvider }
 
-
 func (p *Platform) Network() platform.NetworkProvider {
 	return NewNetworkProvider()
 }
