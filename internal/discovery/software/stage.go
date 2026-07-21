@@ -59,3 +59,8 @@ func (s *Stage) Validate(artifact interface{}) error {
 	}
 	return nil
 }
+
+// Cleanup performs any necessary resource cleanup after the stage completes.
+func (s *Stage) Cleanup(ctx discovery.Context) error {
+	return nil
+}
