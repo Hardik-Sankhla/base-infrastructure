@@ -3,14 +3,13 @@ package network
 import (
 	"context"
 	"errors"
+	"log/slog"
 	"testing"
 	"time"
 
 	"github.com/base-infrastructure/platform/internal/domain/models"
-	"github.com/base-infrastructure/platform/internal/logger"
 	"github.com/base-infrastructure/platform/internal/platform/mock"
 	"github.com/base-infrastructure/platform/internal/runtime/events"
-	"github.com/base-infrastructure/platform/internal/testing/fakes"
 
 	dctx "github.com/base-infrastructure/platform/internal/discovery"
 )
@@ -32,8 +31,8 @@ func TestNetworkStage_Success(t *testing.T) {
 		Servers: []string{"8.8.8.8"},
 	}
 
-	log := logger.NewLogger()
-	bus := events.NewEventBus()
+	log := slog.Default()
+	bus := events.NewBus()
 	ctx := dctx.NewContext(log, bus, nil, nil, p)
 
 	if err := stage.Initialize(ctx); err != nil {
@@ -67,8 +66,8 @@ func TestNetworkStage_Success(t *testing.T) {
 
 func TestNetworkStage_UninitializedPlatform(t *testing.T) {
 	stage := NewStage()
-	log := logger.NewLogger()
-	bus := events.NewEventBus()
+	log := slog.Default()
+	bus := events.NewBus()
 
 	// Context with NO platform
 	ctx := dctx.NewContext(log, bus, nil, nil, nil)
@@ -85,8 +84,8 @@ func TestNetworkStage_GetInterfacesError(t *testing.T) {
 
 	p.MockNetwork.Err = errors.New("network provider error")
 
-	log := logger.NewLogger()
-	bus := events.NewEventBus()
+	log := slog.Default()
+	bus := events.NewBus()
 	ctx := dctx.NewContext(log, bus, nil, nil, p)
 
 	if err := stage.Initialize(ctx); err != nil {

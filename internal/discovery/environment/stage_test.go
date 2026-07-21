@@ -3,14 +3,13 @@ package environment
 import (
 	"context"
 	"errors"
+	"log/slog"
 	"testing"
 	"time"
 
 	"github.com/base-infrastructure/platform/internal/domain/models"
-	"github.com/base-infrastructure/platform/internal/logger"
 	"github.com/base-infrastructure/platform/internal/platform/mock"
 	"github.com/base-infrastructure/platform/internal/runtime/events"
-	"github.com/base-infrastructure/platform/internal/testing/fakes"
 
 	dctx "github.com/base-infrastructure/platform/internal/discovery"
 )
@@ -25,8 +24,8 @@ func TestEnvironmentStage_Success(t *testing.T) {
 		IsTerminal:       true,
 	}
 
-	log := logger.NewLogger()
-	bus := events.NewEventBus()
+	log := slog.Default()
+	bus := events.NewBus()
 	ctx := dctx.NewContext(log, bus, nil, nil, p)
 
 	if err := stage.Initialize(ctx); err != nil {
@@ -57,8 +56,8 @@ func TestEnvironmentStage_Success(t *testing.T) {
 
 func TestEnvironmentStage_UninitializedPlatform(t *testing.T) {
 	stage := NewStage()
-	log := logger.NewLogger()
-	bus := events.NewEventBus()
+	log := slog.Default()
+	bus := events.NewBus()
 
 	// Context with NO platform
 	ctx := dctx.NewContext(log, bus, nil, nil, nil)
@@ -75,8 +74,8 @@ func TestEnvironmentStage_GetEnvironmentError(t *testing.T) {
 
 	p.MockEnvironment.Err = errors.New("environment provider error")
 
-	log := logger.NewLogger()
-	bus := events.NewEventBus()
+	log := slog.Default()
+	bus := events.NewBus()
 	ctx := dctx.NewContext(log, bus, nil, nil, p)
 
 	if err := stage.Initialize(ctx); err != nil {
