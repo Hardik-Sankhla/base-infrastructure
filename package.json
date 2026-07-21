@@ -1,6 +1,7 @@
 {
   "name": "base-infrastructure-docs",
   "version": "1.0.0",
+  "type": "module",
   "description": "Documentation website for Base Infrastructure Platform",
   "scripts": {
     "docs:dev": "vitepress dev website",
