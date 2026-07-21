@@ -24,8 +24,6 @@ func (o OSInfo) ArtifactType() string {
 	return "OS"
 }
 
-
-
 // StageExecutionResult summarizes the outcome of a single discovery stage.
 type StageExecutionResult struct {
 	Name     string        `json:"name"`
