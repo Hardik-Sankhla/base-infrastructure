@@ -12,7 +12,7 @@ Located in `internal/platform/mock`, we provide a complete, statically-defined M
 - The `MockPlatform` intercepts calls and provides controlled responses to test the Discovery Engine logic independently of physical host calls.
 
 ## Race Detector
-Since the Discovery Engine operates across concurrent goroutines using Kahn's Topological Sorting algorithm, the potential for race conditions is high.
+Since the Discovery Engine operates across concurrent goroutines and sorts stages by Priority, the potential for race conditions is high.
 
 All CI pipelines execute `go test -race ./...` to guarantee memory safety.
 

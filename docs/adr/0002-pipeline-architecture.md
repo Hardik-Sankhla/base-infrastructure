@@ -7,9 +7,9 @@ Accepted
 When bootstrapping a machine, we must discover its OS, hardware, network interfaces, installed software, and user permissions. Querying this sequentially takes an extremely long time. Querying it randomly results in errors (e.g. attempting to search for Windows registry keys before verifying the OS is actually Windows).
 
 ## Decision
-We implemented a Directed Acyclic Graph (DAG) Pipeline for the Discovery Engine.
+We implemented a Priority-sorted Pipeline for the Discovery Engine.
 Stages declare their explicit dependencies (`DependsOn() []string`). 
-The engine uses Kahn's Topological Sort to group stages into tiers, running stages in the same tier concurrently, and blocking subsequent tiers until all prerequisites succeed.
+The engine uses Depth-First Search (DFS) to validate there are no circular loops, and then sorts the stages based on Priority. Stages execute sequentially based on priority ordering.
 
 ## Consequences
 
