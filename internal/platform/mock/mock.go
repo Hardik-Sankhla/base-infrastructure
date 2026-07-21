@@ -9,33 +9,33 @@ import (
 
 type Platform struct {
 	platform.BasePlatform
-	MockID         string
-	MockName       string
-	MockOS         *OSProvider
-	MockHardware   *HardwareProvider
-	MockFilesystem *FilesystemProvider
-	MockNetwork    *NetworkProvider
+	MockID          string
+	MockName        string
+	MockOS          *OSProvider
+	MockHardware    *HardwareProvider
+	MockFilesystem  *FilesystemProvider
+	MockNetwork     *NetworkProvider
 	MockEnvironment *EnvironmentProvider
 }
 
 func NewPlatform() *Platform {
 	return &Platform{
-		MockID:         "mock",
-		MockName:       "Mock OS",
-		MockOS:         &OSProvider{},
-		MockHardware:   &HardwareProvider{},
-		MockFilesystem: &FilesystemProvider{},
-		MockNetwork:    &NetworkProvider{},
+		MockID:          "mock",
+		MockName:        "Mock OS",
+		MockOS:          &OSProvider{},
+		MockHardware:    &HardwareProvider{},
+		MockFilesystem:  &FilesystemProvider{},
+		MockNetwork:     &NetworkProvider{},
 		MockEnvironment: &EnvironmentProvider{},
 	}
 }
 
-func (p *Platform) ID() string                              { return p.MockID }
-func (p *Platform) Name() string                            { return p.MockName }
-func (p *Platform) OS() platform.OSProvider                 { return p.MockOS }
-func (p *Platform) Hardware() platform.HardwareProvider     { return p.MockHardware }
-func (p *Platform) Filesystem() platform.FilesystemProvider { return p.MockFilesystem }
-func (p *Platform) Network() platform.NetworkProvider       { return p.MockNetwork }
+func (p *Platform) ID() string                                { return p.MockID }
+func (p *Platform) Name() string                              { return p.MockName }
+func (p *Platform) OS() platform.OSProvider                   { return p.MockOS }
+func (p *Platform) Hardware() platform.HardwareProvider       { return p.MockHardware }
+func (p *Platform) Filesystem() platform.FilesystemProvider   { return p.MockFilesystem }
+func (p *Platform) Network() platform.NetworkProvider         { return p.MockNetwork }
 func (p *Platform) Environment() platform.EnvironmentProvider { return p.MockEnvironment }
 
 type EnvironmentProvider struct {

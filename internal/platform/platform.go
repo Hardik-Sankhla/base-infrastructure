@@ -40,11 +40,11 @@ type EnvironmentProvider interface {
 
 // Other providers for the future
 type (
-	SoftwareProvider    interface{}
-	ProcessProvider     interface{}
-	SecurityProvider    interface{}
-	UserProvider        interface{}
-	ServiceProvider     interface{}
+	SoftwareProvider interface{}
+	ProcessProvider  interface{}
+	SecurityProvider interface{}
+	UserProvider     interface{}
+	ServiceProvider  interface{}
 )
 
 // Platform provides a cross-platform abstraction for discovery and execution.
