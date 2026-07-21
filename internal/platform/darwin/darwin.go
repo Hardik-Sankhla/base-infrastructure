@@ -19,10 +19,10 @@ func NewPlatform() *Platform {
 	}
 }
 
-func (p *Platform) ID() string                        { return "darwin" }
-func (p *Platform) Name() string                      { return "macOS" }
-func (p *Platform) OS() platform.OSProvider           { return p.osProvider }
-func (p *Platform) Network() platform.NetworkProvider { return NewNetworkProvider() }
+func (p *Platform) ID() string                                { return "darwin" }
+func (p *Platform) Name() string                              { return "macOS" }
+func (p *Platform) OS() platform.OSProvider                   { return p.osProvider }
+func (p *Platform) Network() platform.NetworkProvider         { return NewNetworkProvider() }
 func (p *Platform) Environment() platform.EnvironmentProvider { return NewEnvironmentProvider() }
 
 type OSProviderStub struct{}

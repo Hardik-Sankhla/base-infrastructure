@@ -6,13 +6,13 @@ type EnvironmentInfo struct {
 	ContainerRuntime string `json:"container_runtime,omitempty"` // docker, podman, containerd, lxc
 
 	IsVirtualMachine bool   `json:"is_virtual_machine"`
-	Virtualization   string `json:"virtualization,omitempty"`    // wsl, kvm, vmware, hyperv, virtualbox
+	Virtualization   string `json:"virtualization,omitempty"` // wsl, kvm, vmware, hyperv, virtualbox
 
 	IsCloud       bool   `json:"is_cloud"`
-	CloudProvider string `json:"cloud_provider,omitempty"`    // aws, gcp, azure, digitalocean
+	CloudProvider string `json:"cloud_provider,omitempty"` // aws, gcp, azure, digitalocean
 
 	IsCI       bool   `json:"is_ci"`
-	CIProvider string `json:"ci_provider,omitempty"`       // github, gitlab, jenkins, circleci, travis
+	CIProvider string `json:"ci_provider,omitempty"` // github, gitlab, jenkins, circleci, travis
 
 	IsRoot     bool `json:"is_root"`
 	IsTerminal bool `json:"is_terminal"`
