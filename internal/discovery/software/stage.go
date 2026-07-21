@@ -43,7 +43,8 @@ func (s *Stage) Run(ctx context.Context, dctx *discovery.Context) (interface{}, 
 		return nil, fmt.Errorf("failed to get software info: %w", err)
 	}
 
-	dctx.Logger().Debug("completed software discovery",
+	dctx.Logger().Debug(
+		"completed software discovery",
 		"packages_count", len(info.Packages),
 		"runtimes_count", len(info.Runtimes),
 	)
