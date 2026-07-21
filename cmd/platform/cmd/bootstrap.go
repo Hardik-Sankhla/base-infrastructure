@@ -44,7 +44,7 @@ var bootstrapCmd = &cobra.Command{
 
 		// Output result
 		result := map[string]interface{}{
-			"manifest": manifest,
+			"manifest":     manifest,
 			"capabilities": caps,
 		}
 		output, _ := json.MarshalIndent(result, "", "  ")
