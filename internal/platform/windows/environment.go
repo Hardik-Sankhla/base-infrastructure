@@ -25,7 +25,7 @@ func (p *EnvironmentProvider) GetEnvironmentInfo(ctx context.Context) (models.En
 
 	// Root/Admin check (approximate without syscalls)
 	if currentUser, err := user.Current(); err == nil {
-		// A common hack in Go on windows is checking if we have access to open the PhysicalDrive0, 
+		// A common hack in Go on windows is checking if we have access to open the PhysicalDrive0,
 		// but checking a basic heuristic is often enough for simple contexts.
 		// We'll leave IsRoot=false by default unless we implement a dedicated syscall.
 		_ = currentUser
