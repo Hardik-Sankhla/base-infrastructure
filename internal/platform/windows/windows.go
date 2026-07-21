@@ -45,3 +45,7 @@ func (p *Platform) Filesystem() platform.FilesystemProvider {
 func (p *Platform) Network() platform.NetworkProvider {
 	return NewNetworkProvider()
 }
+
+func (p *Platform) Environment() platform.EnvironmentProvider {
+	return NewEnvironmentProvider()
+}

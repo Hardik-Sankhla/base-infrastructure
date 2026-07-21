@@ -2,6 +2,7 @@ package builtin
 
 import (
 	"github.com/base-infrastructure/platform/internal/discovery"
+	"github.com/base-infrastructure/platform/internal/discovery/environment"
 	"github.com/base-infrastructure/platform/internal/discovery/filesystem"
 	"github.com/base-infrastructure/platform/internal/discovery/hardware"
 	"github.com/base-infrastructure/platform/internal/discovery/network"
@@ -14,6 +15,7 @@ func DefaultStages() []discovery.Stage {
 		hardware.NewStage(),
 		os.NewStage(),
 		network.NewStage(),
+		environment.NewStage(),
 		filesystem.NewStage(),
 	}
 }
@@ -32,6 +34,11 @@ func RegisterCoreStages(reg *discovery.Registry) error {
 
 	// Register Network Stage (PR #5)
 	if err := reg.Register(network.NewStage()); err != nil {
+		return err
+	}
+
+	// Register Environment Stage (PR #6)
+	if err := reg.Register(environment.NewStage()); err != nil {
 		return err
 	}
 

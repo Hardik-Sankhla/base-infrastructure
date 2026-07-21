@@ -24,11 +24,7 @@ func (o OSInfo) ArtifactType() string {
 	return "OS"
 }
 
-// Environment represents the execution context
-type Environment struct {
-	Virtualization   string `json:"virtualization"`    // wsl, docker, kvm, none
-	ContainerRuntime string `json:"container_runtime"` // docker, podman, containerd
-}
+
 
 // StageExecutionResult summarizes the outcome of a single discovery stage.
 type StageExecutionResult struct {

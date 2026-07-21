@@ -25,6 +25,10 @@ func (p *Platform) Network() platform.NetworkProvider {
 	return NewNetworkProvider()
 }
 
+func (p *Platform) Environment() platform.EnvironmentProvider {
+	return NewEnvironmentProvider()
+}
+
 type OSProviderStub struct{}
 
 func (s *OSProviderStub) GetOSInfo(ctx context.Context) (models.OSInfo, error) {

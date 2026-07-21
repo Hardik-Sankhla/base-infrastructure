@@ -33,9 +33,13 @@ type NetworkProvider interface {
 	GetProxy(ctx context.Context) (models.ProxyConfig, error)
 }
 
+// EnvironmentProvider abstracts the retrieval of execution environment context.
+type EnvironmentProvider interface {
+	GetEnvironmentInfo(ctx context.Context) (models.EnvironmentInfo, error)
+}
+
 // Other providers for the future
 type (
-	EnvironmentProvider interface{}
 	SoftwareProvider    interface{}
 	ProcessProvider     interface{}
 	SecurityProvider    interface{}

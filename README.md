@@ -16,6 +16,10 @@ It is designed to replace monolithic setup scripts by treating environments as v
 ## Architecture
 See [docs/README.md](docs/README.md) for architectural guides, ADRs, and SDK details.
 
+## Usage
+
+For detailed instructions on how to build the CLI and run the discovery pipeline, please refer to the [Usage Guide](docs/usage_guide.md).
+
 ## Installation
 *(Coming soon)*
 
