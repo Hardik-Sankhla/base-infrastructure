@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"log/slog"
 
-	"github.com/base-infrastructure/platform/internal/config"
 	"github.com/base-infrastructure/platform/internal/capabilities"
+	"github.com/base-infrastructure/platform/internal/config"
 	"github.com/base-infrastructure/platform/internal/discovery"
 	"github.com/base-infrastructure/platform/internal/discovery/builtin"
 	"github.com/base-infrastructure/platform/internal/runtime/context"
@@ -37,7 +37,7 @@ var bootstrapCmd = &cobra.Command{
 			slog.Error("Discovery pipeline failed", "error", err)
 			return
 		}
-		
+
 		// Build Capabilities
 		builder := capabilities.NewBuilder(manifest)
 		caps := builder.Build()
