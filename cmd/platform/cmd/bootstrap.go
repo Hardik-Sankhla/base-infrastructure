@@ -1,16 +1,14 @@
 package cmd
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"log/slog"
 
+	"github.com/base-infrastructure/platform/internal/config"
 	"github.com/base-infrastructure/platform/internal/discovery"
 	"github.com/base-infrastructure/platform/internal/discovery/builtin"
-	"github.com/base-infrastructure/platform/internal/logger"
-	"github.com/base-infrastructure/platform/internal/platform/detector"
-	"github.com/base-infrastructure/platform/internal/runtime/events"
+	"github.com/base-infrastructure/platform/internal/runtime/context"
 	"github.com/spf13/cobra"
 )
 
@@ -27,22 +25,13 @@ var bootstrapCmd = &cobra.Command{
 			return
 		}
 
-		engine := discovery.NewEngine(registry)
+		engine := discovery.NewDiscoveryEngine(registry, discovery.PipelineConfig{})
 
 		// Setup Context
-		bus := events.NewEventBus()
-		detector := detector.New()
-
-		plat, err := detector.Detect()
-		if err != nil {
-			slog.Error("Failed to detect platform", "error", err)
-			return
-		}
-
-		ctx := discovery.NewContext(logger.NewLogger(), bus, nil, nil, plat)
+		pctx := context.NewPlatformContext(&config.Cfg, nil)
 
 		// Run Discovery
-		manifest, err := engine.Run(context.Background(), ctx)
+		manifest, err := engine.Run(pctx)
 		if err != nil {
 			slog.Error("Discovery pipeline failed", "error", err)
 			return
