@@ -1,3 +1,10 @@
-﻿name: python
-version: 1.0.0
+schema_version: "1.0"
+name: python
+version: "1.0.0"
+description: "Installs Python 3.x and pip"
+compatibility:
+  os: [linux, windows, darwin]
+  arch: [amd64, arm64]
 dependencies: []
+provides:
+  - "runtime.python"

@@ -2,7 +2,9 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 
+	"github.com/base-infrastructure/platform/internal/runtime/plugin"
 	"github.com/spf13/cobra"
 )
 
@@ -26,8 +28,25 @@ var validateCmd = &cobra.Command{
 	Short: "Validate a plugin manifest",
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("Validating manifest at: %s\n", args[0])
-		// Implementation for manifest validation
+		path := args[0]
+		fmt.Printf("Validating manifest at: %s\n", path)
+
+		m, err := plugin.LoadManifest(path)
+		if err != nil {
+			fmt.Fprintf(cmd.ErrOrStderr(), "Error: manifest validation failed: %v\n", err)
+			os.Exit(1)
+		}
+
+		fmt.Printf("✓ Manifest valid\n")
+		fmt.Printf("  Name:           %s\n", m.Name)
+		fmt.Printf("  Version:        %s\n", m.Version)
+		fmt.Printf("  Schema:         %s\n", m.SchemaVersion)
+		if len(m.Provides) > 0 {
+			fmt.Printf("  Provides:       %v\n", m.Provides)
+		}
+		if len(m.Dependencies) > 0 {
+			fmt.Printf("  Dependencies:   %d\n", len(m.Dependencies))
+		}
 	},
 }
 

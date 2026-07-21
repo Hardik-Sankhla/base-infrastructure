@@ -181,10 +181,12 @@ export default defineConfig({
             { text: 'Package Index', link: '/ai/PACKAGE_INDEX' },
             { text: 'Architecture Index', link: '/ai/ARCHITECTURE_INDEX' },
             { text: 'Engineering Rules', link: '/ai/ENGINEERING_RULES' },
+            { text: 'Coding Rules', link: '/ai/CODING_RULES' },
             { text: 'Testing Rules', link: '/ai/TESTING_RULES' },
             { text: 'CI Rules', link: '/ai/CI_RULES' },
             { text: 'Plugin Guide', link: '/ai/PLUGIN_GUIDE' },
             { text: 'Agent Guide', link: '/ai/AGENT_GUIDE' },
+            { text: 'Roadmap Context', link: '/ai/ROADMAP_CONTEXT' },
             { text: 'Decision Log', link: '/ai/DECISION_LOG' },
             { text: 'Known Issues', link: '/ai/KNOWN_ISSUES' },
           ]

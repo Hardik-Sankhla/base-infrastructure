@@ -1,3 +1,10 @@
-﻿name: pocketbase
-version: 1.0.0
+schema_version: "1.0"
+name: pocketbase
+version: "1.0.0"
+description: "Downloads and provisions the PocketBase executable as a background service"
+compatibility:
+  os: [linux, windows, darwin]
+  arch: [amd64, arm64]
 dependencies: []
+provides:
+  - "service.pocketbase"

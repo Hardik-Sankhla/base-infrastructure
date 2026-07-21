@@ -59,20 +59,24 @@ For all engineering rules, see [`ENGINEERING_RULES.md`](./ENGINEERING_RULES.md).
 
 ---
 
-## Key Files for Every Agent
+## Key AI Context Files
 
-| Purpose | File |
+| File | Purpose |
 |---|---|
-| CLI entrypoint | `cmd/platform/cmd/bootstrap.go` |
-| Discovery orchestrator | `internal/discovery/engine.go` |
-| Pipeline executor | `internal/discovery/pipeline.go` |
-| Cycle/dep validator | `internal/discovery/validator.go` |
-| Platform interface | `internal/platform/platform.go` |
-| All engine contracts | `internal/domain/contracts/engines.go` |
-| All domain models | `internal/domain/models/` |
-| Unified runtime context | `internal/runtime/context/context.go` |
-| Capability translation | `internal/capabilities/builder.go` |
-| Registered stages | `internal/discovery/builtin/stages.go` |
+| `AI_CONTEXT.md` | This file — master entry point |
+| `CURRENT_STATUS.md` | What works right now + what doesn't |
+| `REPOSITORY_STATE.md` | Source-verified implementation status |
+| `PACKAGE_INDEX.md` | Every package, file, dependency |
+| `ARCHITECTURE_INDEX.md` | Interface → implementation → test with line numbers |
+| `ENGINEERING_RULES.md` | 10 non-negotiable invariants |
+| `CODING_RULES.md` | Formatting, error handling, naming, imports |
+| `TESTING_RULES.md` | Coverage gaps, mock requirements, race detector |
+| `CI_RULES.md` | All 13 CI steps documented |
+| `PLUGIN_GUIDE.md` | Manifest schema + plugin development |
+| `AGENT_GUIDE.md` | Certification pipeline for AI agents |
+| `ROADMAP_CONTEXT.md` | Machine-readable roadmap with source evidence |
+| `DECISION_LOG.md` | 7 architectural decisions with context |
+| `KNOWN_ISSUES.md` | Verified bugs registry |
 
 ---
 

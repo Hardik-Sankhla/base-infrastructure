@@ -1,3 +1,11 @@
-﻿name: docker
-version: 1.0.0
+schema_version: "1.0"
+name: docker
+version: "1.0.0"
+description: "Installs Docker Engine and configures daemon permissions"
+compatibility:
+  os: [linux, windows, darwin]
+  arch: [amd64, arm64]
 dependencies: []
+provides:
+  - "runtime.docker"
+  - "container.runtime"

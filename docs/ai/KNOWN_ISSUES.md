@@ -9,7 +9,7 @@
 ## KI-001: Plugin Manifest Schema Mismatch
 
 **Severity**: High — causes CLI validation failures on all bundled plugins  
-**Status**: Open  
+**Status**: ✅ RESOLVED 2026-07-21 — added `schema_version: "1.0"` to all 4 bundled manifests  
 **Discovered**: 2026-07-21 via source audit
 
 ### Evidence
@@ -44,7 +44,7 @@ Either:
 ## KI-002: `platform sdk validate` Is a Stub
 
 **Severity**: Medium — misleading documentation  
-**Status**: Open  
+**Status**: ✅ RESOLVED 2026-07-21 — `sdk validate` now calls `plugin.LoadManifest()` and prints structured output  
 **Discovered**: 2026-07-21 via source audit
 
 ### Evidence
