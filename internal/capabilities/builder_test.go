@@ -8,21 +8,23 @@ import (
 
 func TestBuilder_Build(t *testing.T) {
 	manifest := &models.DiscoveryManifest{
-		Network: &models.NetworkInfo{
-			Interfaces: []models.NetworkInterface{
-				{
-					Name: "eth0",
-					IsUp: true,
-					IPv4: []string{"192.168.1.10"},
+		Artifacts: map[string]any{
+			"network": models.NetworkInfo{
+				Interfaces: []models.NetworkInterface{
+					{
+						Name: "eth0",
+						IsUp: true,
+						IPv4: []string{"192.168.1.10"},
+					},
 				},
 			},
-		},
-		Software: &models.SoftwareInfo{
-			Runtimes: []models.RuntimeEnvironment{
-				{
-					Name:    "docker",
-					Version: "24.0.5",
-					Path:    "/usr/bin/docker",
+			"software": models.SoftwareInfo{
+				Runtimes: []models.RuntimeEnvironment{
+					{
+						Name:    "docker",
+						Version: "24.0.5",
+						Path:    "/usr/bin/docker",
+					},
 				},
 			},
 		},
