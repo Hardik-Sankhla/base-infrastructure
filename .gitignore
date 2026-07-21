@@ -8,3 +8,9 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Node / VitePress
+node_modules/
+website/.vitepress/dist/
+website/.vitepress/cache/
+package-lock.json
