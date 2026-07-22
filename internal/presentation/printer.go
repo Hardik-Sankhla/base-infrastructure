@@ -21,7 +21,7 @@ type PrintOptions struct {
 // Result binds the DiscoveryManifest and Capabilities together
 type Result struct {
 	Manifest     *models.DiscoveryManifest `json:"manifest"`
-	Capabilities []capabilities.Capability `json:"capabilities"`
+	Capabilities []models.Capability       `json:"capabilities"`
 }
 
 // Print formats and optionally saves the discovery results based on options
