@@ -14,16 +14,16 @@ import (
 )
 
 var (
-	formatOpt   string
-	outputOpt   string
-	isJSON      bool
-	isYAML      bool
-	hwOnly      bool
-	netOnly     bool
-	fsOnly      bool
-	osOnly      bool
-	swOnly      bool
-	verbosity   int
+	formatOpt string
+	outputOpt string
+	isJSON    bool
+	isYAML    bool
+	hwOnly    bool
+	netOnly   bool
+	fsOnly    bool
+	osOnly    bool
+	swOnly    bool
+	verbosity int
 )
 
 var discoverCmd = &cobra.Command{
