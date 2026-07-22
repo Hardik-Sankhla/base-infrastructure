@@ -131,7 +131,7 @@ var discoverCmd = &cobra.Command{
 		}
 
 		if format == "summary" {
-			fmt.Printf("\nStatus: SUCCESS\nExit Code: 0\n")
+			fmt.Printf("\nDiscovery completed successfully.\n")
 		}
 		os.Exit(0)
 	},

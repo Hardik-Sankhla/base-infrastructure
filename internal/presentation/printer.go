@@ -63,7 +63,11 @@ func Print(res Result, opts PrintOptions) error {
 		if err := os.WriteFile(opts.Output, []byte(fileOutput), 0o644); err != nil {
 			return fmt.Errorf("failed to write output file: %w", err)
 		}
-		fmt.Printf("\nFull report saved to: %s\n", opts.Output)
+		if opts.Format == "summary" {
+			fmt.Printf("\nGenerated %s\n", opts.Output)
+		} else {
+			fmt.Printf("\nFull report saved to: %s\n", opts.Output)
+		}
 	}
 
 	return nil
