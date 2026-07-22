@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/base-infrastructure/platform/internal/capabilities"
 	"github.com/base-infrastructure/platform/internal/domain/models"
 	"gopkg.in/yaml.v3"
 )
