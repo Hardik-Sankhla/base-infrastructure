@@ -14,6 +14,7 @@ type DefaultDiscoveryEngine struct {
 	registry *Registry
 	config   PipelineConfig
 	logger   *slog.Logger
+	hooks    []Hook
 }
 
 // NewDiscoveryEngine creates a DefaultDiscoveryEngine.
@@ -22,7 +23,13 @@ func NewDiscoveryEngine(registry *Registry, cfg PipelineConfig) *DefaultDiscover
 		registry: registry,
 		config:   cfg,
 		logger:   slog.Default(),
+		hooks:    make([]Hook, 0),
 	}
+}
+
+// AddHook adds a pipeline hook.
+func (e *DefaultDiscoveryEngine) AddHook(h Hook) {
+	e.hooks = append(e.hooks, h)
 }
 
 // Run implements contracts.DiscoveryEngine.
@@ -43,6 +50,9 @@ func (e *DefaultDiscoveryEngine) Run(pctx *context.PlatformContext) (*models.Dis
 	dctx := NewContext(logger, bus, pctx.Config, pctx.DB, plat)
 
 	pipeline := NewPipeline(e.config, logger, bus)
+	for _, h := range e.hooks {
+		pipeline.AddHook(h)
+	}
 	stages := e.registry.All()
 	if addErr := pipeline.AddStages(stages); addErr != nil {
 		return nil, addErr

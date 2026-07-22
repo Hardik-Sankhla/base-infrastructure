@@ -1,13 +1,16 @@
 package cmd
 
 import (
+	"fmt"
 	"log/slog"
+	"os"
 	"time"
 
 	"github.com/base-infrastructure/platform/internal/capabilities"
 	"github.com/base-infrastructure/platform/internal/config"
 	"github.com/base-infrastructure/platform/internal/discovery"
 	"github.com/base-infrastructure/platform/internal/discovery/builtin"
+	"github.com/base-infrastructure/platform/internal/logger"
 	"github.com/base-infrastructure/platform/internal/presentation"
 	"github.com/base-infrastructure/platform/internal/runtime/context"
 	"github.com/spf13/cobra"
@@ -31,16 +34,42 @@ var discoverCmd = &cobra.Command{
 	Aliases: []string{"bootstrap"}, // keep bootstrap as an alias for backwards compatibility
 	Short:   "Discover host environment capabilities",
 	Run: func(cmd *cobra.Command, args []string) {
+		// Determine Format
+		format := "summary"
+		if isJSON || formatOpt == "json" {
+			format = "json"
+		} else if isYAML || formatOpt == "yaml" {
+			format = "yaml"
+		}
+
+		// Adjust Logging based on verbosity and format
+		if verbosity == 0 && format == "summary" {
+			// Suppress raw JSON logs for a clean CLI experience
+			logger.Init("error", "text")
+		} else if verbosity > 0 {
+			// Elevate logging
+			if verbosity >= 2 {
+				logger.Init("debug", "json")
+			} else {
+				logger.Init("info", "json")
+			}
+		}
+
 		slog.Debug("Starting platform discovery...")
 
 		// Initialize Discovery Engine
 		registry := discovery.NewRegistry()
 		if err := builtin.RegisterCoreStages(registry); err != nil {
 			slog.Error("Failed to register core discovery stages", "error", err)
-			return
+			os.Exit(1)
 		}
 
 		engine := discovery.NewDiscoveryEngine(registry, discovery.PipelineConfig{})
+
+		// Attach ProgressHook for clean CLI UX
+		if verbosity == 0 && format == "summary" {
+			engine.AddHook(NewProgressHook())
+		}
 
 		// Setup Context
 		pctx := context.NewPlatformContext(&config.Cfg, nil)
@@ -49,7 +78,7 @@ var discoverCmd = &cobra.Command{
 		manifest, err := engine.Run(pctx)
 		if err != nil {
 			slog.Error("Discovery pipeline failed", "error", err)
-			return
+			os.Exit(1)
 		}
 
 		// Build Capabilities
@@ -106,7 +135,13 @@ var discoverCmd = &cobra.Command{
 
 		if err := presentation.Print(res, opts); err != nil {
 			slog.Error("Failed to format output", "error", err)
+			os.Exit(1)
 		}
+
+		if format == "summary" {
+			fmt.Printf("\nStatus: SUCCESS\nExit Code: 0\n")
+		}
+		os.Exit(0)
 	},
 }
 
