@@ -61,7 +61,7 @@ func Print(res Result, opts PrintOptions) error {
 			fileOutput, _ = formatJSON(filteredRes) // Always save structured data
 		}
 
-		if err := os.WriteFile(opts.Output, []byte(fileOutput), 0644); err != nil {
+		if err := os.WriteFile(opts.Output, []byte(fileOutput), 0o644); err != nil {
 			return fmt.Errorf("failed to write output file: %w", err)
 		}
 		fmt.Printf("\nFull report saved to: %s\n", opts.Output)
