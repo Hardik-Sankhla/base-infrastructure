@@ -37,18 +37,18 @@ func (h *ProgressHook) BeforeStage(ctx context.Context, dctx discovery.Context, 
 func (h *ProgressHook) AfterStage(ctx context.Context, dctx discovery.Context, stage discovery.Stage, artifact discovery.DiscoveryArtifact) error {
 	start := h.startTimes[stage.Name()]
 	elapsed := time.Since(start)
-	
+
 	durStr := fmt.Sprintf("%dms", elapsed.Milliseconds())
 	if elapsed >= time.Second {
 		durStr = fmt.Sprintf("%.2fs", elapsed.Seconds())
 	}
-	
+
 	// Capitalize stage name for display
 	name := stage.Name()
 	if len(name) > 0 {
 		name = string(name[0]-32) + name[1:] // simple ASCII title case since names are like 'hardware'
 	}
-	
+
 	fmt.Printf("  ✓ %s (%s)\n", name, durStr)
 	return nil
 }
