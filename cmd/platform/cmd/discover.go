@@ -99,7 +99,7 @@ var discoverCmd = &cobra.Command{
 		// Auto-save behavior if format is summary and no output provided
 		if opts.Format == "summary" && opts.Output == "" {
 			// Auto save to a reports dir if possible or current dir
-			// A production system might save to `~/.base-infrastructure/reports/` 
+			// A production system might save to `~/.base-infrastructure/reports/`
 			// We'll just save it to reports/ if we can, or current dir.
 			opts.Output = "discovery-" + time.Now().Format("2006-01-02T15-04-05") + ".json"
 		}
@@ -115,13 +115,13 @@ func init() {
 	discoverCmd.Flags().BoolVar(&isJSON, "json", false, "Alias for --format=json")
 	discoverCmd.Flags().BoolVar(&isYAML, "yaml", false, "Alias for --format=yaml")
 	discoverCmd.Flags().StringVarP(&outputOpt, "output", "o", "", "Save full report to file")
-	
+
 	discoverCmd.Flags().BoolVar(&hwOnly, "hardware", false, "Show only hardware capabilities")
 	discoverCmd.Flags().BoolVar(&netOnly, "network", false, "Show only network capabilities")
 	discoverCmd.Flags().BoolVar(&fsOnly, "filesystem", false, "Show only filesystem capabilities")
 	discoverCmd.Flags().BoolVar(&osOnly, "os", false, "Show only OS capabilities")
 	discoverCmd.Flags().BoolVar(&swOnly, "software", false, "Show only software capabilities")
-	
+
 	discoverCmd.Flags().CountVarP(&verbosity, "verbose", "v", "Verbosity level")
 
 	rootCmd.AddCommand(discoverCmd)

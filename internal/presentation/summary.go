@@ -22,12 +22,12 @@ func formatSummary(res Result, verbosity int) string {
 	// OS Info
 	if osArt, ok := m.Artifacts["OS"]; ok {
 		// Convert map[string]interface{} to string safely or marshal/unmarshal
-		// Since it's passed through JSON, it's typically a map[string]interface{} 
-		// if we aren't careful with types. Assuming we can access the underlying type 
+		// Since it's passed through JSON, it's typically a map[string]interface{}
+		// if we aren't careful with types. Assuming we can access the underlying type
 		// if we use reflection, or we can just marshal it to bytes and back to OSInfo.
 		// Wait, the Artifact map contains `any`. Let's just handle it via fmt.Sprintf or typed assertion.
 		sb.WriteString("Operating System\n")
-		
+
 		// Helper to safely extract fields from map[string]any or typed structs
 		if osInfo, isTyped := osArt.(*models.OSInfo); isTyped {
 			sb.WriteString(fmt.Sprintf("  %s %s\n", osInfo.Distribution, osInfo.DistributionVersion))

@@ -12,10 +12,10 @@ import (
 
 // PrintOptions holds configurations for the presentation layer
 type PrintOptions struct {
-	Format    string // "summary", "json", "yaml"
-	Verbosity int    // 0 = standard, 1 = detailed, 2 = all
+	Format    string   // "summary", "json", "yaml"
+	Verbosity int      // 0 = standard, 1 = detailed, 2 = all
 	Filters   []string // e.g. ["hardware", "network"]
-	Output    string // file path
+	Output    string   // file path
 }
 
 // Result binds the DiscoveryManifest and Capabilities together
@@ -28,7 +28,7 @@ type Result struct {
 func Print(res Result, opts PrintOptions) error {
 	// 1. Filter the manifest if filters are provided
 	filteredManifest := filterManifest(res.Manifest, opts.Filters)
-	
+
 	filteredRes := Result{
 		Manifest:     filteredManifest,
 		Capabilities: res.Capabilities,
@@ -60,7 +60,7 @@ func Print(res Result, opts PrintOptions) error {
 		if opts.Format == "summary" {
 			fileOutput, _ = formatJSON(filteredRes) // Always save structured data
 		}
-		
+
 		if err := os.WriteFile(opts.Output, []byte(fileOutput), 0644); err != nil {
 			return fmt.Errorf("failed to write output file: %w", err)
 		}
