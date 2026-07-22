@@ -1,10 +1,14 @@
-# Next Task
+# Current Objective
 
-## Priority
-Initiate the Planner implementation.
+Initialize Planner implementation.
 
-## Goals
-- Read architecture.
-- Follow repository guardrails.
-- Ensure panic recovery is addressed.
-- Implement Planner foundation.
+## Checklist
+
+- [ ] Architecture reviewed against `.ai/PROJECT_IDENTITY.md`.
+- [ ] Build passes locally.
+- [ ] Tests pass locally.
+- [ ] Lint passes locally.
+- [ ] Documentation builds.
+- [ ] CI Pipeline passes.
+
+Stop only when every item is complete.
