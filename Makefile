@@ -1,4 +1,4 @@
-.PHONY: all test race lint build clean fmt verify
+.PHONY: all test race lint build doctor clean fmt verify
 
 all: verify build
 
@@ -17,6 +17,9 @@ race:
 
 build:
 	go build -o bin/platform ./cmd/platform/main.go
+
+doctor: build
+	./bin/platform doctor
 
 verify:
 	go fmt ./...

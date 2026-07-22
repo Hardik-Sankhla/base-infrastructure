@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/base-infrastructure/platform/internal/discovery"
 	"github.com/base-infrastructure/platform/internal/domain/models"
 	"gopkg.in/yaml.v3"
 )
@@ -87,4 +88,28 @@ func formatYAML(res Result) (string, error) {
 		return "", err
 	}
 	return string(bytes), nil
+}
+
+func PrintHealth(h discovery.RepositoryHealth) {
+	passFail := func(ok bool) string {
+		if ok {
+			return "PASS"
+		}
+		return "FAIL"
+	}
+
+	fmt.Println("\nRepository Doctor")
+	fmt.Println("────────────────────────────────────────")
+	fmt.Printf("%-24s %s\n", "Repository Brain", passFail(h.RepositoryBrain))
+	fmt.Printf("%-24s %s\n", "Architecture", passFail(h.Architecture))
+	fmt.Printf("%-24s %s\n", "Documentation", passFail(h.Documentation))
+	fmt.Printf("%-24s %s\n", "GitHub Actions", h.CIStatus)
+	fmt.Printf("%-24s %s\n", "Coverage", h.Coverage)
+	fmt.Printf("%-24s %d items\n", "Tech Debt", h.TechDebtCount)
+	
+	releaseStr := "YES"
+	if !h.ReleaseReady {
+		releaseStr = "NO"
+	}
+	fmt.Printf("%-24s %s\n\n", "Release Ready", releaseStr)
 }
