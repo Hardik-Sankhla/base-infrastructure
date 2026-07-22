@@ -91,8 +91,6 @@ var discoverCmd = &cobra.Command{
 			Capabilities: caps,
 		}
 
-
-
 		// Determine Filters
 		var filters []string
 		if hwOnly {
