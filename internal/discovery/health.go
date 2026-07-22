@@ -73,7 +73,7 @@ func AnalyzeHealth(ctx context.Context, repoRoot string) (RepositoryHealth, erro
 	// Ignore errors since tests might just have no test files in some packages, or maybe test fails
 	_ = cmd.Run()
 
-	coverage := "0.0%"
+	var coverage string
 	lines := strings.Split(out.String(), "\n")
 	var totalCov float64
 	var pkgCount int
