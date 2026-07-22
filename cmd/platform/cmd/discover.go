@@ -91,13 +91,7 @@ var discoverCmd = &cobra.Command{
 			Capabilities: caps,
 		}
 
-		// Determine Format
-		format := "summary"
-		if isJSON || formatOpt == "json" {
-			format = "json"
-		} else if isYAML || formatOpt == "yaml" {
-			format = "yaml"
-		}
+
 
 		// Determine Filters
 		var filters []string
