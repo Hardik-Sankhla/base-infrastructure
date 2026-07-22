@@ -18,7 +18,13 @@ race:
 build:
 	go build -o bin/platform ./cmd/platform/main.go
 
-verify: fmt lint test
+verify:
+	go fmt ./...
+	gofumpt -extra -w .
+	golangci-lint run ./...
+	go test -race ./...
+	go test ./...
+	npm run docs:build
 
 clean:
 	rm -rf bin/

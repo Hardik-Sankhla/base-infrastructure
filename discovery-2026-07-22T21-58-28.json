@@ -1,0 +1,91 @@
+{
+  "manifest": {
+    "id": "run-windows",
+    "start_time": "2026-07-22T16:28:28.7673543Z",
+    "end_time": "2026-07-22T16:28:28.9835921Z",
+    "duration": 216237800,
+    "platform": "windows",
+    "stages": [
+      {
+        "name": "hardware",
+        "status": "Success",
+        "duration": 109950900
+      },
+      {
+        "name": "os",
+        "status": "Success",
+        "duration": 1089500
+      },
+      {
+        "name": "filesystem",
+        "status": "Success",
+        "duration": 3841600
+      },
+      {
+        "name": "network",
+        "status": "Success",
+        "duration": 84661600
+      },
+      {
+        "name": "environment",
+        "status": "Success",
+        "duration": 16263100
+      },
+      {
+        "name": "software",
+        "status": "Success",
+        "duration": 0
+      }
+    ],
+    "artifacts": {
+      "hardware": {
+        "cpu": {
+          "vendor": "GenuineIntel",
+          "model": "Intel(R) Core(TM) i7-8650U CPU @ 1.90GHz",
+          "architecture": "amd64",
+          "physical_cores": 8,
+          "logical_cores": 8,
+          "threads": 8
+        },
+        "ram": {
+          "total_bytes": 17052004352,
+          "available_bytes": 4572573696,
+          "used_bytes": 12479430656,
+          "swap_total": 29400035328,
+          "swap_used": 17601785856
+        },
+        "storage": [
+          {
+            "name": "C:",
+            "type": "unknown",
+            "capacity": 320982454272,
+            "free_space": 44811358208,
+            "filesystem": "NTFS",
+            "mount_point": "C:"
+          },
+          {
+            "name": "D:",
+            "type": "unknown",
+            "capacity": 189047762944,
+            "free_space": 123793055744,
+            "filesystem": "NTFS",
+            "mount_point": "D:"
+          }
+        ],
+        "battery": {
+          "present": false
+        }
+      }
+    }
+  },
+  "capabilities": [
+    {
+      "id": "network.connectivity",
+      "provider": "system",
+      "version": "",
+      "state": "available",
+      "confidence": 100,
+      "metadata": null
+    }
+  ]
+}

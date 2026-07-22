@@ -68,6 +68,21 @@ jobs:
     - name: Cross-Platform Build (Linux)
       run: GOOS=linux GOARCH=amd64 go build -v -o bin/platform-linux-amd64 ./cmd/platform/main.go
 
+    - name: Runtime Verification (Linux)
+      run: |
+        chmod +x bin/platform-linux-amd64
+        echo "=== Summary Output ==="
+        ./bin/platform-linux-amd64 discover --summary
+        echo "=== JSON Output ==="
+        ./bin/platform-linux-amd64 discover --json | jq .
+        echo "=== YAML Output ==="
+        ./bin/platform-linux-amd64 discover --yaml
+        echo "=== Hardware Filter Output ==="
+        ./bin/platform-linux-amd64 discover --hardware --json | jq .
+        echo "=== Output to File ==="
+        ./bin/platform-linux-amd64 discover --output ci-report.json
+        cat ci-report.json
+
     - name: Cross-Platform Build (Windows)
       run: GOOS=windows GOARCH=amd64 go build -v -o bin/platform-windows-amd64.exe ./cmd/platform/main.go
 
