@@ -7,15 +7,17 @@ The `platform` CLI is the primary entrypoint for interacting with the Base Infra
 
 ## Commands
 
-### `bootstrap`
-Executes the environment discovery pipeline and constructs platform capabilities.
+### `discover` (alias: `bootstrap`)
+Executes the environment discovery pipeline and constructs platform capabilities. Features a robust presentation layer with filtering and multiple output formats.
 
 **Usage:**
 ```bash
-./platform bootstrap
+./platform discover
+./platform discover --json
+./platform discover --hardware --network
 ```
 **Expected Output:**
-Logs indicating the DAG execution of stages, followed by a printed list of identified capabilities.
+A formatted console summary (or structured JSON/YAML) detailing the identified capabilities and artifacts.
 
 ---
 

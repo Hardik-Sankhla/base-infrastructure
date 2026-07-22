@@ -19,72 +19,47 @@ go build -o bin/platform ./cmd/platform/main.go
 
 ## 3. Running Discovery
 
-To initialize the environment and run the full discovery pipeline, use the `bootstrap` command:
+To initialize the environment and run the full discovery pipeline, use the `discover` command (formerly `bootstrap`):
 
 ```bash
-./bin/platform bootstrap
+./bin/platform discover
 ```
 
 ### Expected Output
-The command will execute the core discovery stages and output a JSON representation of the `DiscoveryManifest`.
+The command will execute the core discovery stages and output a human-readable summary of the detected capabilities.
 
-```json
-{
-  "id": "e3b0c442...",
-  "start_time": "2026-07-20T10:00:00Z",
-  "end_time": "2026-07-20T10:00:02Z",
-  "duration": 2000000000,
-  "platform": "linux",
-  "stages": [
-    {
-      "name": "hardware",
-      "status": "success",
-      "duration": 15000000
-    },
-    {
-      "name": "os",
-      "status": "success",
-      "duration": 5000000
-    }
-  ],
-  "artifacts": {
-    "Hardware": {
-      "cpu": {
-        "vendor": "GenuineIntel",
-        "model": "Intel Core i7",
-        "physical_cores": 4,
-        "logical_cores": 8
-      },
-      "ram": {
-        "total_bytes": 17179869184,
-        "available_bytes": 8589934592
-      }
-    },
-    "OS": {
-      "operating_system": "linux",
-      "distribution": "ubuntu"
-    },
-    "Filesystem": {
-      "root_capacity": {
-        "total_bytes": 500000000000,
-        "free_bytes": 250000000000
-      }
-    },
-    "Network": {
-      "interfaces": [
-        {
-          "name": "eth0",
-          "ipv4": ["192.168.1.100"]
-        }
-      ]
-    },
-    "Environment": {
-      "is_virtual_machine": true,
-      "virtualization": "wsl",
-      "is_container": false
-    }
-  }
-}
+```text
+Platform Discovery Summary
+────────────────────────────────────────
+
+Operating System
+  ubuntu 24.04
+  Kernel 6.17.0-PRoot-Distro
+  Architecture aarch64
+
+Hardware
+  CPU: Cortex-A53 (8 logical cores)
+  Memory: 5.9 GB Total, 2.4 GB Available
+
+Storage
+  Root: 121.2 GB (102.8 GB Free)
+
+Network
+  Interfaces: 24
+  Active: wlan0 (IPv4: 192.168.1.47)
+
+Capabilities
+  ✓ runtime.os
+  ✓ runtime.hardware
+  ✓ runtime.network
+  ✓ runtime.filesystem
+
+Discovery completed successfully.
+```
+
+If you need the raw JSON or YAML output, you can use the `--json` or `--yaml` flags:
+```bash
+./bin/platform discover --json
 ```
 
 ## 4. Current Discovery Stages
