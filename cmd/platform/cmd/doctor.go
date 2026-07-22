@@ -16,7 +16,7 @@ var doctorCmd = &cobra.Command{
 	Long:  `Validates the Repository Brain, CI Status, Architecture docs, Tech Debt, and Coverage.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		repoRoot, _ := os.Getwd()
-		
+
 		health, err := discovery.AnalyzeHealth(context.Background(), repoRoot)
 		if err != nil {
 			fmt.Printf("Failed to run doctor: %v\n", err)

@@ -106,7 +106,7 @@ func PrintHealth(h discovery.RepositoryHealth) {
 	fmt.Printf("%-24s %s\n", "GitHub Actions", h.CIStatus)
 	fmt.Printf("%-24s %s\n", "Coverage", h.Coverage)
 	fmt.Printf("%-24s %d items\n", "Tech Debt", h.TechDebtCount)
-	
+
 	releaseStr := "YES"
 	if !h.ReleaseReady {
 		releaseStr = "NO"
