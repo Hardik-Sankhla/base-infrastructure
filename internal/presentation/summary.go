@@ -26,7 +26,7 @@ func formatSummary(res Result, verbosity int) string {
 		if osInfo, isTyped := osArt.(models.OSInfo); isTyped {
 			sb.WriteString(fmt.Sprintf("  %s %s\n", osInfo.Distribution, osInfo.DistributionVersion))
 			sb.WriteString("Architecture\n")
-			
+
 			arch := osInfo.KernelArchitecture
 			if arch == "x86_64" {
 				arch = "AMD64 (x86_64)"
