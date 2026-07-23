@@ -38,7 +38,7 @@ func (e *DefaultDiscoveryEngine) Run(pctx *runtime.PlatformContext) (*models.Dis
 	bus := pctx.EventBus
 
 	logger.Info("Discovery engine starting")
-	bus.Publish(events.DiscoveryStarted, nil)
+	bus.Publish(runtime.DiscoveryStarted, nil)
 
 	// Detect platform
 	plat, err := detector.NewDetector().Detect()
@@ -64,7 +64,7 @@ func (e *DefaultDiscoveryEngine) Run(pctx *runtime.PlatformContext) (*models.Dis
 		return nil, err
 	}
 
-	bus.Publish(events.DiscoveryFinished, map[string]string{
+	bus.Publish(runtime.DiscoveryFinished, map[string]string{
 		"success":  boolToString(result.Success),
 		"duration": result.Duration.String(),
 	})

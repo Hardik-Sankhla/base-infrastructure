@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log/slog"
 	"time"
+
+	"github.com/base-infrastructure/platform/internal/runtime"
 )
 
 // PipelineConfig controls pipeline execution behaviour.
@@ -25,11 +27,11 @@ type Pipeline struct {
 	hooks  []Hook
 	config PipelineConfig
 	logger *slog.Logger
-	bus    events.EventBus
+	bus    runtime.EventBus
 }
 
 // NewPipeline creates a pipeline with the given configuration.
-func NewPipeline(cfg PipelineConfig, logger *slog.Logger, bus events.EventBus) *Pipeline {
+func NewPipeline(cfg PipelineConfig, logger *slog.Logger, bus runtime.EventBus) *Pipeline {
 	return &Pipeline{
 		stages: make([]Stage, 0),
 		hooks:  make([]Hook, 0),
@@ -154,7 +156,7 @@ func (p *Pipeline) runStage(globalCtx context.Context, dctx Context, stage Stage
 	}
 	defer cancel()
 
-	p.publishEvent(events.DiscoveryStageStarted, events.StageEventPayload{
+	p.publishEvent(runtime.DiscoveryStageStarted, runtime.StageEventPayload{
 		StageName: name,
 		Status:    string(StatusRunning),
 		Timestamp: time.Now(),
@@ -199,7 +201,7 @@ func (p *Pipeline) runStage(globalCtx context.Context, dctx Context, stage Stage
 		// Success Path
 		elapsed := time.Since(start)
 		p.logger.Info("Stage completed", "stage", name, "duration", elapsed)
-		p.publishEvent(events.DiscoveryStageCompleted, events.StageEventPayload{
+		p.publishEvent(runtime.DiscoveryStageCompleted, runtime.StageEventPayload{
 			StageName: name,
 			Status:    string(StatusSuccess),
 			Timestamp: time.Now(),
@@ -225,7 +227,7 @@ func (p *Pipeline) runStage(globalCtx context.Context, dctx Context, stage Stage
 HandleError:
 	elapsed := time.Since(start)
 	p.logger.Error("Stage failed", "stage", name, "duration", elapsed, "error", err)
-	p.publishEvent(events.DiscoveryStageFailed, events.StageEventPayload{
+	p.publishEvent(runtime.DiscoveryStageFailed, runtime.StageEventPayload{
 		StageName: name,
 		Status:    string(StatusFailed),
 		Timestamp: time.Now(),
@@ -265,7 +267,7 @@ func (p *Pipeline) sortedStages() []Stage {
 	return sorted
 }
 
-func (p *Pipeline) publishEvent(eventType events.EventType, payload any) {
+func (p *Pipeline) publishEvent(eventType runtime.EventType, payload any) {
 	if p.bus != nil {
 		p.bus.Publish(eventType, payload)
 	}
