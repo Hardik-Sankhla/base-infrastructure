@@ -1,11 +1,10 @@
-package os
+package discovery
 
 import (
 	"context"
 	"log/slog"
 	"testing"
 
-	"github.com/base-infrastructure/platform/internal/discovery"
 	"github.com/base-infrastructure/platform/internal/domain/models"
 	"github.com/base-infrastructure/platform/internal/platform/mock"
 )
@@ -17,7 +16,7 @@ func TestOSStage_Success(t *testing.T) {
 		Distribution:    "test-distro",
 	}
 
-	stage := NewStage()
+	stage := &OSStage{}
 
 	if stage.Name() != "os" {
 		t.Errorf("expected name 'os', got %s", stage.Name())
@@ -26,7 +25,7 @@ func TestOSStage_Success(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), stage.Timeout())
 	defer cancel()
 
-	dctx := discovery.NewContext(slog.Default(), nil, nil, nil, mockPlat)
+	dctx := NewContext(slog.Default(), nil, nil, nil, mockPlat)
 
 	if err := stage.Initialize(dctx); err != nil {
 		t.Fatalf("Initialize failed: %v", err)
@@ -56,8 +55,8 @@ func TestOSStage_Success(t *testing.T) {
 }
 
 func TestOSStage_UninitializedPlatform(t *testing.T) {
-	stage := NewStage()
-	dctx := discovery.NewContext(slog.Default(), nil, nil, nil, nil)
+	stage := &OSStage{}
+	dctx := NewContext(slog.Default(), nil, nil, nil, nil)
 
 	err := stage.Initialize(dctx)
 	if err == nil {

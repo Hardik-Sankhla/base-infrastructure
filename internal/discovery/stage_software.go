@@ -1,53 +1,46 @@
-package software
+package discovery
 
 import (
 	"context"
 	"fmt"
 	"time"
-
-	"github.com/base-infrastructure/platform/internal/discovery"
 )
 
 // Stage discovers installed software and runtimes.
-type Stage struct{}
-
-// NewStage creates a new software discovery stage.
-func NewStage() *Stage {
-	return &Stage{}
-}
+type SoftwareStage struct{}
 
 // Name returns the name of the stage.
-func (s *Stage) Name() string {
+func (s *SoftwareStage) Name() string {
 	return "software"
 }
 
 // Version returns the version of the stage.
-func (s *Stage) Version() string {
+func (s *SoftwareStage) Version() string {
 	return "1.0.0"
 }
 
 // Description returns a description of what the stage discovers.
-func (s *Stage) Description() string {
+func (s *SoftwareStage) Description() string {
 	return "Discovers installed software and runtimes"
 }
 
 // Priority returns the priority of the stage (lower runs first).
-func (s *Stage) Priority() int {
+func (s *SoftwareStage) Priority() int {
 	return 60
 }
 
 // DependsOn returns the dependencies of the stage.
-func (s *Stage) DependsOn() []string {
+func (s *SoftwareStage) DependsOn() []string {
 	return []string{}
 }
 
 // Timeout returns the maximum duration allowed for this stage.
-func (s *Stage) Timeout() time.Duration {
+func (s *SoftwareStage) Timeout() time.Duration {
 	return 30 * time.Second
 }
 
 // Initialize prepares the stage for execution.
-func (s *Stage) Initialize(ctx discovery.Context) error {
+func (s *SoftwareStage) Initialize(ctx Context) error {
 	if ctx.Platform() == nil {
 		return fmt.Errorf("platform not found in context")
 	}
@@ -55,7 +48,7 @@ func (s *Stage) Initialize(ctx discovery.Context) error {
 }
 
 // Run executes the discovery process.
-func (s *Stage) Run(ctx context.Context, dctx discovery.Context) (discovery.DiscoveryArtifact, error) {
+func (s *SoftwareStage) Run(ctx context.Context, dctx Context) (DiscoveryArtifact, error) {
 	dctx.Logger().Debug("starting software discovery")
 
 	provider := dctx.Platform().Software()
@@ -74,7 +67,7 @@ func (s *Stage) Run(ctx context.Context, dctx discovery.Context) (discovery.Disc
 }
 
 // Validate ensures the artifact is valid.
-func (s *Stage) Validate(artifact discovery.DiscoveryArtifact) error {
+func (s *SoftwareStage) Validate(artifact DiscoveryArtifact) error {
 	if artifact == nil {
 		return fmt.Errorf("software artifact is nil")
 	}
@@ -82,6 +75,6 @@ func (s *Stage) Validate(artifact discovery.DiscoveryArtifact) error {
 }
 
 // Cleanup performs any necessary resource cleanup after the stage completes.
-func (s *Stage) Cleanup(ctx context.Context) error {
+func (s *SoftwareStage) Cleanup(ctx context.Context) error {
 	return nil
 }

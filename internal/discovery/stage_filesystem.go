@@ -1,46 +1,39 @@
-package filesystem
+package discovery
 
 import (
 	"context"
 	"fmt"
 	"time"
-
-	"github.com/base-infrastructure/platform/internal/discovery"
 )
 
 // Stage implements discovery.Stage for filesystem discovery.
-type Stage struct{}
+type FilesystemStage struct{}
 
-// NewStage creates a new Filesystem discovery stage.
-func NewStage() *Stage {
-	return &Stage{}
-}
-
-func (s *Stage) Name() string {
+func (s *FilesystemStage) Name() string {
 	return "filesystem"
 }
 
-func (s *Stage) Version() string {
+func (s *FilesystemStage) Version() string {
 	return "1.0.0"
 }
 
-func (s *Stage) Description() string {
+func (s *FilesystemStage) Description() string {
 	return "Discovers filesystem mounts, capacities, standard directories, and capabilities"
 }
 
-func (s *Stage) Priority() int {
+func (s *FilesystemStage) Priority() int {
 	return 30 // Runs after OS (20)
 }
 
-func (s *Stage) DependsOn() []string {
+func (s *FilesystemStage) DependsOn() []string {
 	return []string{"os"}
 }
 
-func (s *Stage) Timeout() time.Duration {
+func (s *FilesystemStage) Timeout() time.Duration {
 	return 10 * time.Second
 }
 
-func (s *Stage) Initialize(dctx discovery.Context) error {
+func (s *FilesystemStage) Initialize(dctx Context) error {
 	if dctx.Platform() == nil {
 		return fmt.Errorf("platform abstraction layer is not initialized in context")
 	}
@@ -50,7 +43,7 @@ func (s *Stage) Initialize(dctx discovery.Context) error {
 	return nil
 }
 
-func (s *Stage) Run(ctx context.Context, dctx discovery.Context) (discovery.DiscoveryArtifact, error) {
+func (s *FilesystemStage) Run(ctx context.Context, dctx Context) (DiscoveryArtifact, error) {
 	provider := dctx.Platform().Filesystem()
 
 	info, err := provider.GetFilesystemInfo(ctx)
@@ -61,7 +54,7 @@ func (s *Stage) Run(ctx context.Context, dctx discovery.Context) (discovery.Disc
 	return info, nil
 }
 
-func (s *Stage) Validate(artifact discovery.DiscoveryArtifact) error {
+func (s *FilesystemStage) Validate(artifact DiscoveryArtifact) error {
 	if artifact == nil {
 		return fmt.Errorf("artifact is nil")
 	}
@@ -71,6 +64,6 @@ func (s *Stage) Validate(artifact discovery.DiscoveryArtifact) error {
 	return nil
 }
 
-func (s *Stage) Cleanup(ctx context.Context) error {
+func (s *FilesystemStage) Cleanup(ctx context.Context) error {
 	return nil
 }

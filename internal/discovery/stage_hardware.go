@@ -1,47 +1,41 @@
-package hardware
+package discovery
 
 import (
 	"context"
 	"fmt"
 	"time"
 
-	"github.com/base-infrastructure/platform/internal/discovery"
 	"github.com/base-infrastructure/platform/internal/domain/models"
 )
 
 // Stage implements discovery.Stage for hardware discovery.
-type Stage struct{}
+type HardwareStage struct{}
 
-// NewStage creates a new Hardware discovery stage.
-func NewStage() *Stage {
-	return &Stage{}
-}
-
-func (s *Stage) Name() string {
+func (s *HardwareStage) Name() string {
 	return "hardware"
 }
 
-func (s *Stage) Version() string {
+func (s *HardwareStage) Version() string {
 	return "1.0.0"
 }
 
-func (s *Stage) Description() string {
+func (s *HardwareStage) Description() string {
 	return "Discovers physical hardware resources (CPU, RAM, Storage, GPU, Battery, Thermal)"
 }
 
-func (s *Stage) Priority() int {
+func (s *HardwareStage) Priority() int {
 	return 10 // Runs early in the pipeline
 }
 
-func (s *Stage) DependsOn() []string {
+func (s *HardwareStage) DependsOn() []string {
 	return nil // Base stage, no dependencies
 }
 
-func (s *Stage) Timeout() time.Duration {
+func (s *HardwareStage) Timeout() time.Duration {
 	return 30 * time.Second
 }
 
-func (s *Stage) Initialize(dctx discovery.Context) error {
+func (s *HardwareStage) Initialize(dctx Context) error {
 	if dctx.Platform() == nil {
 		return fmt.Errorf("platform abstraction layer is not initialized in context")
 	}
@@ -51,7 +45,7 @@ func (s *Stage) Initialize(dctx discovery.Context) error {
 	return nil
 }
 
-func (s *Stage) Run(ctx context.Context, dctx discovery.Context) (discovery.DiscoveryArtifact, error) {
+func (s *HardwareStage) Run(ctx context.Context, dctx Context) (DiscoveryArtifact, error) {
 	var hw models.Hardware
 	var err error
 
@@ -92,7 +86,7 @@ func (s *Stage) Run(ctx context.Context, dctx discovery.Context) (discovery.Disc
 	return hw, nil
 }
 
-func (s *Stage) Validate(artifact discovery.DiscoveryArtifact) error {
+func (s *HardwareStage) Validate(artifact DiscoveryArtifact) error {
 	hw, ok := artifact.(models.Hardware)
 	if !ok {
 		return fmt.Errorf("expected models.Hardware artifact, got %T", artifact)
@@ -111,7 +105,7 @@ func (s *Stage) Validate(artifact discovery.DiscoveryArtifact) error {
 	return nil
 }
 
-func (s *Stage) Cleanup(ctx context.Context) error {
+func (s *HardwareStage) Cleanup(ctx context.Context) error {
 	// Nothing to clean up for hardware discovery
 	return nil
 }

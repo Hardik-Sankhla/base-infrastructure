@@ -1,4 +1,4 @@
-package network
+package discovery
 
 import (
 	"context"
@@ -10,12 +10,10 @@ import (
 	"github.com/base-infrastructure/platform/internal/domain/models"
 	"github.com/base-infrastructure/platform/internal/platform/mock"
 	"github.com/base-infrastructure/platform/internal/runtime"
-
-	dctx "github.com/base-infrastructure/platform/internal/discovery"
 )
 
 func TestNetworkStage_Success(t *testing.T) {
-	stage := NewStage()
+	stage := &NetworkStage{}
 	p := mock.NewPlatform()
 
 	p.MockNetwork.Interfaces = []models.NetworkInterface{
@@ -33,7 +31,7 @@ func TestNetworkStage_Success(t *testing.T) {
 
 	log := slog.Default()
 	bus := runtime.NewEventBus()
-	ctx := dctx.NewContext(log, bus, nil, nil, p)
+	ctx := NewContext(log, bus, nil, nil, p)
 
 	if err := stage.Initialize(ctx); err != nil {
 		t.Fatalf("Failed to initialize: %v", err)
@@ -65,12 +63,12 @@ func TestNetworkStage_Success(t *testing.T) {
 }
 
 func TestNetworkStage_UninitializedPlatform(t *testing.T) {
-	stage := NewStage()
+	stage := &NetworkStage{}
 	log := slog.Default()
 	bus := runtime.NewEventBus()
 
 	// Context with NO platform
-	ctx := dctx.NewContext(log, bus, nil, nil, nil)
+	ctx := NewContext(log, bus, nil, nil, nil)
 
 	err := stage.Initialize(ctx)
 	if err == nil {
@@ -79,14 +77,14 @@ func TestNetworkStage_UninitializedPlatform(t *testing.T) {
 }
 
 func TestNetworkStage_GetInterfacesError(t *testing.T) {
-	stage := NewStage()
+	stage := &NetworkStage{}
 	p := mock.NewPlatform()
 
 	p.MockNetwork.Err = errors.New("network provider error")
 
 	log := slog.Default()
 	bus := runtime.NewEventBus()
-	ctx := dctx.NewContext(log, bus, nil, nil, p)
+	ctx := NewContext(log, bus, nil, nil, p)
 
 	if err := stage.Initialize(ctx); err != nil {
 		t.Fatalf("Failed to initialize: %v", err)

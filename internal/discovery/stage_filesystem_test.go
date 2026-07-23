@@ -1,11 +1,10 @@
-package filesystem
+package discovery
 
 import (
 	"context"
 	"log/slog"
 	"testing"
 
-	"github.com/base-infrastructure/platform/internal/discovery"
 	"github.com/base-infrastructure/platform/internal/domain/models"
 	"github.com/base-infrastructure/platform/internal/platform/mock"
 )
@@ -24,7 +23,7 @@ func TestFilesystemStage_Success(t *testing.T) {
 		HomeDir: "/home/test",
 	}
 
-	stage := NewStage()
+	stage := &FilesystemStage{}
 	if stage.Name() != "filesystem" {
 		t.Errorf("expected name 'filesystem', got %s", stage.Name())
 	}
@@ -32,7 +31,7 @@ func TestFilesystemStage_Success(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), stage.Timeout())
 	defer cancel()
 
-	dctx := discovery.NewContext(slog.Default(), nil, nil, nil, p)
+	dctx := NewContext(slog.Default(), nil, nil, nil, p)
 
 	if err := stage.Initialize(dctx); err != nil {
 		t.Fatalf("Initialize failed: %v", err)

@@ -1,11 +1,10 @@
-package hardware
+package discovery
 
 import (
 	"context"
 	"log/slog"
 	"testing"
 
-	"github.com/base-infrastructure/platform/internal/discovery"
 	"github.com/base-infrastructure/platform/internal/domain/models"
 	"github.com/base-infrastructure/platform/internal/platform/mock"
 )
@@ -16,7 +15,7 @@ func TestHardwareStage_Success(t *testing.T) {
 	p.MockHardware.RAM = models.RAM{TotalBytes: 1024}
 	p.MockHardware.Storage = []models.Disk{{Name: "/dev/sda1", Capacity: 500}}
 
-	stage := NewStage()
+	stage := &HardwareStage{}
 
 	if stage.Name() != "hardware" {
 		t.Errorf("expected name 'hardware', got %s", stage.Name())
@@ -25,7 +24,7 @@ func TestHardwareStage_Success(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), stage.Timeout())
 	defer cancel()
 
-	dctx := discovery.NewContext(slog.Default(), nil, nil, nil, p)
+	dctx := NewContext(slog.Default(), nil, nil, nil, p)
 
 	if err := stage.Initialize(dctx); err != nil {
 		t.Fatalf("Initialize failed: %v", err)

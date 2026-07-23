@@ -1,47 +1,41 @@
-package network
+package discovery
 
 import (
 	"context"
 	"fmt"
 	"time"
 
-	"github.com/base-infrastructure/platform/internal/discovery"
 	"github.com/base-infrastructure/platform/internal/domain/models"
 )
 
 // Stage implements discovery.Stage for network discovery.
-type Stage struct{}
+type NetworkStage struct{}
 
-// NewStage creates a new Network discovery stage.
-func NewStage() *Stage {
-	return &Stage{}
-}
-
-func (s *Stage) Name() string {
+func (s *NetworkStage) Name() string {
 	return "network"
 }
 
-func (s *Stage) Version() string {
+func (s *NetworkStage) Version() string {
 	return "1.0.0"
 }
 
-func (s *Stage) Description() string {
+func (s *NetworkStage) Description() string {
 	return "Discovers network interfaces, IP addressing, DNS, and proxy configurations"
 }
 
-func (s *Stage) Priority() int {
+func (s *NetworkStage) Priority() int {
 	return 30 // Runs after OS (20)
 }
 
-func (s *Stage) DependsOn() []string {
+func (s *NetworkStage) DependsOn() []string {
 	return []string{"os"} // Soft dependency logically, though can run without it
 }
 
-func (s *Stage) Timeout() time.Duration {
+func (s *NetworkStage) Timeout() time.Duration {
 	return 30 * time.Second
 }
 
-func (s *Stage) Initialize(dctx discovery.Context) error {
+func (s *NetworkStage) Initialize(dctx Context) error {
 	if dctx.Platform() == nil {
 		return fmt.Errorf("platform abstraction layer is not initialized in context")
 	}
@@ -51,7 +45,7 @@ func (s *Stage) Initialize(dctx discovery.Context) error {
 	return nil
 }
 
-func (s *Stage) Run(ctx context.Context, dctx discovery.Context) (discovery.DiscoveryArtifact, error) {
+func (s *NetworkStage) Run(ctx context.Context, dctx Context) (DiscoveryArtifact, error) {
 	var netInfo models.NetworkInfo
 	var err error
 
@@ -78,7 +72,7 @@ func (s *Stage) Run(ctx context.Context, dctx discovery.Context) (discovery.Disc
 	return netInfo, nil
 }
 
-func (s *Stage) Validate(artifact discovery.DiscoveryArtifact) error {
+func (s *NetworkStage) Validate(artifact DiscoveryArtifact) error {
 	netInfo, ok := artifact.(models.NetworkInfo)
 	if !ok {
 		return fmt.Errorf("expected models.NetworkInfo artifact, got %T", artifact)
@@ -91,7 +85,7 @@ func (s *Stage) Validate(artifact discovery.DiscoveryArtifact) error {
 	return nil
 }
 
-func (s *Stage) Cleanup(ctx context.Context) error {
+func (s *NetworkStage) Cleanup(ctx context.Context) error {
 	// Nothing to clean up for network discovery
 	return nil
 }

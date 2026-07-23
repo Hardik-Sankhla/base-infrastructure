@@ -1,21 +1,19 @@
-package windows
+package platform
 
 import (
 	"context"
 	"net"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/base-infrastructure/platform/internal/domain/models"
+	"github.com/shirou/gopsutil/v3/host"
 )
 
-type NetworkProvider struct{}
+type SharedNetworkProvider struct{}
 
-func NewNetworkProvider() *NetworkProvider {
-	return &NetworkProvider{}
-}
-
-func (p *NetworkProvider) GetInterfaces(ctx context.Context) ([]models.NetworkInterface, error) {
+func (p *SharedNetworkProvider) GetInterfaces(ctx context.Context) ([]models.NetworkInterface, error) {
 	ifaces, err := net.Interfaces()
 	if err != nil {
 		return nil, err
@@ -59,13 +57,7 @@ func (p *NetworkProvider) GetInterfaces(ctx context.Context) ([]models.NetworkIn
 	return result, nil
 }
 
-func (p *NetworkProvider) GetDNS(ctx context.Context) (models.DNSConfig, error) {
-	// Fallback implementation for Windows, to be enhanced later.
-	// WMI or Registry reads usually required on Windows.
-	return models.DNSConfig{}, nil
-}
-
-func (p *NetworkProvider) GetProxy(ctx context.Context) (models.ProxyConfig, error) {
+func (p *SharedNetworkProvider) GetProxy(ctx context.Context) (models.ProxyConfig, error) {
 	return models.ProxyConfig{
 		HTTPProxy:  getEnvIgnoreCase("HTTP_PROXY"),
 		HTTPSProxy: getEnvIgnoreCase("HTTPS_PROXY"),
@@ -81,4 +73,34 @@ func getEnvIgnoreCase(key string) string {
 		}
 	}
 	return ""
+}
+
+type SharedOSProvider struct {
+	OperatingSystem string
+	InitSystem      string
+	PackageManager  string
+	Libc            string
+	Shell           string
+}
+
+func (p *SharedOSProvider) GetOSInfo(ctx context.Context) (models.OSInfo, error) {
+	var info models.OSInfo
+	info.OperatingSystem = p.OperatingSystem
+
+	hInfo, err := host.InfoWithContext(ctx)
+	if err == nil {
+		info.Distribution = hInfo.Platform
+		info.DistributionVersion = hInfo.PlatformVersion
+		info.KernelVersion = hInfo.KernelVersion
+		info.KernelArchitecture = hInfo.KernelArch
+		info.Hostname = hInfo.Hostname
+		info.BootTime = time.Unix(int64(hInfo.BootTime), 0)
+	}
+
+	info.InitSystem = p.InitSystem
+	info.PackageManager = p.PackageManager
+	info.Libc = p.Libc
+	info.Shell = p.Shell
+
+	return info, nil
 }

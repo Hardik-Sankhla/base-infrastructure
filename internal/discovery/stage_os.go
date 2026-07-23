@@ -1,49 +1,43 @@
-package os
+package discovery
 
 import (
 	"context"
 	"fmt"
 	"time"
 
-	"github.com/base-infrastructure/platform/internal/discovery"
 	"github.com/base-infrastructure/platform/internal/domain/models"
 )
 
 // Stage implements discovery.Stage for OS discovery.
-type Stage struct{}
+type OSStage struct{}
 
-// NewStage creates a new OS discovery stage.
-func NewStage() *Stage {
-	return &Stage{}
-}
-
-func (s *Stage) Name() string {
+func (s *OSStage) Name() string {
 	return "os"
 }
 
-func (s *Stage) Version() string {
+func (s *OSStage) Version() string {
 	return "1.0.0"
 }
 
-func (s *Stage) Description() string {
+func (s *OSStage) Description() string {
 	return "Discovers immutable operating system facts using the Platform abstraction layer"
 }
 
-func (s *Stage) Priority() int {
+func (s *OSStage) Priority() int {
 	return 20 // Runs after hardware discovery
 }
 
-func (s *Stage) DependsOn() []string {
+func (s *OSStage) DependsOn() []string {
 	// While it relies on platform detector internally, from a pipeline perspective
 	// it might just need hardware context in future.
 	return []string{"hardware"}
 }
 
-func (s *Stage) Timeout() time.Duration {
+func (s *OSStage) Timeout() time.Duration {
 	return 15 * time.Second
 }
 
-func (s *Stage) Initialize(dctx discovery.Context) error {
+func (s *OSStage) Initialize(dctx Context) error {
 	if dctx.Platform() == nil {
 		return fmt.Errorf("platform abstraction layer is not initialized in context")
 	}
@@ -53,7 +47,7 @@ func (s *Stage) Initialize(dctx discovery.Context) error {
 	return nil
 }
 
-func (s *Stage) Run(ctx context.Context, dctx discovery.Context) (discovery.DiscoveryArtifact, error) {
+func (s *OSStage) Run(ctx context.Context, dctx Context) (DiscoveryArtifact, error) {
 	// The stage uses the Platform abstraction exclusively.
 	// Zero runtime.GOOS checks exist here.
 	provider := dctx.Platform().OS()
@@ -66,7 +60,7 @@ func (s *Stage) Run(ctx context.Context, dctx discovery.Context) (discovery.Disc
 	return info, nil
 }
 
-func (s *Stage) Validate(artifact discovery.DiscoveryArtifact) error {
+func (s *OSStage) Validate(artifact DiscoveryArtifact) error {
 	info, ok := artifact.(models.OSInfo)
 	if !ok {
 		return fmt.Errorf("expected models.OSInfo artifact, got %T", artifact)
@@ -79,6 +73,6 @@ func (s *Stage) Validate(artifact discovery.DiscoveryArtifact) error {
 	return nil
 }
 
-func (s *Stage) Cleanup(ctx context.Context) error {
+func (s *OSStage) Cleanup(ctx context.Context) error {
 	return nil
 }
