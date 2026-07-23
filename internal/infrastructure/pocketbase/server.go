@@ -54,7 +54,7 @@ func Start() error {
 			return err
 		}
 	}
-	
+
 	// Start PocketBase (this will block)
 	slog.Info("Starting PocketBase...")
 	if err := App.Start(); err != nil {
