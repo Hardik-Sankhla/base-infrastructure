@@ -1,4 +1,4 @@
-# Base Infrastructure: Universal Bootstrap Framework
+ï»¿# Base Infrastructure: Universal Bootstrap Framework
 
 [![Build Status](https://github.com/Hardik-Sankhla/base-infrastructure/actions/workflows/ci.yml/badge.svg)](https://github.com/Hardik-Sankhla/base-infrastructure/actions/workflows/ci.yml)
 
@@ -49,11 +49,11 @@ make  # Or run `go build -o platform ./cmd/platform`
 .
 +-- cmd/platform/       # Main CLI entrypoint
 +-- internal/
-¦   +-- capabilities/   # Capability translation builder
-¦   +-- discovery/      # Discovery Engine and stages
-¦   +-- domain/         # Core models and interfaces
-¦   +-- platform/       # OS-specific providers (Linux, Windows, etc.)
-¦   +-- runtime/        # Core execution context and event bus
+ï¿½   +-- capabilities/   # Capability translation builder
+ï¿½   +-- discovery/      # Discovery Engine and stages
+ï¿½   +-- domain/         # Core models and interfaces
+ï¿½   +-- platform/       # OS-specific providers (Linux, Windows, etc.)
+ï¿½   +-- runtime/        # Core execution context and event bus
 +-- pkg/sdk/            # Public SDK for plugins
 +-- docs/               # Comprehensive Documentation
 ```

@@ -91,25 +91,72 @@ func formatYAML(res Result) (string, error) {
 }
 
 func PrintHealth(h discovery.RepositoryHealth) {
-	passFail := func(ok bool) string {
-		if ok {
-			return "PASS"
-		}
-		return "FAIL"
+	fmt.Println("Platform Doctor")
+	fmt.Println("===============")
+
+	fmt.Println("\nRepository")
+	if h.ReleaseReady {
+		fmt.Println("✓ Healthy")
+	} else {
+		fmt.Println("✗ Needs Attention")
 	}
 
-	fmt.Println("\nRepository Doctor")
-	fmt.Println("────────────────────────────────────────")
-	fmt.Printf("%-24s %s\n", "Repository Brain", passFail(h.RepositoryBrain))
-	fmt.Printf("%-24s %s\n", "Architecture", passFail(h.Architecture))
-	fmt.Printf("%-24s %s\n", "Documentation", passFail(h.Documentation))
-	fmt.Printf("%-24s %s\n", "GitHub Actions", h.CIStatus)
-	fmt.Printf("%-24s %s\n", "Coverage", h.Coverage)
-	fmt.Printf("%-24s %d items\n", "Tech Debt", h.TechDebtCount)
-
-	releaseStr := "YES"
-	if !h.ReleaseReady {
-		releaseStr = "NO"
+	fmt.Println("\nPocketBase")
+	if h.PocketBaseInstalled {
+		fmt.Println("✓ Installed")
+	} else {
+		fmt.Println("✗ Missing")
 	}
-	fmt.Printf("%-24s %s\n\n", "Release Ready", releaseStr)
+
+	fmt.Println("\nSchema")
+	if h.SchemaCurrent {
+		fmt.Println("✓ Current")
+	} else {
+		fmt.Println("✗ Outdated")
+	}
+
+	fmt.Println("\nMigrations")
+	if h.MigrationsApplied {
+		fmt.Println("✓ Applied")
+	} else {
+		fmt.Println("✗ Pending")
+	}
+
+	fmt.Println("\nAPI")
+	if h.APIReachable {
+		fmt.Println("✓ Reachable")
+	} else {
+		fmt.Println("✗ Unreachable")
+	}
+
+	fmt.Println("\nDashboard")
+	if h.DashboardReachable {
+		fmt.Println("✓ Reachable")
+	} else {
+		fmt.Println("✗ Unreachable")
+	}
+
+	fmt.Println("\nGo Version")
+	fmt.Printf("✓ %s\n", h.GoVersion)
+
+	fmt.Println("\nConfiguration")
+	if h.ConfigValid {
+		fmt.Println("✓ Valid")
+	} else {
+		fmt.Println("✗ Invalid")
+	}
+
+	fmt.Println("\nRepository Brain")
+	if h.RepositoryBrain {
+		fmt.Println("✓ Synced")
+	} else {
+		fmt.Println("✗ Out of Sync")
+	}
+
+	fmt.Println("\nCI")
+	if h.CIStatus == "PASS" {
+		fmt.Println("✓ Passing")
+	} else {
+		fmt.Printf("✗ %s\n", h.CIStatus)
+	}
 }

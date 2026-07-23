@@ -1,16 +1,19 @@
 # Current Objective
 
-Version 3: Engineering OS Self-Awareness (`make doctor`)
+Integrate PocketBase into the Infrastructure Platform
 
 ## Checklist
 
-- [ ] Design the `make doctor` CLI command interface.
-- [ ] Connect `make doctor` to the `REPOSITORY_STATE.md` to read current health.
-- [ ] Integrate CI status, coverage metrics, and Tech Debt counts into the doctor command.
-- [ ] Render a human-readable Repository Health report.
-- [ ] Build passes locally.
-- [ ] Tests pass locally.
-- [ ] Lint passes locally.
-- [ ] CI Pipeline passes.
+- [x] Determine the correct location for PocketBase.
+- [x] Create `internal/infrastructure/pocketbase/server.go`.
+- [x] Configure data directory.
+- [x] Write `cmd/platform/cmd/pocketbase.go`.
+- [x] Write `cmd/platform/cmd/bootstrap.go`.
+- [x] Add PocketBase dependency to `go.mod`.
+- [x] Update `Makefile` and `Taskfile.yml`.
+- [x] Add `.pb_data` to `.gitignore`.
+- [x] Update REPOSITORY_STATE, CURRENT_STATE, and README.
 
-Stop only when every item is complete.
+Status: Completed.
+
+(Next step: Return to Version 3: Engineering OS Self-Awareness `make doctor`.)

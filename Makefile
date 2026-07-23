@@ -1,4 +1,4 @@
-.PHONY: all test race lint build doctor clean fmt verify
+.PHONY: all test race lint build doctor clean fmt verify bootstrap
 
 all: verify build
 
@@ -20,6 +20,9 @@ build:
 
 doctor: build
 	./bin/platform doctor
+
+bootstrap: build
+	./bin/platform bootstrap
 
 verify:
 	go fmt ./...

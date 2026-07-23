@@ -6,6 +6,12 @@ tasks:
       - task: verify
       - task: build
 
+  bootstrap:
+    desc: "Initialize the development environment"
+    cmds:
+      - task: build
+      - ./bin/platform bootstrap
+
   fmt:
     desc: "Format Go code"
     cmds:
