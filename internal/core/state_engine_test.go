@@ -154,8 +154,8 @@ func TestStateEngine(t *testing.T) {
 			t.Error("expected execution error, got nil")
 		}
 		// The error returned should be the execution error, not the rollback error.
-		if !errors.Is(err, expectedErr) && err.Error() != fmt.Sprintf("task [B] execution failed: %s", expectedErr.Error()) {
-			// Actually we are wrapping the error
+		if !errors.Is(err, expectedErr) {
+			t.Errorf("expected error to wrap %v, got %v", expectedErr, err)
 		}
 
 		if !task1.rolledBack {
