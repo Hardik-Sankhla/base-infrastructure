@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 ### Added
+- **Engineering OS v2.0**: Completely redesigned the `.ai/` subsystem to enforce rigid execution lifecycles for AI agents, decoupling governance from human documentation.
+- **Agent Personas**: Introduced strict personas (`Architect`, `Planner`, `Builder`, `Verifier`, `Reviewer`, `Release Manager`, `CI Guardian`).
+- **Checklists & Templates**: Formalized `checklists/` and `templates/` for explicit lifecycle handoffs and reporting.
 - Tasks and State execution logic structure (pending).
 
 ## [0.4.0] - 2026-07-23

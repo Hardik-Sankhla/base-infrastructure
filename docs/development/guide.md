@@ -24,10 +24,12 @@ We strictly adhere to Conventional Commits:
 - `docs:` for documentation updates.
 - `test:` for adding missing tests.
 
-## Pull Request Workflow
-1. Develop on a feature branch (`feature/your-feature`).
-2. Run `make test` locally.
-3. Open a Pull Request against `main`.
-4. Wait for CI checks to pass.
-5. Request review from maintainers.
+## Pull Request Workflow (Engineering OS)
+This repository is engineered by AI agents using the **Engineering OS v2.0** (`.ai/`). Human contributors must follow the same lifecycle:
+
+1. **Design Review:** All architecture must be designed and approved by a maintainer acting as the "Architect".
+2. **Implementation:** Develop on a feature branch (`feature/your-feature`), following the strict boundaries in `.ai/ARCHITECTURE_RULES.md`.
+3. **Verification:** Run all local tests and linters (`make test`, `make lint`).
+4. **CI Checks:** Open a Pull Request and wait for CI checks to pass. No code is merged if CI is red.
+5. **Review:** Request review from human maintainers acting as the "Reviewer".
 
