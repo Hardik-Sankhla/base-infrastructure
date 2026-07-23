@@ -6,8 +6,8 @@ import (
 	"log/slog"
 )
 
-// Result represents the standardized response from a plugin
-type Result struct {
+// PluginResult represents the standardized response from a plugin
+type PluginResult struct {
 	Success bool
 	Data    interface{}
 	Error   string
@@ -15,34 +15,34 @@ type Result struct {
 
 // Interface defines the strict contract all plugins must implement
 type PluginInterface interface {
-	Discover(ctx context.Context) (Result, error)
-	Plan(ctx context.Context) (Result, error)
-	Install(ctx context.Context) (Result, error)
-	Configure(ctx context.Context) (Result, error)
-	Verify(ctx context.Context) (Result, error)
-	Health(ctx context.Context) (Result, error)
-	Update(ctx context.Context) (Result, error)
-	Rollback(ctx context.Context) (Result, error)
-	Uninstall(ctx context.Context) (Result, error)
-	Cleanup(ctx context.Context) (Result, error)
+	Discover(ctx context.Context) (PluginResult, error)
+	Plan(ctx context.Context) (PluginResult, error)
+	Install(ctx context.Context) (PluginResult, error)
+	Configure(ctx context.Context) (PluginResult, error)
+	Verify(ctx context.Context) (PluginResult, error)
+	Health(ctx context.Context) (PluginResult, error)
+	Update(ctx context.Context) (PluginResult, error)
+	Rollback(ctx context.Context) (PluginResult, error)
+	Uninstall(ctx context.Context) (PluginResult, error)
+	Cleanup(ctx context.Context) (PluginResult, error)
 }
 
 type PluginRegistry interface {
-	Register(manifest *PluginManifest, instance Interface) error
-	Get(name string) (Interface, error)
+	Register(manifest *PluginManifest, instance PluginInterface) error
+	Get(name string) (PluginInterface, error)
 }
 
 type DefaultPluginRegistry struct {
-	plugins map[string]Interface
+	plugins map[string]PluginInterface
 }
 
 func NewPluginRegistry() *DefaultPluginRegistry {
-	return &DefaultRegistry{
-		plugins: make(map[string]Interface),
+	return &DefaultPluginRegistry{
+		plugins: make(map[string]PluginInterface),
 	}
 }
 
-func (r *DefaultPluginRegistry) Register(manifest *PluginManifest, instance Interface) error {
+func (r *DefaultPluginRegistry) Register(manifest *PluginManifest, instance PluginInterface) error {
 	if _, exists := r.plugins[manifest.Name]; exists {
 		return fmt.Errorf("plugin %s is already registered", manifest.Name)
 	}
@@ -51,7 +51,7 @@ func (r *DefaultPluginRegistry) Register(manifest *PluginManifest, instance Inte
 	return nil
 }
 
-func (r *DefaultPluginRegistry) Get(name string) (Interface, error) {
+func (r *DefaultPluginRegistry) Get(name string) (PluginInterface, error) {
 	if instance, exists := r.plugins[name]; exists {
 		return instance, nil
 	}

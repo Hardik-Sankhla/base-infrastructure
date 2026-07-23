@@ -17,7 +17,7 @@ type PlatformContext struct {
 	TaskEngine TaskEngine
 	FS         FSManager
 	Downloader Downloader
-	Registry   Registry
+	Registry   PluginRegistry
 
 	// goCtx is the cancellable Go context for this platform run.
 	goCtx gocontext.Context
@@ -28,11 +28,11 @@ func NewPlatformContext(cfg *config.Config, db *sql.DB) *PlatformContext {
 		Logger:     slog.Default(),
 		Config:     cfg,
 		DB:         db,
-		EventBus:   runtime.NewEventBus(),
-		TaskEngine: tasks.NewTaskEngine(),
-		FS:         fs.NewFSManager(cfg.System.DataDir),
-		Downloader: runtime.NewDownloader(),
-		Registry:   runtime.NewPluginRegistry(),
+		EventBus:   NewEventBus(),
+		TaskEngine: NewTaskEngine(),
+		FS:         NewFSManager(cfg.System.DataDir),
+		Downloader: NewDownloader(),
+		Registry:   NewPluginRegistry(),
 		goCtx:      gocontext.Background(),
 	}
 }
