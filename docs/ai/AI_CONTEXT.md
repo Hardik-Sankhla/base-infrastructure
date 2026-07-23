@@ -30,7 +30,7 @@ Unlike Ansible (requires Python + SSH) or Terraform (manages remote infra), this
 
 ---
 
-## Current Implementation Status (v0.1.0)
+## Current Implementation Status (v0.4.0)
 
 | Subsystem | Status |
 |---|---|

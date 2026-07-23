@@ -3,7 +3,7 @@
 
 > This document is a point-in-time snapshot of what exists, what works, and what doesn't.
 > Update this file whenever a major feature ships or a known issue is resolved.
-> **Snapshot date**: 2026-07-21 | **Version**: v0.1.0
+> **Snapshot date**: 2026-07-23 | **Version**: v0.4.0
 
 ---
 

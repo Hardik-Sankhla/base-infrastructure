@@ -17,7 +17,7 @@
 
 ---
 
-## v0.1.0 — Current (Shipped)
+## v0.4.0 — Current (Shipped)
 
 | Feature | Status | Evidence |
 |---|---|---|
