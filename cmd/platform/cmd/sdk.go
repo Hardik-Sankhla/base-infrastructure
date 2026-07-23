@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/base-infrastructure/platform/internal/runtime"
 	"github.com/spf13/cobra"
 )
 
@@ -30,7 +31,7 @@ var validateCmd = &cobra.Command{
 		path := args[0]
 		fmt.Printf("Validating manifest at: %s\n", path)
 
-		m, err := plugin.LoadManifest(path)
+		m, err := runtime.LoadManifest(path)
 		if err != nil {
 			fmt.Fprintf(cmd.ErrOrStderr(), "Error: manifest validation failed: %v\n", err)
 			os.Exit(1)

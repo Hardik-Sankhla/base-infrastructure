@@ -12,6 +12,7 @@ import (
 	"github.com/base-infrastructure/platform/internal/discovery/builtin"
 	"github.com/base-infrastructure/platform/internal/logger"
 	"github.com/base-infrastructure/platform/internal/presentation"
+	"github.com/base-infrastructure/platform/internal/runtime"
 
 	"github.com/spf13/cobra"
 )
@@ -72,7 +73,7 @@ var discoverCmd = &cobra.Command{
 		}
 
 		// Setup Context
-		pctx := context.NewPlatformContext(&config.Cfg, nil)
+		pctx := runtime.NewPlatformContext(&config.Cfg, nil)
 
 		// Run Discovery
 		manifest, err := engine.Run(pctx)

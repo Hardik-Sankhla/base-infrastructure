@@ -14,7 +14,7 @@ type Registry struct {
 }
 
 // NewRegistry creates an empty stage registry.
-func NewPluginRegistry() *Registry {
+func NewRegistry() *Registry {
 	return &Registry{
 		stages: make(map[string]Stage),
 	}
