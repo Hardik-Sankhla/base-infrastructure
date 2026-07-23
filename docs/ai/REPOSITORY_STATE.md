@@ -1,7 +1,7 @@
-current_milestone: PocketBase Infrastructure Integration
+current_milestone: v0.5.0 State Engine
 status: Active
 branch: main
-last_verified_commit: "6ac4610"
+last_verified_commit: "1593837"
 
 verification:
   build: PASS

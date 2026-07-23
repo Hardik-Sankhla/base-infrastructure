@@ -1,4 +1,4 @@
-﻿# Base Infrastructure: Universal Bootstrap Framework
+# Base Infrastructure: Universal Bootstrap Framework
 
 [![Build Status](https://github.com/Hardik-Sankhla/base-infrastructure/actions/workflows/ci.yml/badge.svg)](https://github.com/Hardik-Sankhla/base-infrastructure/actions/workflows/ci.yml)
 
@@ -17,15 +17,15 @@ Traditional dotfiles and setup scripts are inherently brittle. They rely on stat
 - Fully decouple the Discovery Pipeline from software installations.
 
 ## Features
-### Implemented (v0.1.0)
+### Implemented (v0.4.0)
+- **Core Engine & Architecture Stabilization**: Strict dependency decoupling flowing inward: `CLI -> Bootstrap -> Core -> Platform -> Discovery -> Services`.
 - **Discovery Engine**: Robust, multi-stage pipeline architecture (Hardware, OS, Filesystem, Network, Environment, Software).
 - **Platform Abstraction**: Native support for Linux, Windows, macOS (Darwin), BSD, and Android.
 - **Capabilities Builder**: Real-time translation of system discovery data into a generalized capability matrix.
-- **Plugin Architecture**: Modular, language-agnostic plugin execution via STDIN/STDOUT JSON-RPC (Alpha).
 
-### Planned (Future)
-- **State Management & Tasks**: Idempotent execution of state changes and automated rollbacks.
-- **Configuration Engine**: Strongly typed YAML/JSON/HCL environment templates.
+### Planned (v0.5.0)
+- **State Engine**: Configuration parsing, State Model, Drift Detection, and Desired State comparison.
+- **Task & Execution Engine**: Idempotent execution of state changes and automated rollbacks.
 
 ## Architecture Overview
 The platform operates through a linear execution lifecycle:
@@ -41,19 +41,21 @@ To build and run the discovery pipeline locally:
 git clone https://github.com/Hardik-Sankhla/base-infrastructure.git
 cd base-infrastructure
 make  # Or run `go build -o platform ./cmd/platform`
-./platform bootstrap
+./platform discover
 ```
 
 ## Repository Structure
 ```
 .
-+-- cmd/platform/       # Main CLI entrypoint
++-- cmd/platform/       # Ultra-thin CLI entrypoint
 +-- internal/
-�   +-- capabilities/   # Capability translation builder
-�   +-- discovery/      # Discovery Engine and stages
-�   +-- domain/         # Core models and interfaces
-�   +-- platform/       # OS-specific providers (Linux, Windows, etc.)
-�   +-- runtime/        # Core execution context and event bus
+   +-- bootstrap/      # Dependency injection and orchestration
+   +-- capabilities/   # Capability translation builder
+   +-- core/           # Execution engine, DAG pipeline, and domain types
+   +-- discovery/      # Flat discovery stage implementations
+   +-- domain/         # Core models and contracts
+   +-- platform/       # OS-specific providers (Linux, Windows, etc.)
+   +-- services/       # Encapsulated infrastructure (e.g. PocketBase)
 +-- pkg/sdk/            # Public SDK for plugins
 +-- docs/               # Comprehensive Documentation
 ```

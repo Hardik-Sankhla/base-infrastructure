@@ -3,15 +3,19 @@
 ## Repository Architecture
 ```mermaid
 graph TD
-    CLI[cmd/platform] --> Builder[internal/capabilities]
-    CLI --> Pipeline[internal/discovery]
+    CLI[cmd/platform] --> Bootstrap[internal/bootstrap]
+    Bootstrap --> Core[internal/core]
+    Bootstrap --> Services[internal/services]
     
-    Pipeline --> StageOS[OS Stage]
-    Pipeline --> StageHW[Hardware Stage]
-    Pipeline --> StageNet[Network Stage]
-    Pipeline --> StageEnv[Environment Stage]
-    Pipeline --> StageFS[Filesystem Stage]
-    Pipeline --> StageSoft[Software Stage]
+    Core --> Discovery[internal/discovery]
+    Core --> Capabilities[internal/capabilities]
+    
+    Discovery --> StageOS[stage_os]
+    Discovery --> StageHW[stage_hardware]
+    Discovery --> StageNet[stage_network]
+    Discovery --> StageEnv[stage_environment]
+    Discovery --> StageFS[stage_filesystem]
+    Discovery --> StageSoft[stage_software]
     
     StageOS --> PlatformAbstraction[internal/platform]
     StageHW --> PlatformAbstraction

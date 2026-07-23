@@ -7,10 +7,11 @@
 - **Capability Builder**: Completed
 - **Reporting**: Completed
 - **Infrastructure**: Completed (PocketBase integrated)
+- **Architecture Stabilization**: Completed (v0.4.0 Freeze)
+- **State Engine**: Remaining
 - **Planner**: Remaining
 - **Executor**: Remaining
-- **Marketplace**: Remaining
 
 ## Known Issues
-- Pipeline panic recovery missing in `pipeline.go`
+- Pipeline panic recovery missing in `core/pipeline.go`
 - Markdown exporter missing
