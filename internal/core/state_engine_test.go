@@ -18,13 +18,16 @@ type stateTestTask struct {
 }
 
 func (m *stateTestTask) ID() string { return m.id }
+
 func (m *stateTestTask) CheckIdempotency(ctx context.Context) (bool, error) {
 	return m.idempotent, m.idempotencyErr
 }
+
 func (m *stateTestTask) Execute(ctx context.Context) error {
 	m.executed = true
 	return m.executeErr
 }
+
 func (m *stateTestTask) Rollback(ctx context.Context) error {
 	m.rolledBack = true
 	return m.rollbackErr
