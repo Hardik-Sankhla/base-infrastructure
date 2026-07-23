@@ -1,4 +1,4 @@
-package discovery
+package core
 
 // DiscoveryArtifact represents a strongly typed output from a discovery stage.
 // All specific discovery domain models (e.g., Hardware, OSInfo) must

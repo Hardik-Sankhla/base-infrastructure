@@ -4,8 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/base-infrastructure/platform/internal/config"
-	"github.com/base-infrastructure/platform/internal/logger"
+	"github.com/base-infrastructure/platform/internal/bootstrap"
 	"github.com/spf13/cobra"
 )
 
@@ -27,10 +26,8 @@ func init() {
 }
 
 func initConfig() {
-	if err := config.Load(cfgFile); err != nil {
-		fmt.Println("Error loading config:", err)
+	if err := bootstrap.Current.Initialize(cfgFile); err != nil {
+		fmt.Println("Error initializing platform:", err)
 		os.Exit(1)
 	}
-
-	logger.Init(config.Cfg.System.LogLevel, config.Cfg.Logging.Format)
 }

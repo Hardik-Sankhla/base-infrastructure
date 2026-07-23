@@ -4,9 +4,11 @@ import (
 	"context"
 	"fmt"
 	"time"
+
+	"github.com/base-infrastructure/platform/internal/core"
 )
 
-// Stage discovers installed software and runtimes.
+// core.Stage discovers installed software and runtimes.
 type SoftwareStage struct{}
 
 // Name returns the name of the stage.
@@ -40,7 +42,7 @@ func (s *SoftwareStage) Timeout() time.Duration {
 }
 
 // Initialize prepares the stage for execution.
-func (s *SoftwareStage) Initialize(ctx Context) error {
+func (s *SoftwareStage) Initialize(ctx core.Context) error {
 	if ctx.Platform() == nil {
 		return fmt.Errorf("platform not found in context")
 	}
@@ -48,7 +50,7 @@ func (s *SoftwareStage) Initialize(ctx Context) error {
 }
 
 // Run executes the discovery process.
-func (s *SoftwareStage) Run(ctx context.Context, dctx Context) (DiscoveryArtifact, error) {
+func (s *SoftwareStage) Run(ctx context.Context, dctx core.Context) (core.DiscoveryArtifact, error) {
 	dctx.Logger().Debug("starting software discovery")
 
 	provider := dctx.Platform().Software()
@@ -67,7 +69,7 @@ func (s *SoftwareStage) Run(ctx context.Context, dctx Context) (DiscoveryArtifac
 }
 
 // Validate ensures the artifact is valid.
-func (s *SoftwareStage) Validate(artifact DiscoveryArtifact) error {
+func (s *SoftwareStage) Validate(artifact core.DiscoveryArtifact) error {
 	if artifact == nil {
 		return fmt.Errorf("software artifact is nil")
 	}

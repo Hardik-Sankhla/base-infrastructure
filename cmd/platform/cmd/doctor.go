@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/base-infrastructure/platform/internal/discovery"
+	"github.com/base-infrastructure/platform/internal/core"
 	"github.com/base-infrastructure/platform/internal/presentation"
 	"github.com/spf13/cobra"
 )
@@ -17,7 +17,7 @@ var doctorCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		repoRoot, _ := os.Getwd()
 
-		health, err := discovery.AnalyzeHealth(context.Background(), repoRoot)
+		health, err := core.AnalyzeHealth(context.Background(), repoRoot)
 		if err != nil {
 			fmt.Printf("Failed to run doctor: %v\n", err)
 			os.Exit(1)

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/base-infrastructure/platform/internal/discovery"
+	"github.com/base-infrastructure/platform/internal/core"
 	"github.com/base-infrastructure/platform/internal/domain/models"
 	"gopkg.in/yaml.v3"
 )
@@ -90,7 +90,7 @@ func formatYAML(res Result) (string, error) {
 	return string(bytes), nil
 }
 
-func PrintHealth(h discovery.RepositoryHealth) {
+func PrintHealth(h core.RepositoryHealth) {
 	fmt.Println("Platform Doctor")
 	fmt.Println("===============")
 

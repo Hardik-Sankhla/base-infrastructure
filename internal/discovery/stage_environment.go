@@ -5,10 +5,11 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/base-infrastructure/platform/internal/core"
 	"github.com/base-infrastructure/platform/internal/domain/models"
 )
 
-// Stage implements discovery.Stage for environment discovery.
+// core.Stage implements discovery.core.Stage for environment discovery.
 type EnvironmentStage struct{}
 
 func (s *EnvironmentStage) Name() string {
@@ -35,7 +36,7 @@ func (s *EnvironmentStage) Timeout() time.Duration {
 	return 10 * time.Second
 }
 
-func (s *EnvironmentStage) Initialize(dctx Context) error {
+func (s *EnvironmentStage) Initialize(dctx core.Context) error {
 	if dctx.Platform() == nil {
 		return fmt.Errorf("platform abstraction layer is not initialized in context")
 	}
@@ -45,7 +46,7 @@ func (s *EnvironmentStage) Initialize(dctx Context) error {
 	return nil
 }
 
-func (s *EnvironmentStage) Run(ctx context.Context, dctx Context) (DiscoveryArtifact, error) {
+func (s *EnvironmentStage) Run(ctx context.Context, dctx core.Context) (core.DiscoveryArtifact, error) {
 	provider := dctx.Platform().Environment()
 
 	envInfo, err := provider.GetEnvironmentInfo(ctx)
@@ -56,7 +57,7 @@ func (s *EnvironmentStage) Run(ctx context.Context, dctx Context) (DiscoveryArti
 	return envInfo, nil
 }
 
-func (s *EnvironmentStage) Validate(artifact DiscoveryArtifact) error {
+func (s *EnvironmentStage) Validate(artifact core.DiscoveryArtifact) error {
 	_, ok := artifact.(models.EnvironmentInfo)
 	if !ok {
 		return fmt.Errorf("expected models.EnvironmentInfo artifact, got %T", artifact)

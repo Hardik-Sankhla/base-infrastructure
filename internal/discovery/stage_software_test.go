@@ -7,9 +7,9 @@ import (
 	"testing"
 	"time"
 
+	"github.com/base-infrastructure/platform/internal/core"
 	"github.com/base-infrastructure/platform/internal/domain/models"
 	"github.com/base-infrastructure/platform/internal/platform/mock"
-	"github.com/base-infrastructure/platform/internal/runtime"
 )
 
 func TestSoftwareStage_Success(t *testing.T) {
@@ -26,8 +26,7 @@ func TestSoftwareStage_Success(t *testing.T) {
 	}
 
 	log := slog.Default()
-	bus := runtime.NewEventBus()
-	ctx := NewContext(log, bus, nil, nil, p)
+	ctx := core.NewContext(log, nil, nil, nil, p)
 
 	if err := stage.Initialize(ctx); err != nil {
 		t.Fatalf("Failed to initialize: %v", err)
@@ -38,7 +37,7 @@ func TestSoftwareStage_Success(t *testing.T) {
 
 	artifact, err := stage.Run(goCtx, ctx)
 	if err != nil {
-		t.Fatalf("Stage run failed: %v", err)
+		t.Fatalf("core.Stage run failed: %v", err)
 	}
 
 	if err := stage.Validate(artifact); err != nil {
@@ -61,9 +60,8 @@ func TestSoftwareStage_Success(t *testing.T) {
 func TestSoftwareStage_UninitializedPlatform(t *testing.T) {
 	stage := &SoftwareStage{}
 	log := slog.Default()
-	bus := runtime.NewEventBus()
 
-	ctx := NewContext(log, bus, nil, nil, nil)
+	ctx := core.NewContext(log, nil, nil, nil, nil)
 
 	err := stage.Initialize(ctx)
 	if err == nil {
@@ -78,8 +76,7 @@ func TestSoftwareStage_ProviderError(t *testing.T) {
 	p.MockSoftware.Err = errors.New("software provider error")
 
 	log := slog.Default()
-	bus := runtime.NewEventBus()
-	ctx := NewContext(log, bus, nil, nil, p)
+	ctx := core.NewContext(log, nil, nil, nil, p)
 
 	if err := stage.Initialize(ctx); err != nil {
 		t.Fatalf("Failed to initialize: %v", err)

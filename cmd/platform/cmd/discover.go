@@ -8,7 +8,7 @@ import (
 
 	"github.com/base-infrastructure/platform/internal/capabilities"
 	"github.com/base-infrastructure/platform/internal/config"
-	"github.com/base-infrastructure/platform/internal/discovery"
+	"github.com/base-infrastructure/platform/internal/core"
 	"github.com/base-infrastructure/platform/internal/discovery/builtin"
 	"github.com/base-infrastructure/platform/internal/logger"
 	"github.com/base-infrastructure/platform/internal/presentation"
@@ -59,13 +59,13 @@ var discoverCmd = &cobra.Command{
 		slog.Debug("Starting platform discovery...")
 
 		// Initialize Discovery Engine
-		registry := discovery.NewRegistry()
+		registry := core.NewRegistry()
 		if err := builtin.RegisterCoreStages(registry); err != nil {
 			slog.Error("Failed to register core discovery stages", "error", err)
 			os.Exit(1)
 		}
 
-		engine := discovery.NewDiscoveryEngine(registry, discovery.PipelineConfig{})
+		engine := core.NewDiscoveryEngine(registry, core.PipelineConfig{})
 
 		// Attach ProgressHook for clean CLI UX
 		if verbosity == 0 && format == "summary" {

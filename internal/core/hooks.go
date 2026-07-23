@@ -1,4 +1,4 @@
-package discovery
+package core
 
 import (
 	"context"
@@ -43,4 +43,5 @@ func (b *BaseHook) AfterStage(ctx context.Context, dctx Context, stage Stage, ar
 	return nil
 }
 
-func (b *BaseHook) OnStageError(ctx context.Context, dctx Context, stage Stage, err error) {}
+func (b *BaseHook) OnStageError(ctx context.Context, dctx Context, stage Stage, err error) {
+}

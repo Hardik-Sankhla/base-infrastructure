@@ -48,7 +48,7 @@ type OSInfo struct {
 	BootTime            time.Time `json:"boot_time"`
 }
 
-// ArtifactType implements discovery.DiscoveryArtifact
+// ArtifactType implements core.DiscoveryArtifact
 func (o OSInfo) ArtifactType() string {
 	return "OS"
 }
@@ -102,7 +102,7 @@ type FilesystemInfo struct {
 	CaseSensitive   bool               `json:"case_sensitive"`
 }
 
-// ArtifactType implements discovery.DiscoveryArtifact
+// ArtifactType implements core.DiscoveryArtifact
 func (f FilesystemInfo) ArtifactType() string {
 	return "Filesystem"
 }
@@ -125,7 +125,7 @@ type EnvironmentInfo struct {
 	IsTerminal bool `json:"is_terminal"`
 }
 
-// ArtifactType implements discovery.DiscoveryArtifact
+// ArtifactType implements core.DiscoveryArtifact
 func (e EnvironmentInfo) ArtifactType() string {
 	return "Environment"
 }
@@ -161,7 +161,7 @@ type NetworkInfo struct {
 	Proxy      ProxyConfig        `json:"proxy"`
 }
 
-// ArtifactType implements discovery.DiscoveryArtifact
+// ArtifactType implements core.DiscoveryArtifact
 func (n NetworkInfo) ArtifactType() string {
 	return "Network"
 }
@@ -254,7 +254,7 @@ type Hardware struct {
 	Thermals []ThermalSensor `json:"thermals,omitempty"`
 }
 
-// ArtifactType implements discovery.DiscoveryArtifact
+// ArtifactType implements core.DiscoveryArtifact
 func (h Hardware) ArtifactType() string {
 	return "Hardware"
 }
@@ -291,7 +291,7 @@ type SoftwareInfo struct {
 	Runtimes []RuntimeEnvironment `json:"runtimes,omitempty"`
 }
 
-// ArtifactType implements discovery.DiscoveryArtifact.
+// ArtifactType implements core.DiscoveryArtifact.
 func (SoftwareInfo) ArtifactType() string {
 	return "software"
 }

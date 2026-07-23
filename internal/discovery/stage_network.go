@@ -5,10 +5,11 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/base-infrastructure/platform/internal/core"
 	"github.com/base-infrastructure/platform/internal/domain/models"
 )
 
-// Stage implements discovery.Stage for network discovery.
+// core.Stage implements discovery.core.Stage for network discovery.
 type NetworkStage struct{}
 
 func (s *NetworkStage) Name() string {
@@ -35,7 +36,7 @@ func (s *NetworkStage) Timeout() time.Duration {
 	return 30 * time.Second
 }
 
-func (s *NetworkStage) Initialize(dctx Context) error {
+func (s *NetworkStage) Initialize(dctx core.Context) error {
 	if dctx.Platform() == nil {
 		return fmt.Errorf("platform abstraction layer is not initialized in context")
 	}
@@ -45,7 +46,7 @@ func (s *NetworkStage) Initialize(dctx Context) error {
 	return nil
 }
 
-func (s *NetworkStage) Run(ctx context.Context, dctx Context) (DiscoveryArtifact, error) {
+func (s *NetworkStage) Run(ctx context.Context, dctx core.Context) (core.DiscoveryArtifact, error) {
 	var netInfo models.NetworkInfo
 	var err error
 
@@ -72,7 +73,7 @@ func (s *NetworkStage) Run(ctx context.Context, dctx Context) (DiscoveryArtifact
 	return netInfo, nil
 }
 
-func (s *NetworkStage) Validate(artifact DiscoveryArtifact) error {
+func (s *NetworkStage) Validate(artifact core.DiscoveryArtifact) error {
 	netInfo, ok := artifact.(models.NetworkInfo)
 	if !ok {
 		return fmt.Errorf("expected models.NetworkInfo artifact, got %T", artifact)

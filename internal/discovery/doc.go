@@ -1,15 +1,15 @@
 // Package discovery implements the Discovery Engine as a composable stage
 // pipeline. Each stage probes one facet of the host environment (hardware, OS,
-// filesystem, network, etc.) and produces an immutable StageResult. The
+// filesystem, network, etc.) and produces an immutable core.StageResult. The
 // pipeline aggregates all stage results into a single Result that downstream
 // engines (Planner, Executor) consume.
 //
 // Architecture:
 //
-//	Registry   ──registers──▶  Stage (interface)
+//	Registry   ──registers──▶  core.Stage (interface)
 //	    │                         │
 //	    ▼                         ▼
-//	Pipeline   ──executes──▶  StageResult
+//	Pipeline   ──executes──▶  core.StageResult
 //	    │
 //	    ▼
 //	Result     ──consumed by──▶  Planner

@@ -5,10 +5,11 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/base-infrastructure/platform/internal/core"
 	"github.com/base-infrastructure/platform/internal/domain/models"
 )
 
-// Stage implements discovery.Stage for hardware discovery.
+// core.Stage implements discovery.core.Stage for hardware discovery.
 type HardwareStage struct{}
 
 func (s *HardwareStage) Name() string {
@@ -35,7 +36,7 @@ func (s *HardwareStage) Timeout() time.Duration {
 	return 30 * time.Second
 }
 
-func (s *HardwareStage) Initialize(dctx Context) error {
+func (s *HardwareStage) Initialize(dctx core.Context) error {
 	if dctx.Platform() == nil {
 		return fmt.Errorf("platform abstraction layer is not initialized in context")
 	}
@@ -45,7 +46,7 @@ func (s *HardwareStage) Initialize(dctx Context) error {
 	return nil
 }
 
-func (s *HardwareStage) Run(ctx context.Context, dctx Context) (DiscoveryArtifact, error) {
+func (s *HardwareStage) Run(ctx context.Context, dctx core.Context) (core.DiscoveryArtifact, error) {
 	var hw models.Hardware
 	var err error
 
@@ -86,7 +87,7 @@ func (s *HardwareStage) Run(ctx context.Context, dctx Context) (DiscoveryArtifac
 	return hw, nil
 }
 
-func (s *HardwareStage) Validate(artifact DiscoveryArtifact) error {
+func (s *HardwareStage) Validate(artifact core.DiscoveryArtifact) error {
 	hw, ok := artifact.(models.Hardware)
 	if !ok {
 		return fmt.Errorf("expected models.Hardware artifact, got %T", artifact)

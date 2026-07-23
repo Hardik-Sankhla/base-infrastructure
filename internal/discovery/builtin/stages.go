@@ -1,12 +1,13 @@
 package builtin
 
 import (
+	"github.com/base-infrastructure/platform/internal/core"
 	"github.com/base-infrastructure/platform/internal/discovery"
 )
 
 // DefaultStages returns the list of built-in discovery stages in recommended order.
-func DefaultStages() []discovery.Stage {
-	return []discovery.Stage{
+func DefaultStages() []core.Stage {
+	return []core.Stage{
 		&discovery.HardwareStage{},
 		&discovery.OSStage{},
 		&discovery.NetworkStage{},
@@ -17,7 +18,7 @@ func DefaultStages() []discovery.Stage {
 }
 
 // RegisterCoreStages registers all built-in discovery stages into the provided registry.
-func RegisterCoreStages(reg *discovery.Registry) error {
+func RegisterCoreStages(reg *core.Registry) error {
 	// Register Hardware Stage (PR #2)
 	if err := reg.Register(&discovery.HardwareStage{}); err != nil {
 		return err

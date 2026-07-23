@@ -5,10 +5,11 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/base-infrastructure/platform/internal/core"
 	"github.com/base-infrastructure/platform/internal/domain/models"
 )
 
-// Stage implements discovery.Stage for OS discovery.
+// core.Stage implements discovery.core.Stage for OS discovery.
 type OSStage struct{}
 
 func (s *OSStage) Name() string {
@@ -37,7 +38,7 @@ func (s *OSStage) Timeout() time.Duration {
 	return 15 * time.Second
 }
 
-func (s *OSStage) Initialize(dctx Context) error {
+func (s *OSStage) Initialize(dctx core.Context) error {
 	if dctx.Platform() == nil {
 		return fmt.Errorf("platform abstraction layer is not initialized in context")
 	}
@@ -47,7 +48,7 @@ func (s *OSStage) Initialize(dctx Context) error {
 	return nil
 }
 
-func (s *OSStage) Run(ctx context.Context, dctx Context) (DiscoveryArtifact, error) {
+func (s *OSStage) Run(ctx context.Context, dctx core.Context) (core.DiscoveryArtifact, error) {
 	// The stage uses the Platform abstraction exclusively.
 	// Zero runtime.GOOS checks exist here.
 	provider := dctx.Platform().OS()
@@ -60,7 +61,7 @@ func (s *OSStage) Run(ctx context.Context, dctx Context) (DiscoveryArtifact, err
 	return info, nil
 }
 
-func (s *OSStage) Validate(artifact DiscoveryArtifact) error {
+func (s *OSStage) Validate(artifact core.DiscoveryArtifact) error {
 	info, ok := artifact.(models.OSInfo)
 	if !ok {
 		return fmt.Errorf("expected models.OSInfo artifact, got %T", artifact)

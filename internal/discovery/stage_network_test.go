@@ -7,9 +7,9 @@ import (
 	"testing"
 	"time"
 
+	"github.com/base-infrastructure/platform/internal/core"
 	"github.com/base-infrastructure/platform/internal/domain/models"
 	"github.com/base-infrastructure/platform/internal/platform/mock"
-	"github.com/base-infrastructure/platform/internal/runtime"
 )
 
 func TestNetworkStage_Success(t *testing.T) {
@@ -30,8 +30,7 @@ func TestNetworkStage_Success(t *testing.T) {
 	}
 
 	log := slog.Default()
-	bus := runtime.NewEventBus()
-	ctx := NewContext(log, bus, nil, nil, p)
+	ctx := core.NewContext(log, nil, nil, nil, p)
 
 	if err := stage.Initialize(ctx); err != nil {
 		t.Fatalf("Failed to initialize: %v", err)
@@ -42,7 +41,7 @@ func TestNetworkStage_Success(t *testing.T) {
 
 	artifact, err := stage.Run(goCtx, ctx)
 	if err != nil {
-		t.Fatalf("Stage run failed: %v", err)
+		t.Fatalf("core.Stage run failed: %v", err)
 	}
 
 	if err := stage.Validate(artifact); err != nil {
@@ -65,10 +64,9 @@ func TestNetworkStage_Success(t *testing.T) {
 func TestNetworkStage_UninitializedPlatform(t *testing.T) {
 	stage := &NetworkStage{}
 	log := slog.Default()
-	bus := runtime.NewEventBus()
 
-	// Context with NO platform
-	ctx := NewContext(log, bus, nil, nil, nil)
+	// core.Context with NO platform
+	ctx := core.NewContext(log, nil, nil, nil, nil)
 
 	err := stage.Initialize(ctx)
 	if err == nil {
@@ -83,8 +81,7 @@ func TestNetworkStage_GetInterfacesError(t *testing.T) {
 	p.MockNetwork.Err = errors.New("network provider error")
 
 	log := slog.Default()
-	bus := runtime.NewEventBus()
-	ctx := NewContext(log, bus, nil, nil, p)
+	ctx := core.NewContext(log, nil, nil, nil, p)
 
 	if err := stage.Initialize(ctx); err != nil {
 		t.Fatalf("Failed to initialize: %v", err)

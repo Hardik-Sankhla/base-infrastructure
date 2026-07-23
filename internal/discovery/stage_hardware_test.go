@@ -5,6 +5,7 @@ import (
 	"log/slog"
 	"testing"
 
+	"github.com/base-infrastructure/platform/internal/core"
 	"github.com/base-infrastructure/platform/internal/domain/models"
 	"github.com/base-infrastructure/platform/internal/platform/mock"
 )
@@ -24,7 +25,7 @@ func TestHardwareStage_Success(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), stage.Timeout())
 	defer cancel()
 
-	dctx := NewContext(slog.Default(), nil, nil, nil, p)
+	dctx := core.NewContext(slog.Default(), nil, nil, nil, p)
 
 	if err := stage.Initialize(dctx); err != nil {
 		t.Fatalf("Initialize failed: %v", err)

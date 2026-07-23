@@ -4,9 +4,11 @@ import (
 	"context"
 	"fmt"
 	"time"
+
+	"github.com/base-infrastructure/platform/internal/core"
 )
 
-// Stage implements discovery.Stage for filesystem discovery.
+// core.Stage implements discovery.core.Stage for filesystem discovery.
 type FilesystemStage struct{}
 
 func (s *FilesystemStage) Name() string {
@@ -33,7 +35,7 @@ func (s *FilesystemStage) Timeout() time.Duration {
 	return 10 * time.Second
 }
 
-func (s *FilesystemStage) Initialize(dctx Context) error {
+func (s *FilesystemStage) Initialize(dctx core.Context) error {
 	if dctx.Platform() == nil {
 		return fmt.Errorf("platform abstraction layer is not initialized in context")
 	}
@@ -43,7 +45,7 @@ func (s *FilesystemStage) Initialize(dctx Context) error {
 	return nil
 }
 
-func (s *FilesystemStage) Run(ctx context.Context, dctx Context) (DiscoveryArtifact, error) {
+func (s *FilesystemStage) Run(ctx context.Context, dctx core.Context) (core.DiscoveryArtifact, error) {
 	provider := dctx.Platform().Filesystem()
 
 	info, err := provider.GetFilesystemInfo(ctx)
@@ -54,7 +56,7 @@ func (s *FilesystemStage) Run(ctx context.Context, dctx Context) (DiscoveryArtif
 	return info, nil
 }
 
-func (s *FilesystemStage) Validate(artifact DiscoveryArtifact) error {
+func (s *FilesystemStage) Validate(artifact core.DiscoveryArtifact) error {
 	if artifact == nil {
 		return fmt.Errorf("artifact is nil")
 	}

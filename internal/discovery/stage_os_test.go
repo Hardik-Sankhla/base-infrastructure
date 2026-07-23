@@ -5,6 +5,7 @@ import (
 	"log/slog"
 	"testing"
 
+	"github.com/base-infrastructure/platform/internal/core"
 	"github.com/base-infrastructure/platform/internal/domain/models"
 	"github.com/base-infrastructure/platform/internal/platform/mock"
 )
@@ -25,7 +26,7 @@ func TestOSStage_Success(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), stage.Timeout())
 	defer cancel()
 
-	dctx := NewContext(slog.Default(), nil, nil, nil, mockPlat)
+	dctx := core.NewContext(slog.Default(), nil, nil, nil, mockPlat)
 
 	if err := stage.Initialize(dctx); err != nil {
 		t.Fatalf("Initialize failed: %v", err)
@@ -56,7 +57,7 @@ func TestOSStage_Success(t *testing.T) {
 
 func TestOSStage_UninitializedPlatform(t *testing.T) {
 	stage := &OSStage{}
-	dctx := NewContext(slog.Default(), nil, nil, nil, nil)
+	dctx := core.NewContext(slog.Default(), nil, nil, nil, nil)
 
 	err := stage.Initialize(dctx)
 	if err == nil {

@@ -1,4 +1,4 @@
-package discovery
+package core
 
 import (
 	"database/sql"

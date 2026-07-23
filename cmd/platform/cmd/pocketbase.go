@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/base-infrastructure/platform/internal/infrastructure/pocketbase"
+	"github.com/base-infrastructure/platform/internal/bootstrap"
 	"github.com/spf13/cobra"
 )
 
@@ -23,7 +23,7 @@ var pbStartCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		// Override args so pocketbase parses "serve"
 		os.Args = []string{"platform-pb", "serve"}
-		if err := pocketbase.Start(); err != nil {
+		if err := bootstrap.Current.StartDatabase(); err != nil {
 			slog.Error("PocketBase failed to start", "error", err)
 			os.Exit(1)
 		}
@@ -35,15 +35,8 @@ var pbInitCmd = &cobra.Command{
 	Short: "Initialize PocketBase schema and data",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("🚀 Initializing PocketBase...")
-		if _, err := pocketbase.Init(); err != nil {
+		if err := bootstrap.Current.InitDatabase(); err != nil {
 			slog.Error("Failed to initialize pocketbase", "error", err)
-			os.Exit(1)
-		}
-
-		// Run migrations up
-		os.Args = []string{"platform-pb", "migrate", "up"}
-		if err := pocketbase.App.Start(); err != nil {
-			slog.Error("PocketBase migrations failed", "error", err)
 			os.Exit(1)
 		}
 

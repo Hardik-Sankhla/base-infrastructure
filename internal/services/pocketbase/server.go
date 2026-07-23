@@ -10,7 +10,7 @@ import (
 	"github.com/pocketbase/pocketbase/core"
 	"github.com/pocketbase/pocketbase/plugins/migratecmd"
 
-	_ "github.com/base-infrastructure/platform/internal/infrastructure/pocketbase/migrations"
+	_ "github.com/base-infrastructure/platform/internal/services/pocketbase/migrations"
 )
 
 var App *pocketbase.PocketBase
