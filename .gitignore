@@ -17,3 +17,6 @@ package-lock.json
 
 # PocketBase
 .pb_data/
+
+# Build artifacts
+bin/
