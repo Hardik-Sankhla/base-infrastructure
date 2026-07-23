@@ -1,12 +1,12 @@
 package discovery
 
 import (
+	"github.com/base-infrastructure/platform/internal/runtime"
+
 	"log/slog"
 
 	"github.com/base-infrastructure/platform/internal/domain/models"
 	"github.com/base-infrastructure/platform/internal/platform/detector"
-	"github.com/base-infrastructure/platform/internal/runtime/context"
-	"github.com/base-infrastructure/platform/internal/runtime/events"
 )
 
 // DefaultDiscoveryEngine implements contracts.DiscoveryEngine.
@@ -33,7 +33,7 @@ func (e *DefaultDiscoveryEngine) AddHook(h Hook) {
 }
 
 // Run implements contracts.DiscoveryEngine.
-func (e *DefaultDiscoveryEngine) Run(pctx *context.PlatformContext) (*models.DiscoveryManifest, error) {
+func (e *DefaultDiscoveryEngine) Run(pctx *runtime.PlatformContext) (*models.DiscoveryManifest, error) {
 	logger := pctx.Logger.With("engine", "discovery")
 	bus := pctx.EventBus
 

@@ -1,4 +1,4 @@
-package fs
+package runtime
 
 import (
 	"fmt"
@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 )
 
-// Manager defines the interface for filesystem operations
-type Manager interface {
+// FSManager defines the interface for filesystem operations
+type FSManager interface {
 	ConfigDir() string
 	CacheDir() string
 	DataDir() string
@@ -16,36 +16,36 @@ type Manager interface {
 	AtomicWrite(path string, data []byte) error
 }
 
-type DefaultManager struct {
+type DefaultFSManager struct {
 	baseDir string
 }
 
-func NewManager(baseDir string) *DefaultManager {
-	return &DefaultManager{baseDir: baseDir}
+func NewFSManager(baseDir string) *DefaultFSManager {
+	return &DefaultFSManager{baseDir: baseDir}
 }
 
-func (m *DefaultManager) ConfigDir() string {
+func (m *DefaultFSManager) ConfigDir() string {
 	return filepath.Join(m.baseDir, "config")
 }
 
-func (m *DefaultManager) CacheDir() string {
+func (m *DefaultFSManager) CacheDir() string {
 	return filepath.Join(m.baseDir, "cache")
 }
 
-func (m *DefaultManager) DataDir() string {
+func (m *DefaultFSManager) DataDir() string {
 	return filepath.Join(m.baseDir, "data")
 }
 
-func (m *DefaultManager) TempDir() string {
+func (m *DefaultFSManager) TempDir() string {
 	return filepath.Join(m.baseDir, "tmp")
 }
 
-func (m *DefaultManager) PluginDir() string {
+func (m *DefaultFSManager) PluginDir() string {
 	return filepath.Join(m.baseDir, "plugins")
 }
 
 // AtomicWrite writes data to a temporary file and renames it to target path
-func (m *DefaultManager) AtomicWrite(path string, data []byte) error {
+func (m *DefaultFSManager) AtomicWrite(path string, data []byte) error {
 	dir := filepath.Dir(path)
 	if err := os.MkdirAll(dir, 0o755); err != nil {
 		return fmt.Errorf("failed to create directory: %w", err)

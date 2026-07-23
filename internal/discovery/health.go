@@ -1,8 +1,9 @@
 package discovery
 
 import (
+	"github.com/base-infrastructure/platform/internal/runtime"
+
 	"bytes"
-	"context"
 	"fmt"
 	"os"
 	"os/exec"
@@ -31,7 +32,7 @@ type RepositoryHealth struct {
 }
 
 // AnalyzeHealth performs the repository doctor checks.
-func AnalyzeHealth(ctx context.Context, repoRoot string) (RepositoryHealth, error) {
+func AnalyzeHealth(ctx runtime.Context, repoRoot string) (RepositoryHealth, error) {
 	var health RepositoryHealth
 	health.ReleaseReady = true // Assume true, fail below if conditions aren't met
 

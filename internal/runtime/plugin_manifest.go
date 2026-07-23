@@ -1,4 +1,4 @@
-package plugin
+package runtime
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	yaml "gopkg.in/yaml.v3"
 )
 
-type Manifest struct {
+type PluginManifest struct {
 	SchemaVersion string            `yaml:"schema_version"`
 	Name          string            `yaml:"name"`
 	Description   string            `yaml:"description"`
@@ -29,13 +29,13 @@ type Dependency struct {
 }
 
 // LoadManifest reads a manifest.yaml file from disk
-func LoadManifest(path string) (*Manifest, error) {
+func LoadManifest(path string) (*PluginManifest, error) {
 	data, err := os.ReadFile(path)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read manifest file: %w", err)
 	}
 
-	var m Manifest
+	var m PluginManifest
 	if err := yaml.Unmarshal(data, &m); err != nil {
 		return nil, fmt.Errorf("failed to parse manifest yaml: %w", err)
 	}

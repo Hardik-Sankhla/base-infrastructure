@@ -1,7 +1,8 @@
 package discovery
 
 import (
-	"context"
+	"github.com/base-infrastructure/platform/internal/runtime"
+
 	"time"
 )
 
@@ -28,9 +29,9 @@ type Stage interface {
 
 	// Lifecycle
 	Initialize(dctx Context) error
-	Run(ctx context.Context, dctx Context) (DiscoveryArtifact, error)
+	Run(ctx runtime.Context, dctx Context) (DiscoveryArtifact, error)
 	Validate(artifact DiscoveryArtifact) error
-	Cleanup(ctx context.Context) error
+	Cleanup(ctx runtime.Context) error
 }
 
 // StageResult is the immutable output of a single Stage execution.

@@ -1,7 +1,7 @@
 package linux
 
 import (
-	"context"
+	"github.com/base-infrastructure/platform/internal/runtime"
 
 	"github.com/base-infrastructure/platform/internal/domain/models"
 )
@@ -15,7 +15,7 @@ func NewSoftwareProvider() *SoftwareProvider {
 }
 
 // GetSoftwareInfo retrieves installed packages and runtimes.
-func (p *SoftwareProvider) GetSoftwareInfo(ctx context.Context) (models.SoftwareInfo, error) {
+func (p *SoftwareProvider) GetSoftwareInfo(ctx runtime.Context) (models.SoftwareInfo, error) {
 	// TODO: implement apt/yum/apk software discovery
 	return models.SoftwareInfo{
 		Packages: []models.SoftwarePackage{},

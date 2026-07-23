@@ -1,7 +1,8 @@
 package discovery
 
 import (
-	"context"
+	"github.com/base-infrastructure/platform/internal/runtime"
+
 	"testing"
 	"time"
 )
@@ -18,11 +19,11 @@ func (m *mockStage) Priority() int                 { return 0 }
 func (m *mockStage) DependsOn() []string           { return m.dependsOn }
 func (m *mockStage) Timeout() time.Duration        { return time.Second }
 func (m *mockStage) Initialize(dctx Context) error { return nil }
-func (m *mockStage) Run(ctx context.Context, dctx Context) (DiscoveryArtifact, error) {
+func (m *mockStage) Run(ctx runtime.Context, dctx Context) (DiscoveryArtifact, error) {
 	return nil, nil
 }
 func (m *mockStage) Validate(artifact DiscoveryArtifact) error { return nil }
-func (m *mockStage) Cleanup(ctx context.Context) error         { return nil }
+func (m *mockStage) Cleanup(ctx runtime.Context) error         { return nil }
 
 func TestValidator_ValidGraph(t *testing.T) {
 	v := NewValidator()

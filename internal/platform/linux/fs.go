@@ -1,7 +1,8 @@
 package linux
 
 import (
-	"context"
+	"github.com/base-infrastructure/platform/internal/runtime"
+
 	"os"
 	"path/filepath"
 	"strings"
@@ -16,7 +17,7 @@ func NewFilesystemProvider() *FilesystemProvider {
 	return &FilesystemProvider{}
 }
 
-func (p *FilesystemProvider) GetFilesystemInfo(ctx context.Context) (models.FilesystemInfo, error) {
+func (p *FilesystemProvider) GetFilesystemInfo(ctx runtime.Context) (models.FilesystemInfo, error) {
 	var info models.FilesystemInfo
 
 	// 1. Mounts

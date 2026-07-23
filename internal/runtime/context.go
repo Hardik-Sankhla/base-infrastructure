@@ -1,4 +1,4 @@
-package context
+package runtime
 
 import (
 	gocontext "context"
@@ -6,11 +6,6 @@ import (
 	"log/slog"
 
 	"github.com/base-infrastructure/platform/internal/config"
-	"github.com/base-infrastructure/platform/internal/runtime/events"
-	"github.com/base-infrastructure/platform/internal/runtime/fs"
-	"github.com/base-infrastructure/platform/internal/runtime/http"
-	"github.com/base-infrastructure/platform/internal/runtime/plugin"
-	"github.com/base-infrastructure/platform/internal/runtime/tasks"
 )
 
 // PlatformContext is the unified context passed to all engines
@@ -18,11 +13,11 @@ type PlatformContext struct {
 	Logger     *slog.Logger
 	Config     *config.Config
 	DB         *sql.DB
-	EventBus   events.Bus
-	TaskEngine tasks.Engine
-	FS         fs.Manager
-	Downloader http.Downloader
-	Registry   plugin.Registry
+	EventBus   EventBus
+	TaskEngine TaskEngine
+	FS         FSManager
+	Downloader Downloader
+	Registry   Registry
 
 	// goCtx is the cancellable Go context for this platform run.
 	goCtx gocontext.Context
@@ -33,11 +28,11 @@ func NewPlatformContext(cfg *config.Config, db *sql.DB) *PlatformContext {
 		Logger:     slog.Default(),
 		Config:     cfg,
 		DB:         db,
-		EventBus:   events.NewBus(),
-		TaskEngine: tasks.NewEngine(),
-		FS:         fs.NewManager(cfg.System.DataDir),
-		Downloader: http.NewDownloader(),
-		Registry:   plugin.NewRegistry(),
+		EventBus:   runtime.NewEventBus(),
+		TaskEngine: tasks.NewTaskEngine(),
+		FS:         fs.NewFSManager(cfg.System.DataDir),
+		Downloader: runtime.NewDownloader(),
+		Registry:   runtime.NewPluginRegistry(),
 		goCtx:      gocontext.Background(),
 	}
 }

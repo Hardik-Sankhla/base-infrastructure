@@ -1,7 +1,8 @@
-package http
+package runtime
 
 import (
 	"context"
+
 	"crypto/sha256"
 	"fmt"
 	"io"

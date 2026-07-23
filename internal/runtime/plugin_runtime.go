@@ -1,7 +1,8 @@
-package plugin
+package runtime
 
 import (
 	"context"
+
 	"fmt"
 	"log/slog"
 )
@@ -14,7 +15,7 @@ type Result struct {
 }
 
 // Interface defines the strict contract all plugins must implement
-type Interface interface {
+type PluginInterface interface {
 	Discover(ctx context.Context) (Result, error)
 	Plan(ctx context.Context) (Result, error)
 	Install(ctx context.Context) (Result, error)
@@ -27,22 +28,22 @@ type Interface interface {
 	Cleanup(ctx context.Context) (Result, error)
 }
 
-type Registry interface {
-	Register(manifest *Manifest, instance Interface) error
+type PluginRegistry interface {
+	Register(manifest *PluginManifest, instance Interface) error
 	Get(name string) (Interface, error)
 }
 
-type DefaultRegistry struct {
+type DefaultPluginRegistry struct {
 	plugins map[string]Interface
 }
 
-func NewRegistry() *DefaultRegistry {
+func NewPluginRegistry() *DefaultPluginRegistry {
 	return &DefaultRegistry{
 		plugins: make(map[string]Interface),
 	}
 }
 
-func (r *DefaultRegistry) Register(manifest *Manifest, instance Interface) error {
+func (r *DefaultPluginRegistry) Register(manifest *PluginManifest, instance Interface) error {
 	if _, exists := r.plugins[manifest.Name]; exists {
 		return fmt.Errorf("plugin %s is already registered", manifest.Name)
 	}
@@ -51,7 +52,7 @@ func (r *DefaultRegistry) Register(manifest *Manifest, instance Interface) error
 	return nil
 }
 
-func (r *DefaultRegistry) Get(name string) (Interface, error) {
+func (r *DefaultPluginRegistry) Get(name string) (Interface, error) {
 	if instance, exists := r.plugins[name]; exists {
 		return instance, nil
 	}

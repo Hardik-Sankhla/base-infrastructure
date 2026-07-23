@@ -12,7 +12,7 @@ import (
 	"github.com/base-infrastructure/platform/internal/discovery/builtin"
 	"github.com/base-infrastructure/platform/internal/logger"
 	"github.com/base-infrastructure/platform/internal/presentation"
-	"github.com/base-infrastructure/platform/internal/runtime/context"
+
 	"github.com/spf13/cobra"
 )
 

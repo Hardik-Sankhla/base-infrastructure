@@ -1,4 +1,4 @@
-package events
+package runtime
 
 import (
 	"sync"
@@ -42,30 +42,30 @@ type StageEventPayload struct {
 // Handler function signature
 type Handler func(Event)
 
-// Bus interface
-type Bus interface {
+// EventBus interface
+type EventBus interface {
 	Subscribe(eventType EventType, handler Handler)
 	Publish(eventType EventType, payload interface{})
 }
 
-type DefaultBus struct {
+type DefaultEventBus struct {
 	handlers map[EventType][]Handler
 	mu       sync.RWMutex
 }
 
-func NewBus() *DefaultBus {
+func NewEventBus() *DefaultEventBus {
 	return &DefaultBus{
 		handlers: make(map[EventType][]Handler),
 	}
 }
 
-func (b *DefaultBus) Subscribe(eventType EventType, handler Handler) {
+func (b *DefaultEventBus) Subscribe(eventType EventType, handler Handler) {
 	b.mu.Lock()
 	defer b.mu.Unlock()
 	b.handlers[eventType] = append(b.handlers[eventType], handler)
 }
 
-func (b *DefaultBus) Publish(eventType EventType, payload interface{}) {
+func (b *DefaultEventBus) Publish(eventType EventType, payload interface{}) {
 	b.mu.RLock()
 	handlers := b.handlers[eventType]
 	b.mu.RUnlock()

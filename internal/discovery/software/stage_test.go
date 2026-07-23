@@ -9,7 +9,7 @@ import (
 
 	"github.com/base-infrastructure/platform/internal/domain/models"
 	"github.com/base-infrastructure/platform/internal/platform/mock"
-	"github.com/base-infrastructure/platform/internal/runtime/events"
+	"github.com/base-infrastructure/platform/internal/runtime"
 
 	dctx "github.com/base-infrastructure/platform/internal/discovery"
 )
@@ -28,7 +28,7 @@ func TestSoftwareStage_Success(t *testing.T) {
 	}
 
 	log := slog.Default()
-	bus := events.NewBus()
+	bus := runtime.NewEventBus()
 	ctx := dctx.NewContext(log, bus, nil, nil, p)
 
 	if err := stage.Initialize(ctx); err != nil {
@@ -63,7 +63,7 @@ func TestSoftwareStage_Success(t *testing.T) {
 func TestSoftwareStage_UninitializedPlatform(t *testing.T) {
 	stage := NewStage()
 	log := slog.Default()
-	bus := events.NewBus()
+	bus := runtime.NewEventBus()
 
 	ctx := dctx.NewContext(log, bus, nil, nil, nil)
 
@@ -80,7 +80,7 @@ func TestSoftwareStage_ProviderError(t *testing.T) {
 	p.MockSoftware.Err = errors.New("software provider error")
 
 	log := slog.Default()
-	bus := events.NewBus()
+	bus := runtime.NewEventBus()
 	ctx := dctx.NewContext(log, bus, nil, nil, p)
 
 	if err := stage.Initialize(ctx); err != nil {

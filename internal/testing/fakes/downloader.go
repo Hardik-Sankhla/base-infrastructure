@@ -5,8 +5,9 @@ import (
 )
 
 type FakeDownloader struct {
-	SimulateError error
-	Downloaded    map[string]string
+	Downloaded map[string]string // url -> dest
+	SimulateError   error
+	ExpectedHash    string
 }
 
 func NewFakeDownloader() *FakeDownloader {

@@ -1,12 +1,12 @@
 package discovery
 
 import (
+	"github.com/base-infrastructure/platform/internal/runtime"
+
 	"context"
 	"fmt"
 	"log/slog"
 	"time"
-
-	"github.com/base-infrastructure/platform/internal/runtime/events"
 )
 
 // PipelineConfig controls pipeline execution behaviour.
@@ -27,11 +27,11 @@ type Pipeline struct {
 	hooks  []Hook
 	config PipelineConfig
 	logger *slog.Logger
-	bus    events.Bus
+	bus    events.EventBus
 }
 
 // NewPipeline creates a pipeline with the given configuration.
-func NewPipeline(cfg PipelineConfig, logger *slog.Logger, bus events.Bus) *Pipeline {
+func NewPipeline(cfg PipelineConfig, logger *slog.Logger, bus events.EventBus) *Pipeline {
 	return &Pipeline{
 		stages: make([]Stage, 0),
 		hooks:  make([]Hook, 0),
@@ -74,7 +74,7 @@ func (p *Pipeline) AddStages(stages []Stage) error {
 }
 
 // Run executes all stages sequentially in priority order.
-func (p *Pipeline) Run(ctx context.Context, dctx Context) (*Result, error) {
+func (p *Pipeline) Run(ctx runtime.Context, dctx Context) (*Result, error) {
 	// Validate the dependency graph before execution
 	validator := NewValidator()
 	if err := validator.Validate(p.stages); err != nil {
@@ -141,12 +141,12 @@ func (p *Pipeline) Run(ctx context.Context, dctx Context) (*Result, error) {
 
 // runStage executes a single stage with timing, logging, event publishing,
 // and the full stage lifecycle (Init, Run, Validate, Cleanup).
-func (p *Pipeline) runStage(globalCtx context.Context, dctx Context, stage Stage) (*StageResult, error) {
+func (p *Pipeline) runStage(globalCtx runtime.Context, dctx Context, stage Stage) (*StageResult, error) {
 	name := stage.Name()
 	p.logger.Info("Stage starting", "stage", name)
 
 	// Combine global context with stage timeout.
-	var ctx context.Context
+	var ctx runtime.Context
 	var cancel context.CancelFunc
 	if timeout := stage.Timeout(); timeout > 0 {
 		ctx, cancel = context.WithTimeout(globalCtx, timeout)

@@ -1,8 +1,12 @@
 package fakes
 
+import (
+	"github.com/base-infrastructure/platform/internal/runtime"
+)
+
 import "sync"
 
-// FakeFS implements fs.Manager for testing
+// FakeFS implements runtime.FSManager for testing
 type FakeFS struct {
 	Files map[string][]byte
 	mu    sync.RWMutex

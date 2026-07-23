@@ -1,7 +1,8 @@
-package tasks
+package runtime
 
 import (
 	"context"
+
 	"fmt"
 	"log/slog"
 )
@@ -24,18 +25,18 @@ type Task interface {
 	Rollback(ctx context.Context) error
 }
 
-// Engine manages execution of tasks
-type Engine interface {
+// TaskEngine manages execution of tasks
+type TaskEngine interface {
 	Submit(ctx context.Context, task Task) error
 }
 
-type DefaultEngine struct{}
+type DefaultTaskEngine struct{}
 
-func NewEngine() *DefaultEngine {
-	return &DefaultEngine{}
+func NewTaskEngine() *DefaultTaskEngine {
+	return &DefaultTaskEngine{}
 }
 
-func (e *DefaultEngine) Submit(ctx context.Context, task Task) error {
+func (e *DefaultTaskEngine) Submit(ctx context.Context, task Task) error {
 	slog.Info("Executing task", "task", task.Name())
 
 	err := task.Execute(ctx)

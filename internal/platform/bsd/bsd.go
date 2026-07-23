@@ -1,7 +1,7 @@
 package bsd
 
 import (
-	"context"
+	"github.com/base-infrastructure/platform/internal/runtime"
 
 	"github.com/base-infrastructure/platform/internal/domain/models"
 	"github.com/base-infrastructure/platform/internal/platform"
@@ -25,6 +25,6 @@ func (p *Platform) Software() platform.SoftwareProvider       { return NewSoftwa
 
 type OSProviderStub struct{}
 
-func (s *OSProviderStub) GetOSInfo(ctx context.Context) (models.OSInfo, error) {
+func (s *OSProviderStub) GetOSInfo(ctx runtime.Context) (models.OSInfo, error) {
 	return models.OSInfo{OperatingSystem: "bsd"}, nil
 }

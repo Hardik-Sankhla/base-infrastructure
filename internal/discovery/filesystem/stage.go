@@ -1,7 +1,8 @@
 package filesystem
 
 import (
-	"context"
+	"github.com/base-infrastructure/platform/internal/runtime"
+
 	"fmt"
 	"time"
 
@@ -50,7 +51,7 @@ func (s *Stage) Initialize(dctx discovery.Context) error {
 	return nil
 }
 
-func (s *Stage) Run(ctx context.Context, dctx discovery.Context) (discovery.DiscoveryArtifact, error) {
+func (s *Stage) Run(ctx runtime.Context, dctx discovery.Context) (discovery.DiscoveryArtifact, error) {
 	provider := dctx.Platform().Filesystem()
 
 	info, err := provider.GetFilesystemInfo(ctx)
@@ -71,6 +72,6 @@ func (s *Stage) Validate(artifact discovery.DiscoveryArtifact) error {
 	return nil
 }
 
-func (s *Stage) Cleanup(ctx context.Context) error {
+func (s *Stage) Cleanup(ctx runtime.Context) error {
 	return nil
 }

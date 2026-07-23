@@ -1,7 +1,8 @@
 package windows
 
 import (
-	"context"
+	"github.com/base-infrastructure/platform/internal/runtime"
+
 	"time"
 
 	"github.com/base-infrastructure/platform/internal/domain/models"
@@ -14,7 +15,7 @@ func NewOSProvider() *OSProvider {
 	return &OSProvider{}
 }
 
-func (p *OSProvider) GetOSInfo(ctx context.Context) (models.OSInfo, error) {
+func (p *OSProvider) GetOSInfo(ctx runtime.Context) (models.OSInfo, error) {
 	var info models.OSInfo
 	info.OperatingSystem = "windows"
 

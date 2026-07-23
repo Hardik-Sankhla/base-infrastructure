@@ -1,7 +1,8 @@
 package network
 
 import (
-	"context"
+	"github.com/base-infrastructure/platform/internal/runtime"
+
 	"fmt"
 	"time"
 
@@ -51,7 +52,7 @@ func (s *Stage) Initialize(dctx discovery.Context) error {
 	return nil
 }
 
-func (s *Stage) Run(ctx context.Context, dctx discovery.Context) (discovery.DiscoveryArtifact, error) {
+func (s *Stage) Run(ctx runtime.Context, dctx discovery.Context) (discovery.DiscoveryArtifact, error) {
 	var netInfo models.NetworkInfo
 	var err error
 
@@ -91,7 +92,7 @@ func (s *Stage) Validate(artifact discovery.DiscoveryArtifact) error {
 	return nil
 }
 
-func (s *Stage) Cleanup(ctx context.Context) error {
+func (s *Stage) Cleanup(ctx runtime.Context) error {
 	// Nothing to clean up for network discovery
 	return nil
 }
