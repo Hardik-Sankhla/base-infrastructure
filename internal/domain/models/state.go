@@ -21,3 +21,20 @@ type StateSettings struct {
 	RollbackOnFailure  bool `yaml:"rollback_on_failure" json:"rollback_on_failure"`
 	StrictVersionMatch bool `yaml:"strict_version_match" json:"strict_version_match"`
 }
+
+// DriftType categorizes the discrepancy between desired and current state
+type DriftType string
+
+const (
+	DriftMissing  DriftType = "missing"
+	DriftVersion  DriftType = "version_mismatch"
+	DriftOrphaned DriftType = "orphaned" // Exists but not desired (if enforcing strict state)
+)
+
+// Drift represents a required state change
+type Drift struct {
+	CapabilityID string            `json:"capability_id"`
+	Type         DriftType         `json:"type"`
+	Desired      DesiredCapability `json:"desired"`
+	Current      *Capability       `json:"current,omitempty"` // nil if completely missing
+}
