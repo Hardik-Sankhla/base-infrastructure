@@ -6,7 +6,6 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/base-infrastructure/platform/internal/config"
 	"github.com/pocketbase/pocketbase"
 	"github.com/pocketbase/pocketbase/core"
 )
@@ -39,9 +38,9 @@ func Init() (*pocketbase.PocketBase, error) {
 	})
 
 	// Add basic events or middleware if needed
-	App.OnServe().BindFunc(func(e *core.ServeEvent) error {
+	App.OnBeforeServe().Add(func(e *core.ServeEvent) error {
 		slog.Info("PocketBase server started", "url", "http://127.0.0.1:8090/_/")
-		return e.Next()
+		return nil
 	})
 
 	return App, nil
