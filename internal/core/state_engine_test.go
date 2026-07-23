@@ -3,7 +3,6 @@ package core
 import (
 	"context"
 	"errors"
-	"fmt"
 	"testing"
 )
 
