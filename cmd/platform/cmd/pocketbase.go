@@ -5,7 +5,6 @@ import (
 	"log/slog"
 	"net/http"
 	"os"
-	"os/exec"
 	"time"
 
 	"github.com/base-infrastructure/platform/internal/infrastructure/pocketbase"

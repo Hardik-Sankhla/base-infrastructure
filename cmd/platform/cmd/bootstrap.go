@@ -7,7 +7,6 @@ import (
 	"os/exec"
 
 	"github.com/base-infrastructure/platform/internal/config"
-	"github.com/base-infrastructure/platform/internal/infrastructure/pocketbase"
 	"github.com/spf13/cobra"
 )
 
