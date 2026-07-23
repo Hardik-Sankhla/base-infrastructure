@@ -8,6 +8,9 @@ import (
 
 	"github.com/pocketbase/pocketbase"
 	"github.com/pocketbase/pocketbase/core"
+	"github.com/pocketbase/pocketbase/plugins/migratecmd"
+
+	_ "github.com/base-infrastructure/platform/internal/infrastructure/pocketbase/migrations"
 )
 
 var App *pocketbase.PocketBase
@@ -35,6 +38,10 @@ func Init() (*pocketbase.PocketBase, error) {
 
 	App = pocketbase.NewWithConfig(pocketbase.Config{
 		DefaultDataDir: absDataDir,
+	})
+
+	migratecmd.MustRegister(App, App.RootCmd, migratecmd.Config{
+		Automigrate: true,
 	})
 
 	// Add basic events or middleware if needed

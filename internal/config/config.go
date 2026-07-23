@@ -72,6 +72,7 @@ func Load(cfgFile string) error {
 
 	// Set Defaults
 	viper.SetDefault("system.log_level", "info")
+	viper.SetDefault("system.data_dir", ".platform/data")
 	viper.SetDefault("logging.format", "json")
 
 	if err := viper.Unmarshal(&Cfg); err != nil {
