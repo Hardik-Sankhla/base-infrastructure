@@ -18,6 +18,9 @@ hero:
     - theme: alt
       text: View on GitHub
       link: https://github.com/Hardik-Sankhla/base-infrastructure
+    - theme: alt
+      text: Contribute
+      link: https://github.com/Hardik-Sankhla/base-infrastructure/blob/main/CONTRIBUTING.md
 
 features:
   - icon: 🔍

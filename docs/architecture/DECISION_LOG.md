@@ -55,6 +55,8 @@
 
 ## DL-007: AI Context as First-Class Subsystem
 **Date**: 2026-07-21  
-**Decision**: `docs/ai/` directory established as machine-readable context layer.  
-**Rationale**: As AI agents increasingly contribute to codebases, they need structured, evidence-backed onboarding docs that differ from human-readable narratives.  
-**Key implication**: Every AI agent MUST read `docs/ai/AGENT_GUIDE.md` before modifying code. This is enforceable via `CONSTITUTION.md`.
+**Status**: Migrated to Engineering OS v2.0 (`.ai/`).
+**Rationale**: AI Agents need machine-readable context (rules, constraints, states) that shouldn't clutter human documentation.
+**Decision**: `.ai/` directory established as the machine-readable Engineering OS.  
+
+**Key implication**: Every AI agent MUST read `.ai/START_HERE.md` before modifying code. This is enforceable via `.ai/ENGINEERING_LIFECYCLE.md`.

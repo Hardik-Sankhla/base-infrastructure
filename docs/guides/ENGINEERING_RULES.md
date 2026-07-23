@@ -94,11 +94,11 @@ Source: `.github/workflows/ci.yml:28-63`
 **Documentation is infrastructure.**
 
 If a PR changes:
-- Any interface in `internal/domain/contracts/` → update `docs/ai/ARCHITECTURE_INDEX.md`
-- Any platform provider → update `docs/ai/REPOSITORY_STATE.md`
+- Any interface in `internal/domain/contracts/` → update `.ai/ARCHITECTURE_RULES.md`
+- Any platform provider → update `.ai/MEMORY_PROTOCOL.md`
 - Any CLI command behavior → update `docs/cli/reference.md`
 - Any architectural decision → add an ADR to `docs/adr/`
-- Any known bug → update `docs/ai/KNOWN_ISSUES.md`
+- Any known bug → update `docs/guides/KNOWN_ISSUES.md`
 
 ---
 

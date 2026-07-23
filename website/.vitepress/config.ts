@@ -19,13 +19,15 @@ export default defineConfig({
     nav: [
       { text: 'Getting Started', link: '/getting-started/install' },
       { text: 'Architecture', link: '/architecture/overview' },
-      { text: 'CLI Reference', link: '/cli/reference' },
-      { text: 'AI Context', link: '/ai/AI_CONTEXT' },
+      { text: 'Development', link: '/development/guide' },
+      { text: 'Engineering', link: '/engineering/overview' },
+      { text: 'Reference', link: '/cli/reference' },
       {
-        text: 'v0.1.0',
+        text: 'Project',
         items: [
-          { text: 'Changelog', link: '/changelog' },
-          { text: 'Roadmap', link: '/roadmap' },
+          { text: 'Roadmap', link: 'https://github.com/Hardik-Sankhla/base-infrastructure/blob/main/ROADMAP.md' },
+          { text: 'Contributing', link: 'https://github.com/Hardik-Sankhla/base-infrastructure/blob/main/CONTRIBUTING.md' },
+          { text: 'Release Notes', link: 'https://github.com/Hardik-Sankhla/base-infrastructure/blob/main/CHANGELOG.md' },
           { text: 'GitHub', link: 'https://github.com/Hardik-Sankhla/base-infrastructure' },
         ]
       }
@@ -49,96 +51,10 @@ export default defineConfig({
           text: 'Architecture',
           items: [
             { text: 'Overview', link: '/architecture/overview' },
+            { text: 'Platform Design', link: '/platform/abstraction' },
+            { text: 'Discovery Pipeline', link: '/discovery/engine' },
             { text: 'Diagrams', link: '/architecture/diagrams' },
-          ]
-        }
-      ],
-
-      '/concepts/': [
-        {
-          text: 'Concepts',
-          items: [
-            { text: 'Capabilities', link: '/concepts/capabilities' },
-            { text: 'Discovery Manifest', link: '/concepts/manifest' },
-            { text: 'Glossary', link: '/concepts/glossary' },
-          ]
-        }
-      ],
-
-      '/discovery/': [
-        {
-          text: 'Discovery Engine',
-          items: [
-            { text: 'How It Works', link: '/discovery/engine' },
-            { text: 'Stages', link: '/discovery/stages' },
-            { text: 'Validation', link: '/discovery/validation' },
-          ]
-        }
-      ],
-
-      '/platform/': [
-        {
-          text: 'Platform Abstraction',
-          items: [
-            { text: 'Overview', link: '/platform/abstraction' },
-            { text: 'Providers', link: '/platform/providers' },
-            { text: 'Environments', link: '/platform/environments' },
-          ]
-        }
-      ],
-
-      '/runtime/': [
-        {
-          text: 'Runtime',
-          items: [
-            { text: 'Overview', link: '/runtime/overview' },
-          ]
-        }
-      ],
-
-      '/sdk/': [
-        {
-          text: 'Plugin SDK',
-          items: [
-            { text: 'Overview', link: '/sdk/overview' },
-          ]
-        }
-      ],
-
-      '/plugins/': [
-        {
-          text: 'Plugins',
-          items: [
-            { text: 'Architecture', link: '/plugins/overview' },
-            { text: 'Supported Plugins', link: '/plugins/supported' },
-          ]
-        }
-      ],
-
-      '/api/': [
-        {
-          text: 'API Reference',
-          items: [
-            { text: 'Contracts', link: '/api/contracts' },
-            { text: 'Models', link: '/api/models' },
-          ]
-        }
-      ],
-
-      '/cli/': [
-        {
-          text: 'CLI',
-          items: [
-            { text: 'Reference', link: '/cli/reference' },
-          ]
-        }
-      ],
-
-      '/testing/': [
-        {
-          text: 'Testing',
-          items: [
-            { text: 'Overview', link: '/testing/overview' },
+            { text: 'Decision Log', link: '/architecture/DECISION_LOG' },
           ]
         }
       ],
@@ -148,15 +64,44 @@ export default defineConfig({
           text: 'Development',
           items: [
             { text: 'Developer Guide', link: '/development/guide' },
+            { text: 'Testing', link: '/testing/overview' },
+            { text: 'Deployment', link: '/deployment/guide' },
           ]
         }
       ],
 
-      '/deployment/': [
+      '/engineering/': [
         {
-          text: 'Deployment',
+          text: 'Engineering OS',
           items: [
-            { text: 'Guide', link: '/deployment/guide' },
+            { text: 'Overview', link: '/engineering/overview' },
+          ]
+        }
+      ],
+
+      '/guides/': [
+        {
+          text: 'Guides',
+          items: [
+            { text: 'Engineering Rules', link: '/guides/ENGINEERING_RULES' },
+            { text: 'Known Issues', link: '/guides/KNOWN_ISSUES' },
+          ]
+        }
+      ],
+
+      '/cli/': [
+        {
+          text: 'Reference',
+          items: [
+            { text: 'CLI Reference', link: '/cli/reference' },
+            { text: 'Capabilities', link: '/concepts/capabilities' },
+            { text: 'Discovery Manifest', link: '/concepts/manifest' },
+            { text: 'Glossary', link: '/concepts/glossary' },
+            { text: 'API Contracts', link: '/api/contracts' },
+            { text: 'API Models', link: '/api/models' },
+            { text: 'Plugin SDK', link: '/sdk/overview' },
+            { text: 'Plugin Architecture', link: '/plugins/overview' },
+            { text: 'Supported Plugins', link: '/plugins/supported' },
           ]
         }
       ],
@@ -172,28 +117,6 @@ export default defineConfig({
           ]
         }
       ],
-
-      '/ai/': [
-        {
-          text: 'AI Context',
-          items: [
-            { text: 'Master Context', link: '/ai/AI_CONTEXT' },
-            { text: 'Current Status', link: '/ai/CURRENT_STATUS' },
-            { text: 'Repository State', link: '/ai/REPOSITORY_STATE' },
-            { text: 'Package Index', link: '/ai/PACKAGE_INDEX' },
-            { text: 'Architecture Index', link: '/ai/ARCHITECTURE_INDEX' },
-            { text: 'Engineering Rules', link: '/ai/ENGINEERING_RULES' },
-            { text: 'Coding Rules', link: '/ai/CODING_RULES' },
-            { text: 'Testing Rules', link: '/ai/TESTING_RULES' },
-            { text: 'CI Rules', link: '/ai/CI_RULES' },
-            { text: 'Plugin Guide', link: '/ai/PLUGIN_GUIDE' },
-            { text: 'Agent Guide', link: '/ai/AGENT_GUIDE' },
-            { text: 'Roadmap Context', link: '/ai/ROADMAP_CONTEXT' },
-            { text: 'Decision Log', link: '/ai/DECISION_LOG' },
-            { text: 'Known Issues', link: '/ai/KNOWN_ISSUES' },
-          ]
-        }
-      ],
     },
 
     socialLinks: [
@@ -202,7 +125,7 @@ export default defineConfig({
 
     footer: {
       message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2025 Hardik Sankhla'
+      copyright: 'Copyright © 2026 Hardik Sankhla'
     },
 
     editLink: {
