@@ -16,7 +16,10 @@ The foundation of the project has been established with a heavy focus on the Dis
 ## 🚀 In Progress (v0.5.0)
 Currently under active development by contributors.
 
-- **State Engine**: Configuration parsing and State Model building.
+- **v0.4 Architecture Stabilization**: ✅ Deep dependency decoupling and capability builder stabilization.
+- **Engineering OS v2**: ✅ Rebuilding the agent governance framework (`.ai/`) for scalable long-term development.
+- **Engineering OS Stabilization**: ⏳ Synchronizing human documentation, website navigation, and CI gates to match the new OS.
+- **State Engine**: Configuration parsing and State Model building (Paused during OS Stabilization).
 - **Drift Detection**: Comparing desired configuration against current Capabilities to determine required execution graphs.
 
 ## 🗓️ Planned (v0.6.0)

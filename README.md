@@ -45,9 +45,11 @@ make  # Or run `go build -o platform ./cmd/platform`
 ```
 
 ## Repository Structure
-```
+```text
 .
++-- .ai/                # Engineering OS v2.0 (Agent-driven development rules, personas, checklists)
 +-- cmd/platform/       # Ultra-thin CLI entrypoint
++-- docs/               # Human-facing comprehensive documentation
 +-- internal/
    +-- bootstrap/      # Dependency injection and orchestration
    +-- capabilities/   # Capability translation builder
@@ -57,8 +59,13 @@ make  # Or run `go build -o platform ./cmd/platform`
    +-- platform/       # OS-specific providers (Linux, Windows, etc.)
    +-- services/       # Encapsulated infrastructure (e.g. PocketBase)
 +-- pkg/sdk/            # Public SDK for plugins
-+-- docs/               # Comprehensive Documentation
 ```
+
+## Engineering OS v2.0
+This repository is primarily engineered and maintained by AI agents operating under a strict **Engineering Operating System** located in the `.ai/` directory.
+
+- **`.ai/`**: Agent Operating System. Contains the reading order, sprint lifecycle rules, strict quality gates, agent personas (e.g., Architect, Builder, CI Guardian), and checklists. AI agents must bootstrap from `.ai/START_HERE.md`.
+- **`docs/`**: Human Documentation. Contains architectural blueprints, developer guides, and references intended for human contributors.
 
 ## Documentation Links
 - [Getting Started](docs/getting-started/quickstart.md)

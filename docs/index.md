@@ -37,8 +37,8 @@ features:
     details: Full platform abstraction layer isolates all OS-specific syscalls. The discovery engine never knows what OS it is running on — it only talks to Provider interfaces.
 
   - icon: 🤖
-    title: AI-Native Documentation
-    details: The docs/ai/ directory contains machine-readable context files designed for AI coding agents — architecture index, engineering rules, known issues, and certification guides.
+    title: Agent-Driven Engineering OS
+    details: The .ai/ directory contains a rigid Engineering Operating System designed for AI coding agents, enforcing strict lifecycles, quality gates, and personas.
 
   - icon: 🚀
     title: Zero Dependencies at Runtime
