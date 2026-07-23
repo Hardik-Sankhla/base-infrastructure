@@ -54,7 +54,7 @@ type DefaultEventBus struct {
 }
 
 func NewEventBus() *DefaultEventBus {
-	return &DefaultBus{
+	return &DefaultEventBus{
 		handlers: make(map[EventType][]Handler),
 	}
 }
