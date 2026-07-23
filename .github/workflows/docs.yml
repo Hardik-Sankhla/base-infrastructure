@@ -38,6 +38,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Link node_modules for Vite resolution
+        run: ln -s website/node_modules node_modules
+        working-directory: .
+
       - name: Build VitePress site
         run: npm run docs:build
         env:
