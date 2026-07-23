@@ -1,10 +1,9 @@
 package linux
 
 import (
+	"context"
 	"os"
 	"strings"
-
-	"github.com/base-infrastructure/platform/internal/runtime"
 
 	"github.com/base-infrastructure/platform/internal/domain/models"
 )
@@ -15,7 +14,7 @@ func NewEnvironmentProvider() *EnvironmentProvider {
 	return &EnvironmentProvider{}
 }
 
-func (p *EnvironmentProvider) GetEnvironmentInfo(ctx runtime.Context) (models.EnvironmentInfo, error) {
+func (p *EnvironmentProvider) GetEnvironmentInfo(ctx context.Context) (models.EnvironmentInfo, error) {
 	var info models.EnvironmentInfo
 
 	// Terminal check

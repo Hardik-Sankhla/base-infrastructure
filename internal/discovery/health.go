@@ -2,14 +2,13 @@ package discovery
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"regexp"
 	"strings"
-
-	"github.com/base-infrastructure/platform/internal/runtime"
 )
 
 // RepositoryHealth represents the overall health of the engineering system.
@@ -32,7 +31,7 @@ type RepositoryHealth struct {
 }
 
 // AnalyzeHealth performs the repository doctor checks.
-func AnalyzeHealth(ctx runtime.Context, repoRoot string) (RepositoryHealth, error) {
+func AnalyzeHealth(ctx context.Context, repoRoot string) (RepositoryHealth, error) {
 	var health RepositoryHealth
 	health.ReleaseReady = true // Assume true, fail below if conditions aren't met
 

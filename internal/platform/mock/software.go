@@ -1,7 +1,7 @@
 package mock
 
 import (
-	"github.com/base-infrastructure/platform/internal/runtime"
+	"context"
 
 	"github.com/base-infrastructure/platform/internal/domain/models"
 )
@@ -11,6 +11,6 @@ type SoftwareProvider struct {
 	Err  error
 }
 
-func (p *SoftwareProvider) GetSoftwareInfo(ctx runtime.Context) (models.SoftwareInfo, error) {
+func (p *SoftwareProvider) GetSoftwareInfo(ctx context.Context) (models.SoftwareInfo, error) {
 	return p.Info, p.Err
 }

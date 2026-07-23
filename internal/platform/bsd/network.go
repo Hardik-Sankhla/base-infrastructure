@@ -1,11 +1,10 @@
 package bsd
 
 import (
+	"context"
 	"net"
 	"os"
 	"strings"
-
-	"github.com/base-infrastructure/platform/internal/runtime"
 
 	"github.com/base-infrastructure/platform/internal/domain/models"
 )
@@ -16,7 +15,7 @@ func NewNetworkProvider() *NetworkProvider {
 	return &NetworkProvider{}
 }
 
-func (p *NetworkProvider) GetInterfaces(ctx runtime.Context) ([]models.NetworkInterface, error) {
+func (p *NetworkProvider) GetInterfaces(ctx context.Context) ([]models.NetworkInterface, error) {
 	ifaces, err := net.Interfaces()
 	if err != nil {
 		return nil, err
@@ -60,7 +59,7 @@ func (p *NetworkProvider) GetInterfaces(ctx runtime.Context) ([]models.NetworkIn
 	return result, nil
 }
 
-func (p *NetworkProvider) GetDNS(ctx runtime.Context) (models.DNSConfig, error) {
+func (p *NetworkProvider) GetDNS(ctx context.Context) (models.DNSConfig, error) {
 	config := models.DNSConfig{}
 
 	data, err := os.ReadFile("/etc/resolv.conf")
@@ -91,7 +90,7 @@ func (p *NetworkProvider) GetDNS(ctx runtime.Context) (models.DNSConfig, error) 
 	return config, nil
 }
 
-func (p *NetworkProvider) GetProxy(ctx runtime.Context) (models.ProxyConfig, error) {
+func (p *NetworkProvider) GetProxy(ctx context.Context) (models.ProxyConfig, error) {
 	return models.ProxyConfig{
 		HTTPProxy:  os.Getenv("HTTP_PROXY"),
 		HTTPSProxy: os.Getenv("HTTPS_PROXY"),

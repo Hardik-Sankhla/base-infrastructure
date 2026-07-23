@@ -1,10 +1,9 @@
 package software
 
 import (
+	"context"
 	"fmt"
 	"time"
-
-	"github.com/base-infrastructure/platform/internal/runtime"
 
 	"github.com/base-infrastructure/platform/internal/discovery"
 )
@@ -56,7 +55,7 @@ func (s *Stage) Initialize(ctx discovery.Context) error {
 }
 
 // Run executes the discovery process.
-func (s *Stage) Run(ctx runtime.Context, dctx discovery.Context) (discovery.DiscoveryArtifact, error) {
+func (s *Stage) Run(ctx context.Context, dctx discovery.Context) (discovery.DiscoveryArtifact, error) {
 	dctx.Logger().Debug("starting software discovery")
 
 	provider := dctx.Platform().Software()
@@ -83,6 +82,6 @@ func (s *Stage) Validate(artifact discovery.DiscoveryArtifact) error {
 }
 
 // Cleanup performs any necessary resource cleanup after the stage completes.
-func (s *Stage) Cleanup(ctx runtime.Context) error {
+func (s *Stage) Cleanup(ctx context.Context) error {
 	return nil
 }

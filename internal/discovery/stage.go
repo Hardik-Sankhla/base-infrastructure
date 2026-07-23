@@ -1,9 +1,8 @@
 package discovery
 
 import (
+	"context"
 	"time"
-
-	"github.com/base-infrastructure/platform/internal/runtime"
 )
 
 // StageStatus represents the execution state of a stage.
@@ -29,9 +28,9 @@ type Stage interface {
 
 	// Lifecycle
 	Initialize(dctx Context) error
-	Run(ctx runtime.Context, dctx Context) (DiscoveryArtifact, error)
+	Run(ctx context.Context, dctx Context) (DiscoveryArtifact, error)
 	Validate(artifact DiscoveryArtifact) error
-	Cleanup(ctx runtime.Context) error
+	Cleanup(ctx context.Context) error
 }
 
 // StageResult is the immutable output of a single Stage execution.

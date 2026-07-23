@@ -1,7 +1,7 @@
 package hardware
 
 import (
-	"github.com/base-infrastructure/platform/internal/runtime"
+	"context"
 
 	"github.com/base-infrastructure/platform/internal/domain/models"
 	"github.com/shirou/gopsutil/v3/cpu"
@@ -16,7 +16,7 @@ func NewDefaultProvider() *DefaultProvider {
 	return &DefaultProvider{}
 }
 
-func (p *DefaultProvider) GetCPU(ctx runtime.Context) (models.CPU, error) {
+func (p *DefaultProvider) GetCPU(ctx context.Context) (models.CPU, error) {
 	var hwCPU models.CPU
 
 	infoStat, err := cpu.Info()
@@ -48,7 +48,7 @@ func (p *DefaultProvider) GetCPU(ctx runtime.Context) (models.CPU, error) {
 	return hwCPU, nil
 }
 
-func (p *DefaultProvider) GetRAM(ctx runtime.Context) (models.RAM, error) {
+func (p *DefaultProvider) GetRAM(ctx context.Context) (models.RAM, error) {
 	v, err := mem.VirtualMemoryWithContext(ctx)
 	if err != nil {
 		return models.RAM{}, err
@@ -68,7 +68,7 @@ func (p *DefaultProvider) GetRAM(ctx runtime.Context) (models.RAM, error) {
 	}, nil
 }
 
-func (p *DefaultProvider) GetStorage(ctx runtime.Context) ([]models.Disk, error) {
+func (p *DefaultProvider) GetStorage(ctx context.Context) ([]models.Disk, error) {
 	partitions, err := disk.PartitionsWithContext(ctx, true)
 	if err != nil {
 		return nil, err
@@ -94,19 +94,19 @@ func (p *DefaultProvider) GetStorage(ctx runtime.Context) ([]models.Disk, error)
 	return disks, nil
 }
 
-func (p *DefaultProvider) GetGPUs(ctx runtime.Context) ([]models.GPU, error) {
+func (p *DefaultProvider) GetGPUs(ctx context.Context) ([]models.GPU, error) {
 	// gopsutil does not have built-in GPU discovery.
 	// This would require executing lspci, nvidia-smi, or querying WMI/IOKit.
 	// Returning empty list gracefully.
 	return nil, nil
 }
 
-func (p *DefaultProvider) GetBattery(ctx runtime.Context) (models.Battery, error) {
+func (p *DefaultProvider) GetBattery(ctx context.Context) (models.Battery, error) {
 	// gopsutil does not have reliable battery polling.
 	return models.Battery{Present: false}, nil
 }
 
-func (p *DefaultProvider) GetThermal(ctx runtime.Context) ([]models.ThermalSensor, error) {
+func (p *DefaultProvider) GetThermal(ctx context.Context) ([]models.ThermalSensor, error) {
 	// gopsutil does not have reliable cross-platform thermal sensors yet.
 	return nil, nil
 }

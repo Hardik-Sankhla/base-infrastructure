@@ -1,11 +1,10 @@
 package linux
 
 import (
+	"context"
 	"os"
 	"path/filepath"
 	"strings"
-
-	"github.com/base-infrastructure/platform/internal/runtime"
 
 	"github.com/base-infrastructure/platform/internal/domain/models"
 	"github.com/shirou/gopsutil/v3/disk"
@@ -17,7 +16,7 @@ func NewFilesystemProvider() *FilesystemProvider {
 	return &FilesystemProvider{}
 }
 
-func (p *FilesystemProvider) GetFilesystemInfo(ctx runtime.Context) (models.FilesystemInfo, error) {
+func (p *FilesystemProvider) GetFilesystemInfo(ctx context.Context) (models.FilesystemInfo, error) {
 	var info models.FilesystemInfo
 
 	// 1. Mounts

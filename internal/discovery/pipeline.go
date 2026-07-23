@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"log/slog"
 	"time"
-
-	"github.com/base-infrastructure/platform/internal/runtime"
 )
 
 // PipelineConfig controls pipeline execution behaviour.
@@ -74,7 +72,7 @@ func (p *Pipeline) AddStages(stages []Stage) error {
 }
 
 // Run executes all stages sequentially in priority order.
-func (p *Pipeline) Run(ctx runtime.Context, dctx Context) (*Result, error) {
+func (p *Pipeline) Run(ctx context.Context, dctx Context) (*Result, error) {
 	// Validate the dependency graph before execution
 	validator := NewValidator()
 	if err := validator.Validate(p.stages); err != nil {
@@ -141,12 +139,12 @@ func (p *Pipeline) Run(ctx runtime.Context, dctx Context) (*Result, error) {
 
 // runStage executes a single stage with timing, logging, event publishing,
 // and the full stage lifecycle (Init, Run, Validate, Cleanup).
-func (p *Pipeline) runStage(globalCtx runtime.Context, dctx Context, stage Stage) (*StageResult, error) {
+func (p *Pipeline) runStage(globalCtx context.Context, dctx Context, stage Stage) (*StageResult, error) {
 	name := stage.Name()
 	p.logger.Info("Stage starting", "stage", name)
 
 	// Combine global context with stage timeout.
-	var ctx runtime.Context
+	var ctx context.Context
 	var cancel context.CancelFunc
 	if timeout := stage.Timeout(); timeout > 0 {
 		ctx, cancel = context.WithTimeout(globalCtx, timeout)

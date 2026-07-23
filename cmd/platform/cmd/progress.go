@@ -1,10 +1,9 @@
 package cmd
 
 import (
+	"context"
 	"fmt"
 	"time"
-
-	"github.com/base-infrastructure/platform/internal/runtime"
 
 	"github.com/base-infrastructure/platform/internal/discovery"
 )
@@ -20,22 +19,22 @@ func NewProgressHook() *ProgressHook {
 	}
 }
 
-func (h *ProgressHook) BeforePipeline(ctx runtime.Context, dctx discovery.Context, stages []discovery.Stage) error {
+func (h *ProgressHook) BeforePipeline(ctx context.Context, dctx discovery.Context, stages []discovery.Stage) error {
 	fmt.Println("Discovering platform...")
 	return nil
 }
 
-func (h *ProgressHook) AfterPipeline(ctx runtime.Context, dctx discovery.Context, results map[string]discovery.StageResult) error {
+func (h *ProgressHook) AfterPipeline(ctx context.Context, dctx discovery.Context, results map[string]discovery.StageResult) error {
 	return nil
 }
 
-func (h *ProgressHook) BeforeStage(ctx runtime.Context, dctx discovery.Context, stage discovery.Stage) error {
+func (h *ProgressHook) BeforeStage(ctx context.Context, dctx discovery.Context, stage discovery.Stage) error {
 	h.startTimes[stage.Name()] = time.Now()
 	fmt.Printf("Discovering %s...\n", stage.Name())
 	return nil
 }
 
-func (h *ProgressHook) AfterStage(ctx runtime.Context, dctx discovery.Context, stage discovery.Stage, artifact discovery.DiscoveryArtifact) error {
+func (h *ProgressHook) AfterStage(ctx context.Context, dctx discovery.Context, stage discovery.Stage, artifact discovery.DiscoveryArtifact) error {
 	start := h.startTimes[stage.Name()]
 	elapsed := time.Since(start)
 
@@ -54,6 +53,6 @@ func (h *ProgressHook) AfterStage(ctx runtime.Context, dctx discovery.Context, s
 	return nil
 }
 
-func (h *ProgressHook) OnStageError(ctx runtime.Context, dctx discovery.Context, stage discovery.Stage, err error) {
+func (h *ProgressHook) OnStageError(ctx context.Context, dctx discovery.Context, stage discovery.Stage, err error) {
 	fmt.Printf("✗ %s failed: %v\n", stage.Name(), err)
 }

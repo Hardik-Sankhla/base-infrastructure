@@ -1,7 +1,7 @@
 package mock
 
 import (
-	"github.com/base-infrastructure/platform/internal/runtime"
+	"context"
 
 	"github.com/base-infrastructure/platform/internal/domain/models"
 	"github.com/base-infrastructure/platform/internal/platform"
@@ -46,7 +46,7 @@ type EnvironmentProvider struct {
 	Err  error
 }
 
-func (p *EnvironmentProvider) GetEnvironmentInfo(ctx runtime.Context) (models.EnvironmentInfo, error) {
+func (p *EnvironmentProvider) GetEnvironmentInfo(ctx context.Context) (models.EnvironmentInfo, error) {
 	return p.Info, p.Err
 }
 
@@ -57,15 +57,15 @@ type NetworkProvider struct {
 	Err        error
 }
 
-func (p *NetworkProvider) GetInterfaces(ctx runtime.Context) ([]models.NetworkInterface, error) {
+func (p *NetworkProvider) GetInterfaces(ctx context.Context) ([]models.NetworkInterface, error) {
 	return p.Interfaces, p.Err
 }
 
-func (p *NetworkProvider) GetDNS(ctx runtime.Context) (models.DNSConfig, error) {
+func (p *NetworkProvider) GetDNS(ctx context.Context) (models.DNSConfig, error) {
 	return p.DNS, p.Err
 }
 
-func (p *NetworkProvider) GetProxy(ctx runtime.Context) (models.ProxyConfig, error) {
+func (p *NetworkProvider) GetProxy(ctx context.Context) (models.ProxyConfig, error) {
 	return p.Proxy, p.Err
 }
 
@@ -74,7 +74,7 @@ type FilesystemProvider struct {
 	Err  error
 }
 
-func (p *FilesystemProvider) GetFilesystemInfo(ctx runtime.Context) (models.FilesystemInfo, error) {
+func (p *FilesystemProvider) GetFilesystemInfo(ctx context.Context) (models.FilesystemInfo, error) {
 	return p.Info, p.Err
 }
 
@@ -88,19 +88,19 @@ type HardwareProvider struct {
 	Err      error
 }
 
-func (p *HardwareProvider) GetCPU(ctx runtime.Context) (models.CPU, error) { return p.CPU, p.Err }
-func (p *HardwareProvider) GetRAM(ctx runtime.Context) (models.RAM, error) { return p.RAM, p.Err }
-func (p *HardwareProvider) GetStorage(ctx runtime.Context) ([]models.Disk, error) {
+func (p *HardwareProvider) GetCPU(ctx context.Context) (models.CPU, error) { return p.CPU, p.Err }
+func (p *HardwareProvider) GetRAM(ctx context.Context) (models.RAM, error) { return p.RAM, p.Err }
+func (p *HardwareProvider) GetStorage(ctx context.Context) ([]models.Disk, error) {
 	return p.Storage, p.Err
 }
 
-func (p *HardwareProvider) GetGPUs(ctx runtime.Context) ([]models.GPU, error) { return p.GPUs, p.Err }
+func (p *HardwareProvider) GetGPUs(ctx context.Context) ([]models.GPU, error) { return p.GPUs, p.Err }
 
-func (p *HardwareProvider) GetBattery(ctx runtime.Context) (models.Battery, error) {
+func (p *HardwareProvider) GetBattery(ctx context.Context) (models.Battery, error) {
 	return p.Battery, p.Err
 }
 
-func (p *HardwareProvider) GetThermal(ctx runtime.Context) ([]models.ThermalSensor, error) {
+func (p *HardwareProvider) GetThermal(ctx context.Context) ([]models.ThermalSensor, error) {
 	return p.Thermals, p.Err
 }
 
@@ -109,6 +109,6 @@ type OSProvider struct {
 	Err  error
 }
 
-func (p *OSProvider) GetOSInfo(ctx runtime.Context) (models.OSInfo, error) {
+func (p *OSProvider) GetOSInfo(ctx context.Context) (models.OSInfo, error) {
 	return p.Info, p.Err
 }
