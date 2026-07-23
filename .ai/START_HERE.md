@@ -1,17 +1,17 @@
 # START HERE
 
-You are working on Base Infrastructure.
+You are working on Base Infrastructure. The repository is governed by the Engineering OS v2.0.
 
-Before every task:
+Before every task, you must bootstrap your session by reading the core rules:
 1. Read `.ai/PROJECT_IDENTITY.md`
-2. Read `.ai/GUARDRAILS.md`
+2. Read `.ai/ENGINEERING_LIFECYCLE.md`
 3. Read `.ai/SESSION_PROTOCOL.md`
-4. Read `docs/ai/REPOSITORY_STATE.md`
-5. Read `docs/ai/NEXT_TASK.md`
-6. Read `docs/ai/REPOSITORY_MAP.md`
+4. Read `.ai/ARCHITECTURE_RULES.md`
+5. Read `.ai/QUALITY_GATES.md`
 
-Never modify code before understanding these documents.
-
-If any document conflicts with code, the code wins.
-
-When finished, strictly follow Phase 6 of the Session Protocol to update the repository memory.
+**How a Session Starts:**
+- Determine your active Persona (e.g., Planner, Builder, Verifier) based on the current sprint phase.
+- Load the checklist corresponding to your phase (e.g., `.ai/checklists/implementation.md`).
+- Never modify code before understanding the architectural boundaries.
+- If any document conflicts with code, the code wins.
+- When finished, strictly follow the `SESSION_PROTOCOL.md` and use the provided templates for your final report.
