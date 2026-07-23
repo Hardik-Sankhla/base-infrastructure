@@ -40,14 +40,14 @@ var pbInitCmd = &cobra.Command{
 			slog.Error("Failed to initialize pocketbase", "error", err)
 			os.Exit(1)
 		}
-		
+
 		// Run migrations up
 		os.Args = []string{"platform-pb", "migrate", "up"}
 		if err := pocketbase.App.Start(); err != nil {
 			slog.Error("PocketBase migrations failed", "error", err)
 			os.Exit(1)
 		}
-		
+
 		fmt.Println("✅ PocketBase initialized successfully.")
 	},
 }
@@ -71,7 +71,7 @@ var pbStatusCmd = &cobra.Command{
 			os.Exit(1)
 		}
 		defer resp.Body.Close()
-		
+
 		if resp.StatusCode == http.StatusOK {
 			fmt.Println("✅ PocketBase is healthy and running.")
 		} else {

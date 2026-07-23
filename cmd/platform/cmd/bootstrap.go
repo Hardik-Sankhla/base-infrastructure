@@ -45,7 +45,7 @@ var bootstrapCmd = &cobra.Command{
 		}
 
 		fmt.Println("✅ Environment configuration loaded.")
-		
+
 		fmt.Println("")
 		fmt.Println("🎉 Bootstrap complete! Your development environment is ready.")
 		fmt.Println("To start the backend infrastructure, run:")
