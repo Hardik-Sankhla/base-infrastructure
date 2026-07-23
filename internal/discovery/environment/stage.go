@@ -1,10 +1,10 @@
 package environment
 
 import (
-	"github.com/base-infrastructure/platform/internal/runtime"
-
 	"fmt"
 	"time"
+
+	"github.com/base-infrastructure/platform/internal/runtime"
 
 	"github.com/base-infrastructure/platform/internal/discovery"
 	"github.com/base-infrastructure/platform/internal/domain/models"

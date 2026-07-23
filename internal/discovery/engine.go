@@ -1,9 +1,9 @@
 package discovery
 
 import (
-	"github.com/base-infrastructure/platform/internal/runtime"
-
 	"log/slog"
+
+	"github.com/base-infrastructure/platform/internal/runtime"
 
 	"github.com/base-infrastructure/platform/internal/domain/models"
 	"github.com/base-infrastructure/platform/internal/platform/detector"

@@ -1,10 +1,10 @@
 package cmd
 
 import (
-	"github.com/base-infrastructure/platform/internal/runtime"
-
 	"fmt"
 	"time"
+
+	"github.com/base-infrastructure/platform/internal/runtime"
 
 	"github.com/base-infrastructure/platform/internal/discovery"
 )

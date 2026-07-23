@@ -1,10 +1,10 @@
 package discovery
 
 import (
-	"github.com/base-infrastructure/platform/internal/runtime"
-
 	"testing"
 	"time"
+
+	"github.com/base-infrastructure/platform/internal/runtime"
 )
 
 type mockStage struct {

@@ -1,12 +1,12 @@
 package discovery
 
 import (
-	"github.com/base-infrastructure/platform/internal/runtime"
-
 	"context"
 	"fmt"
 	"log/slog"
 	"time"
+
+	"github.com/base-infrastructure/platform/internal/runtime"
 )
 
 // PipelineConfig controls pipeline execution behaviour.

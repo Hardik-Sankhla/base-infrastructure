@@ -1,9 +1,9 @@
 package discovery
 
 import (
-	"github.com/base-infrastructure/platform/internal/runtime"
-
 	"time"
+
+	"github.com/base-infrastructure/platform/internal/runtime"
 )
 
 // StageStatus represents the execution state of a stage.

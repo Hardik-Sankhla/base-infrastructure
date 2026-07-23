@@ -1,9 +1,5 @@
 package fakes
 
-import (
-	"github.com/base-infrastructure/platform/internal/runtime"
-)
-
 import "sync"
 
 // FakeFS implements runtime.FSManager for testing

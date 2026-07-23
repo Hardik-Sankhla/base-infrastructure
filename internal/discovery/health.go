@@ -1,8 +1,6 @@
 package discovery
 
 import (
-	"github.com/base-infrastructure/platform/internal/runtime"
-
 	"bytes"
 	"fmt"
 	"os"
@@ -10,6 +8,8 @@ import (
 	"path/filepath"
 	"regexp"
 	"strings"
+
+	"github.com/base-infrastructure/platform/internal/runtime"
 )
 
 // RepositoryHealth represents the overall health of the engineering system.

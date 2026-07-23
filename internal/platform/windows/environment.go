@@ -1,11 +1,11 @@
 package windows
 
 import (
-	"github.com/base-infrastructure/platform/internal/runtime"
-
 	"os"
 	"os/user"
 	"strings"
+
+	"github.com/base-infrastructure/platform/internal/runtime"
 
 	"github.com/base-infrastructure/platform/internal/domain/models"
 )

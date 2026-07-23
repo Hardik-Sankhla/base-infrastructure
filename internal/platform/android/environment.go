@@ -1,10 +1,10 @@
 package android
 
 import (
-	"github.com/base-infrastructure/platform/internal/runtime"
-
 	"os"
 	"strings"
+
+	"github.com/base-infrastructure/platform/internal/runtime"
 
 	"github.com/base-infrastructure/platform/internal/domain/models"
 )

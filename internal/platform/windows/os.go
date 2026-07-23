@@ -1,9 +1,9 @@
 package windows
 
 import (
-	"github.com/base-infrastructure/platform/internal/runtime"
-
 	"time"
+
+	"github.com/base-infrastructure/platform/internal/runtime"
 
 	"github.com/base-infrastructure/platform/internal/domain/models"
 	"github.com/shirou/gopsutil/v3/host"
